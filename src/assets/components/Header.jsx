@@ -47,38 +47,25 @@ export const Header = () => {
   );
   return (
     // <Navbar fullWidth={true} className="container bg-purple-700 mx-auto border-none max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4">
-    <Navbar fullWidth={true} className="absolute z-10 top-0 left-0 bg-purple-700 right-0 py-2 px-4 lg:px-8 lg:py-4">
-      <div className="container  flex items-center justify-around text-blue-gray-900">
+    <Navbar fullWidth={true} className="w-full  max-w-screen-2xl overflow-x-auto bg-purple-700  lg:py-4">
+      <div className=" w-full flex items-center justify-around text-blue-gray-900 ">
         <h1 className="mr-4 cursor-pointer py-1.5 font-medium text-sm">
-          <div className="flex gap-10">
+          <div className="flex   gap-10">
             <div className="flex justify-center items-center gap-2">
               <img src={logo} placeholder="logo" width={30} />
               <span className="text-lg text-white font-normal">TechAcademy</span>
             </div>
             <div className="flex">
-              <Space.Compact style={{ width: "150%" }}>
+              <Space.Compact style={{ width: "100%" }}>
                 <Input
                   placeholder="Cari kursus terbaik..."
-                  className=" bg-white px-5 border-r-0 rounded-xl hover:border-r-white focus:hover:border-r-white"
+                  className=" bg-white px-5 border-r-0 rounded-full hover:border-r-white focus:hover:border-r-white"
                 />
-                <Button className="bg-white border-l-0 text-purple-700 rounded-xl" size="large" icon={<SearchOutlined />} />
+                <Button className="bg-white border-l-0 text-purple-700" shape="round" size="large" icon={<SearchOutlined />} />
               </Space.Compact>
             </div>
           </div>
         </h1>
-
-        <div className="hidden lg:block">
-          {/* <Search
-            size="large"
-            className="rounded-full bg-red-400 p-5"
-            placeholder="Cari kursus terbaik..."
-            allowClear
-            onSearch={onSearch}
-            style={{
-              width: 400,
-            }}
-          /> */}
-        </div>
 
         <div className="flex justify-center items-center gap-2">
           <button className="bg-transparent cursor-pointer border-none flex justify-center items-center gap-2 p-3 text-white hover:font-bold">
