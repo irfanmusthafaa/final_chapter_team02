@@ -47,7 +47,7 @@ export const Header = () => {
   );
   return (
     // <Navbar fullWidth={true} className="container bg-purple-700 mx-auto border-none max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4">
-    <Navbar fullWidth={true} className="absolute z-10 top-0 left-0 bg-purple-700 right-0 py-2 px-4 lg:px-8 lg:py-4">
+    <Navbar className=" bg-purple-700 w-max-screen right-0 py-2 px-4 lg:px-8 lg:py-4">
       <div className="container  flex items-center justify-around text-blue-gray-900">
         <h1 className="mr-4 cursor-pointer py-1.5 font-medium text-sm">
           <div className="flex gap-10">
