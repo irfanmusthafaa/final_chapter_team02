@@ -1,10 +1,12 @@
-import { Button, Flex } from "antd";
 import React from "react";
+import { Header } from "../assets/components/Header";
+import { Button, Flex } from "antd";
 
 export const Beranda = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Halaman Beranda!</h1>
+      <Header />
+
       <Flex gap="small" wrap="wrap">
         <Button type="primary">Primary Button</Button>
         <Button>Default Button</Button>
