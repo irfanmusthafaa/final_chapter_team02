@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Collapse, IconButton } from "@material-tailwind/react";
+import { Navbar, Collapse, IconButton, Popover } from "@material-tailwind/react";
 import { Input, Button, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -46,9 +46,9 @@ export const Header = () => {
     </ul>
   );
   return (
-    // <Navbar fullWidth={true} className="container bg-purple-700 mx-auto border-none max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4">
-    <Navbar fullWidth={true} className="w-full  max-w-screen-2xl overflow-x-auto bg-purple-700  lg:py-4">
-      <div className=" w-full flex items-center justify-around text-blue-gray-900 ">
+    <Navbar fullWidth={true} className="container bg-purple-700 mx-auto  border-none max-w-screen-xl py-2 w-full lg:py-4">
+      {/* <Navbar fullWidth={true} className="w-full  max-w-screen-2xl overflow-x-auto bg-purple-700  lg:py-4"> */}
+      <div className=" w-full flex items-center justify-between text-blue-gray-900 ">
         <h1 className="mr-4 cursor-pointer py-1.5 font-medium text-sm">
           <div className="flex   gap-10">
             <div className="flex justify-center items-center gap-2">
