@@ -12,7 +12,7 @@ export const KursusPopuler = () => {
         </div>
         <div className="flex flex-wrap  justify-between w-4/5 ">
           <div className="flex  gap-2 justify-between items-center  w-full">
-            <div className="flex flex-col bg-white border-2 border-black rounded-3xl w-full">
+            <div className="flex flex-col bg-white border-2  rounded-3xl w-full">
               <img src={img} placeholder="img" />
               <div className="px-2 mt-2">
                 <div className="flex justify-between items-center">
