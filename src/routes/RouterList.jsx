@@ -8,7 +8,7 @@ export const RouterList = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Beranda />}></Route>
-        <Route path="/kelasSaya" element={<KelasBerjalan />}></Route>
+        <Route path="/KelasSaya/KelasBerjalan" element={<KelasBerjalan />}></Route>
       </Routes>
     </BrowserRouter>
   );
