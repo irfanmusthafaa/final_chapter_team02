@@ -1,7 +1,8 @@
-
-import React, { useState } from "react";
-
-import { FilterKelas } from "../assets/components/FilterKelas";
+import React from "react";
+import { Nav } from "../assets/components/Nav";
+import { KategoriBelajar } from "../assets/components/KategoriBelajar";
+import { KursusPopuler } from "../assets/components/KursusPopuler";
+import { HeroSection } from "../assets/components/HeroSection";
 
 export const Beranda = () => {
 
@@ -9,11 +10,10 @@ export const Beranda = () => {
  
   return (
     <>
-    <h1>ini tes ting</h1>
-      <FilterKelas/>
-
-
-        
+      <Nav />
+      <HeroSection />
+      <KategoriBelajar />
+      <KursusPopuler />
     </>
   );
 };
