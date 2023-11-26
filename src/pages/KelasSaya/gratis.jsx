@@ -1,11 +1,12 @@
 import React from 'react'
 import { FilterKelas } from '../../assets/components/FilterKelas'
 import { Button } from 'antd'
+import { Nav } from '../../assets/components/Nav'
 
 export const Gratis = () => {
   return (
     <div className='bg-purple-100'>
-        {/* navbar */}
+        <Nav />
         <div className='h-[5rem] bg-purple-700'>ini navbar</div>
         {/* content */}
         <div className='flex flex-col h-screens items-center'>

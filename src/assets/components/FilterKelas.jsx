@@ -53,7 +53,7 @@ export const FilterKelas = () => {
 
 
   return (
-    <div className='w-[17rem] h-[39.5rem] bg-[#ffff] p-5 rounded-lg'>
+    <div className='w-[17rem] h-[39.5rem] bg-[#ffff] p-5 rounded-lg shadow-sm'>
 
           <div className='pt-0 mt-0'>
             <h4 className="mx-0 my-2 mt-0">Filter</h4>
