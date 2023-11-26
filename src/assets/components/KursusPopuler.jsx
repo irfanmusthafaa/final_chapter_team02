@@ -10,6 +10,29 @@ export const KursusPopuler = () => {
             Lihat Semua
           </a>
         </div>
+        {/* filter */}
+        <div className="flex justify-between w-4/5 my-5 ">
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">All</button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            Data Science
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            UI/UX Design
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            Android Development
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            Web Development
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            IOS Development
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            Business Intelligence
+          </button>
+        </div>
+        {/* card */}
         <div className="flex flex-wrap  justify-between w-4/5 ">
           <div className="flex  gap-2 justify-between items-center  w-full">
             <div className="flex flex-col bg-white border-2  rounded-3xl w-full">

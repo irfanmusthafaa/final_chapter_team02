@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import logo from "../images/logo3.png";
-import { Button, Input, Space } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import searchIcon from "../images/icon-search2.png";
-import iconLogin from "../images/icon-login.svg";
+import searchIcon from "../images/icon-search3.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faList, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 
