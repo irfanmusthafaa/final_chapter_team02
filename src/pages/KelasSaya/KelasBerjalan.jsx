@@ -6,7 +6,7 @@ import { Nav } from '../../assets/components/Nav';
 import { NavPrimaryButton } from '../../assets/components/button/buttton_navigasi/ButtonNavPrimary';
 import img from "../../assets/images/kursus.png";
 
-export const KelasSayaPage = () => {
+export const KelasBerjalan= () => {
   return (
     <div className='bg-purple-100'>
         <Nav />
@@ -41,9 +41,9 @@ export const KelasSayaPage = () => {
                     <div className=''>
                         
                         <div className='flex flex-row gap-5'>
-                            <NavPrimaryButton button_text="ALL" px="10%"/>
-                            <NavPrimaryButton button_text="In Progress" px="10%"/>
-                            <NavPrimaryButton button_text="Selesai" px="10%"/>
+                            <NavPrimaryButton button_text="ALL" className='px-10'/>
+                            <NavPrimaryButton button_text="In Progress" className='px-10'/>
+                            <NavPrimaryButton button_text="Selesai"/>
                         
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
