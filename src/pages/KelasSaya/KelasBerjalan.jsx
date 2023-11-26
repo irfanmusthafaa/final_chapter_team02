@@ -3,7 +3,7 @@ import { FilterKelas } from '../../assets/components/FilterKelas'
 import searchIcon from "../../assets/images/icon-search2.png";
 import { Button } from 'antd'
 import { Nav } from '../../assets/components/Nav';
-import { NavPrimaryButton } from '../../assets/components/button/buttton_navigasi/ButtonNavPrimary';
+import { NavButton } from '../../assets/components/button/buttton_navigasi/ButtonNav';
 import img from '../../assets/images/kursus.png'
 import { CardKelasBerjalan } from '../../assets/components/card/card_kelas_saya/CardKelasBerjalan';
 
@@ -81,9 +81,9 @@ const contentData = {
                     <div className=''>
                         
                         <div className='flex flex-row gap-5'>
-                            <NavPrimaryButton button_text="ALL"  onClick={() => handleButtonClick('ALL')} isActive={activeButton === 'ALL'}/>
-                            <NavPrimaryButton button_text="In Progress" onClick={() => handleButtonClick('In Progress')} isActive={activeButton === 'In Progress'}/>
-                            <NavPrimaryButton button_text="Selesai" onClick={() => handleButtonClick('Selesai')} isActive={activeButton === 'Selesai'}/>
+                            <NavButton button_text="ALL"  onClick={() => handleButtonClick('ALL')} isActive={activeButton === 'ALL'}/>
+                            <NavButton button_text="In Progress" onClick={() => handleButtonClick('In Progress')} isActive={activeButton === 'In Progress'}/>
+                            <NavButton button_text="Selesai" onClick={() => handleButtonClick('Selesai')} isActive={activeButton === 'Selesai'}/>
                         
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
