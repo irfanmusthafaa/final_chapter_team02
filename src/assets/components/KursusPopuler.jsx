@@ -12,15 +12,23 @@ export const KursusPopuler = () => {
         </div>
         {/* filter */}
         <div className="flex justify-between w-4/5 my-5 ">
-          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none hover:bg-purple-700 hover:text-white">All</button>
-          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none hover:bg-purple-700 hover:text-white">Data Science</button>
-          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none hover:bg-purple-700 hover:text-white">UI/UX Design</button>
-          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none hover:bg-purple-700 hover:text-white">
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">All</button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            Data Science
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            UI/UX Design
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
             Android Development
           </button>
-          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none hover:bg-purple-700 hover:text-white">Web Development</button>
-          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none hover:bg-purple-700 hover:text-white">IOS Development</button>
-          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none hover:bg-purple-700 hover:text-white">
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            Web Development
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
+            IOS Development
+          </button>
+          <button className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white">
             Business Intelligence
           </button>
         </div>
