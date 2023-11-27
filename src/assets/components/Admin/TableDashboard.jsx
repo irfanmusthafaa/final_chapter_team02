@@ -5,88 +5,75 @@ export const TableDashboard = () => {
   const columns = [
     {
       title: "ID",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "id",
+      key: "id",
       render: (text) => <a>{text}</a>,
     },
     {
       title: "Kategori",
-      dataIndex: "age",
-      key: "age",
+      dataIndex: "kategori",
+      key: "kategori",
     },
     {
       title: "Kelas Premium",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "kelasPremium",
+      key: "kelasPremium",
     },
     {
       title: "Status",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => <p className={`${text == "Sudah Bayar" ? "text-green-500" : "text-red-500"}  font-bold`}>{text}</p>,
     },
     {
       title: "Metode Pembayaran",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "metodePembayaran",
+      key: "metodePembayaran",
     },
     {
       title: "Tanggal Bayar",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "tanggalBayar",
+      key: "tanggalBayar",
     },
-    // {
-    //   title: "Tags",
-    //   key: "tags",
-    //   dataIndex: "tags",
-    //   render: (_, { tags }) => (
-    //     <>
-    //       {tags.map((tag) => {
-    //         let color = tag.length > 5 ? "geekblue" : "green";
-    //         if (tag === "loser") {
-    //           color = "volcano";
-    //         }
-    //         return (
-    //           <Tag color={color} key={tag}>
-    //             {tag.toUpperCase()}
-    //           </Tag>
-    //         );
-    //       })}
-    //     </>
-    //   ),
-    // },
-    // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (_, record) => (
-    //     <Space size="middle">
-    //       <a>Invite {record.name}</a>
-    //       <a>Delete</a>
-    //     </Space>
-    //   ),
-    // },
   ];
   const data = [
     {
       key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
+      id: "12345",
+      kategori: "UI/UX Desain",
+      kelasPremium: "Belajar Web Desainer dengan Figma",
+      status: "Sudah Bayar",
+      metodePembayaran: "credit card",
+      tanggalBayar: "21 Sep 2023",
     },
     {
       key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
+      id: "12345",
+      kategori: "UI/UX Desain",
+      kelasPremium: "Belajar Web Desainer dengan Figma",
+      status: "Belum Bayar",
+      metodePembayaran: "credit card",
+      tanggalBayar: "21 Sep 2023",
     },
     {
       key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
+      id: "12345",
+      kategori: "UI/UX Desain",
+      kelasPremium: "Belajar Web Desainer dengan Figma",
+      status: "Sudah Bayar",
+      metodePembayaran: "credit card",
+      tanggalBayar: "21 Sep 2023",
+    },
+    {
+      key: "4",
+      id: "12345",
+      kategori: "UI/UX Desain",
+      kelasPremium: "Belajar Web Desainer dengan Figma",
+      status: "Sudah Bayar",
+      metodePembayaran: "credit card",
+      tanggalBayar: "21 Sep 2023",
     },
   ];
+
   return <Table columns={columns} dataSource={data} />;
 };

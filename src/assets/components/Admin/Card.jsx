@@ -15,7 +15,7 @@ export const Card = () => {
           </div>
         </div>
       </div>
-      <div className="bg-green-500 p-6 rounded-2xl box-border w-1/3">
+      <div className="bg-[#73CA5C] p-6 rounded-2xl box-border w-1/3">
         <div className="flex items-center gap-3">
           <div className="bg-white rounded-2xl w-10 px-3 py-3 text-center">
             <img src={userIcon} alt="user icon" />

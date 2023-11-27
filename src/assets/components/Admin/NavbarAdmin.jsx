@@ -1,5 +1,5 @@
 import React from "react";
-import searchIcon from "../../images/icon-search2.png";
+import searchIcon from "../../images/icon-search3.png";
 
 export const NavbarAdmin = () => {
   return (
