@@ -1,17 +1,16 @@
-import { Button, Flex } from "antd";
 import React from "react";
+import { Nav } from "../assets/components/Nav";
+import { KategoriBelajar } from "../assets/components/KategoriBelajar";
+import { KursusPopuler } from "../assets/components/KursusPopuler";
+import { HeroSection } from "../assets/components/HeroSection";
 
 export const Beranda = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Halaman Beranda!</h1>
-      <Flex gap="small" wrap="wrap">
-        <Button type="primary">Primary Button</Button>
-        <Button>Default Button</Button>
-        <Button type="dashed">Dashed Button</Button>
-        <Button type="text">Text Button</Button>
-        <Button type="link">Link Button</Button>
-      </Flex>
+      <Nav />
+      <HeroSection />
+      <KategoriBelajar />
+      <KursusPopuler />
     </>
   );
 };
