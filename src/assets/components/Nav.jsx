@@ -6,7 +6,7 @@ import { faBell, faList, faSignIn, faUser } from "@fortawesome/free-solid-svg-ic
 
 export const Nav = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
   return (
     <>
       <nav className=" flex flex-wrap items-center justify-between px-5 py-7  bg-purple-700">
