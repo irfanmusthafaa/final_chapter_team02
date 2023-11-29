@@ -15,14 +15,14 @@ export const Notifikasi = () => {
             Kembali Ke Beranda
           </a>
         </div>
-        <div className="w-[60%] bg-purple-700 rounded-t-2xl">
+        <div style={{ border: "1px solid #7E22CE" }} className="w-[60%] bg-purple-700 rounded-t-2xl">
           {" "}
           <h3 className="text-white text-xl py-6 text-center">Notifikasi</h3>
         </div>
       </div>
       {/* card bawah */}
-      <div className="flex justify-center items-center ">
-        <div className="w-[60%] rounded-2xl min-h-[500px]">
+      <div className="flex justify-center items-center  ">
+        <div style={{ border: "1px solid #7E22CE" }} className="  w-[60%] border-t-0  rounded-b-2xl min-h-[500px]">
           <div className=" flex  px-10">
             <div className="flex justify-between w-full mt-10">
               <div className="flex gap-2 ">
