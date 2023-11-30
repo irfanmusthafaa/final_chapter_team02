@@ -5,6 +5,9 @@ import { KursusPopuler } from "../assets/components/KursusPopuler";
 import { HeroSection } from "../assets/components/HeroSection";
 
 export const Beranda = () => {
+
+   
+ 
   return (
     <>
       <Nav />
