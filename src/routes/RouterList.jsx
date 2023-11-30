@@ -18,6 +18,7 @@ import { KelasBerjalan } from "../pages/KelasSaya/KelasBerjalan";
 import { TopikKelas } from "../pages/KelasSaya/TopikKelas";
 import { DetailKelasPage } from "../pages/DetailKelas/DetailKelasPage";
 import App from "../assets/components/modal/ModalSatu";
+import { PasswordBaru } from "../pages/PasswordBaru";
 
 export const RouterList = () => {
   return (
@@ -43,6 +44,7 @@ export const RouterList = () => {
         <Route path="/KelasSaya/TopikKelas" element={<TopikKelas />}></Route>
         <Route path="/Detailkelas" element={<DetailKelasPage />}></Route>
         <Route path="TesModal" element={<App />}></Route>
+        <Route path="/new-password" element={<PasswordBaru />}></Route>
       </Routes>
     </BrowserRouter>
   );
