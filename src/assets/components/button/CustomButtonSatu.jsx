@@ -1,6 +1,4 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiamond, faGem } from '@fortawesome/free-solid-svg-icons';
 
 export const CustomButtonSatu = ({button_text, iconPath, onClick}) => {
   return (
@@ -10,7 +8,7 @@ export const CustomButtonSatu = ({button_text, iconPath, onClick}) => {
         onClick={onClick}
     >
           {/* <FontAwesomeIcon icon={faGem} className='me-1'/> */}
-          {iconPath && <img src={iconPath} alt="Icon" className="me-1 color-white" />}
+          {iconPath && <img src={iconPath} alt="Icon" className="me-1 h-5 w-5 color-white" />}
         {button_text}
     </button>
   )

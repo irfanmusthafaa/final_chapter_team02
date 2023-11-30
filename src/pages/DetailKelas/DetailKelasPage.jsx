@@ -5,7 +5,7 @@ import img from "../../assets/images/kursus.png";
 import chat from '../../assets/images/icon/gridicons_chat.svg'
 import { BackLink } from '../../assets/components/link/BackLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlay, faLock, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { BarProgres } from '../../assets/components/barProgres';
 
 export const DetailKelasPage = () => {
@@ -30,6 +30,8 @@ export const DetailKelasPage = () => {
 const materiChapterDua = [
   { id: 1, name: 'Color Pallet' },
   { id: 2, name: 'Layouting, Typograpi dan Grid' },
+  { id: 3, name: 'Membuat Components' },
+  
   
 ];
 
@@ -153,7 +155,8 @@ const materiChapterDua = [
                             <p className="hover:underline text-sm">{item.name}</p>
 
                             {/* Logo (gantilah dengan logo yang sesuai) */}
-                            <FontAwesomeIcon icon={faCirclePlay} className='absolute right-0 mr-8 h-5 w-5 transition-transform transform hover:scale-105' style={{ color: "#73CA5C" }} />
+                            
+                            <FontAwesomeIcon icon={faLock} className='absolute right-0 mr-8 h-5 w-5 transition-transform transform hover:scale-105' style={{ color: "#808080" }} />
                         </div>
                     ))}
                 </div>
