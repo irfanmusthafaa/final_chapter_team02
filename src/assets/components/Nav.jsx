@@ -57,7 +57,7 @@ export const Nav = ({ text }) => {
             {isLoggedIn ? (
               <div className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <div className="flex justify-center items-center gap-1">
-                  <Link to="/kelas">
+                  <Link to="/KelasSaya/KelasBerjalan">
                     <button
                       className={`${
                         activePage !== "notifikasi" &&
