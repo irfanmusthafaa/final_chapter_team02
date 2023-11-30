@@ -57,34 +57,48 @@ export const Nav = ({ text }) => {
             {isLoggedIn ? (
               <div className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <div className="flex justify-center items-center gap-1">
-                  <Link to="/kelas">
+                  <Link to="/KelasSaya/KelasBerjalan">
                     <button
                       className={`${
-                        activePage !== "notification" && "akun/profil" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
+                        activePage !== "notifikasi" &&
+                        activePage !== "profil" &&
+                        activePage !== "ubah-password" &&
+                        activePage !== "riwayat-pembayaran"
+                          ? "bg-purple-900 rounded-xl px-5 no-underline  "
+                          : "bg-transparent"
                       }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
                     >
                       <FontAwesomeIcon icon={faList} />
-                      {`${activePage !== "notification" && "akun/profil" ? "Kelas" : ""}`}
+                      {`${
+                        activePage !== "notifikasi" &&
+                        activePage !== "profil" &&
+                        activePage !== "ubah-password" &&
+                        activePage !== "riwayat-pembayaran"
+                          ? "Kelas"
+                          : ""
+                      }`}
                     </button>
                   </Link>
-                  <Link to="/notification">
+                  <Link to="/notifikasi">
                     <button
                       className={`${
-                        activePage === "notification" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
+                        activePage === "notifikasi" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
                       }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
                     >
                       <FontAwesomeIcon icon={faBell} />
-                      {`${activePage === "notification" ? "Notifikasi" : ""}`}
+                      {`${activePage === "notifikasi" ? "Notifikasi" : ""}`}
                     </button>
                   </Link>
-                  <Link to="/akun/profil">
+                  <Link to="/profil">
                     <button
                       className={`${
-                        activePage === "akun/profil" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
+                        activePage === "profil" && activePage === "ubah-password" && activePage === "riwayat-pembayaran"
+                          ? "bg-purple-900 rounded-xl px-5 no-underline  "
+                          : "bg-transparent"
                       }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
                     >
                       <FontAwesomeIcon icon={faUser} />
-                      {`${activePage === "akun/profil" ? "Akun" : ""}`}
+                      {`${activePage === "profil" && activePage === "ubah-password" && activePage === "riwayat-pembayaran" ? "Akun" : ""}`}
                     </button>
                   </Link>
                 </div>
