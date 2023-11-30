@@ -92,13 +92,13 @@ export const Nav = ({ text }) => {
                   <Link to="/profil">
                     <button
                       className={`${
-                        activePage === "profil" && activePage === "ubah-password" && activePage === "riwayat-pembayaran"
+                        activePage === "profil" || activePage === "ubah-password" || activePage === "riwayat-pembayaran"
                           ? "bg-purple-900 rounded-xl px-5 no-underline  "
                           : "bg-transparent"
                       }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
                     >
                       <FontAwesomeIcon icon={faUser} />
-                      {`${activePage === "profil" && activePage === "ubah-password" && activePage === "riwayat-pembayaran" ? "Akun" : ""}`}
+                      {`${activePage === "profil" || activePage === "ubah-password" || activePage === "riwayat-pembayaran" ? "Akun" : ""}`}
                     </button>
                   </Link>
                 </div>
