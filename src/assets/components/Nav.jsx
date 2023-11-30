@@ -9,6 +9,7 @@ import { faBell, faList, faSignIn, faUser } from "@fortawesome/free-solid-svg-ic
 export const Nav = ({ text }) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
+
   const location = useLocation(); // Get the current location from React Router
   const activePage = location.pathname.substring(1);
 
