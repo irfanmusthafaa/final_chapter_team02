@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../images/icon-tech.png";
 import searchIcon from "../images/icon-search3.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,11 +9,12 @@ import { faBell, faList, faSignIn, faUser } from "@fortawesome/free-solid-svg-ic
 export const Nav = ({ text }) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
-  const [activePage, setActivePage] = useState(""); // Track active page
+  const location = useLocation(); // Get the current location from React Router
+  const activePage = location.pathname.substring(1);
 
-  const handleMenuClick = (page) => {
-    setActivePage(page);
-  };
+  // const handleMenuClick = (page) => {
+  //   setActivePage(page);
+  // };
   return (
     <>
       <nav className=" flex flex-wrap items-center justify-between px-16 py-7  bg-purple-700">
@@ -58,32 +59,32 @@ export const Nav = ({ text }) => {
                 <div className="flex justify-center items-center gap-1">
                   <Link to="/kelas">
                     <button
-                      className={`bg-${
-                        activePage === "kelas" ? "purple-500 rounded-xl px-5 no-underline  " : "transparent"
+                      className={`${
+                        activePage !== "notification" && "akun/profil" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
                       }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
                     >
                       <FontAwesomeIcon icon={faList} />
-                      {text}
+                      {`${activePage !== "notification" && "akun/profil" ? "Kelas" : ""}`}
                     </button>
                   </Link>
-                  <Link to="/notication">
+                  <Link to="/notification">
                     <button
-                      className={`bg-${
-                        activePage === "notification" ? "purple-500 rounded-xl px-5 no-underline  " : "transparent"
+                      className={`${
+                        activePage === "notification" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
                       }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
                     >
                       <FontAwesomeIcon icon={faBell} />
-                      {text}
+                      {`${activePage === "notification" ? "Notifikasi" : ""}`}
                     </button>
                   </Link>
                   <Link to="/akun/profil">
                     <button
-                      className={`bg-${
-                        activePage === "akun/profil" ? "purple-500 rounded-xl px-5 no-underline  " : "transparent"
+                      className={`${
+                        activePage === "akun/profil" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
                       }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
                     >
                       <FontAwesomeIcon icon={faUser} />
-                      {text}
+                      {`${activePage === "akun/profil" ? "Akun" : ""}`}
                     </button>
                   </Link>
                 </div>
