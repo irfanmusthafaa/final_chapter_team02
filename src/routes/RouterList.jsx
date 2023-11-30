@@ -11,10 +11,10 @@ export const RouterList = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Beranda />}></Route>
-        <Route path="/notification" element={<Notifikasi />}></Route>
-        <Route path="/akun/profil" element={<AkunProfil />}></Route>
-        <Route path="/akun/ubah-password" element={<AkunUbahPassword />}></Route>
-        <Route path="/akun/riwayat-pembayaran" element={<AkunRiwayatPembayaran />}></Route>
+        <Route path="/notifikasi" element={<Notifikasi />}></Route>
+        <Route path="/profil" element={<AkunProfil />}></Route>
+        <Route path="/ubah-password" element={<AkunUbahPassword />}></Route>
+        <Route path="/riwayat-pembayaran" element={<AkunRiwayatPembayaran />}></Route>
       </Routes>
     </BrowserRouter>
   );
