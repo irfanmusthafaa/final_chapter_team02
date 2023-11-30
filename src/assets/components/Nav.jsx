@@ -27,6 +27,7 @@ export const Nav = ({ text }) => {
               </a>
               <div className="lg:flex sm:hidden">
                 <div className="relative">
+                 
                   <input
                     type="text"
                     placeholder="Cari Kelas..."

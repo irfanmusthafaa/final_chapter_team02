@@ -14,6 +14,7 @@ import { AdminDashboard } from "../pages/Admin/AdminDashboard";
 import { AdminKelolaKelas } from "../pages/Admin/AdminKelolaKelas";
 import { ResetPass } from "../pages/ResetPass";
 import { OTP } from "../pages/OTP";
+import { KelasBerjalan } from "../pages/KelasSaya/KelasBerjalan";
 
 export const RouterList = () => {
   return (
@@ -35,6 +36,7 @@ export const RouterList = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/reset-password" element={<ResetPass />}></Route>
         <Route path="/otp" element={<OTP />}></Route>
+        <Route path="/KelasSaya/KelasBerjalan" element={<KelasBerjalan />}></Route>
       </Routes>
     </BrowserRouter>
   );
