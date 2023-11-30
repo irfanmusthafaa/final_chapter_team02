@@ -6,7 +6,7 @@ import img from "../assets/images/kursus.png";
 import { CardModal } from '../assets/components/card/CardModal';
 
 
-const Modal = ({ isOpen, onClose, children }) => {
+const ModalSatu = ({ isOpen, onClose, children }) => {
   const overlayClasses = isOpen ? 'fixed inset-0 bg-black opacity-50' : 'hidden';
   const modalClasses = isOpen ? 'fixed inset-1/2 w-[500px] h-[400px] transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-xl' : 'hidden';
 
@@ -48,7 +48,7 @@ const App = () => {
         Open Modal
       </button>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <ModalSatu isOpen={isModalOpen} onClose={closeModal}>
         <div className="">
             <div className="font-bold mb-4 text-center">
                 <p>Selangkah Lagi Menuju</p>
@@ -63,7 +63,7 @@ const App = () => {
                 <CustomButtonSatu button_text="Beli Sekarang" iconPath={next} onClick={closeModal}/>
             </div>
         </div>
-      </Modal>
+      </ModalSatu>
     </div>
   );
 };
