@@ -16,6 +16,8 @@ import { ResetPass } from "../pages/ResetPass";
 import { OTP } from "../pages/OTP";
 import { KelasBerjalan } from "../pages/KelasSaya/KelasBerjalan";
 import { TopikKelas } from "../pages/KelasSaya/TopikKelas";
+import { DetailKelasPage } from "../pages/DetailKelas/DetailKelasPage";
+import App from "../assets/components/modal/ModalSatu";
 
 export const RouterList = () => {
   return (
@@ -39,6 +41,8 @@ export const RouterList = () => {
         <Route path="/otp" element={<OTP />}></Route>
         <Route path="/KelasSaya/KelasBerjalan" element={<KelasBerjalan />}></Route>
         <Route path="/KelasSaya/TopikKelas" element={<TopikKelas />}></Route>
+        <Route path="/Detailkelas" element={<DetailKelasPage />}></Route>
+        <Route path="TesModal" element={<App />}></Route>
       </Routes>
     </BrowserRouter>
   );

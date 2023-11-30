@@ -1,0 +1,98 @@
+[33mcommit 36ba5f429ec789475ef8bbf9398f087572703b16[m[33m ([m[1;36mHEAD -> [m[1;32mFEAT-KelasSaya-Page-TopikKelas[m[33m, [m[1;31morigin/FEAT-KelasSaya-Page-TopikKelas[m[33m, [m[1;32mFEAT-Detail-Kelas-Page[m[33m)[m
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 23:35:38 2023 +0700
+
+    tamabah card topik kelas
+
+[33mcommit 01863ac6e32ee6e59fb334e553050b3d867cd2f8[m
+Merge: 7eba2a5 b120a07
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 22:04:53 2023 +0700
+
+    Merge branch 'FEAT-KelasSaya-Page-KelasBerjalan' of https://github.com/irfanmusthafaa/final_chapter_team02 into FEAT-KelasSaya-Page-TopikKelas
+
+[33mcommit b120a0713a35a338371000694ad5f58a4de20d6a[m
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 21:45:56 2023 +0700
+
+    update handle dinamis kelas saya -> kelas berjalan
+
+[33mcommit 7eba2a5a692bf7139beaa0130fe7fe59da093e2c[m
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 17:40:13 2023 +0700
+
+    slicing page kelas saya -> topik kelas
+
+[33mcommit 2b0120483cdb9dd4547254e620e7872046621be0[m
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 17:18:07 2023 +0700
+
+    update kelas saya -> kelas berjalan 1.0
+
+[33mcommit 29ca1cf743b2d6336f2fd3d1078d7671d2454175[m
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 16:57:24 2023 +0700
+
+    slicing kelas saya page -> ketagori topik kelas
+
+[33mcommit cb615df4ad985faaa77c962b703821df57a7c83a[m
+Merge: 9aa0dad a8fcf4b
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 09:05:07 2023 +0700
+
+    pull halaman beranda
+
+[33mcommit 9aa0dad55eef43c253a55a09b54889b7865027b2[m
+Author: Muhammad Aji <muhammadajisolehudin@gmail.com>
+Date:   Sun Nov 26 08:55:34 2023 +0700
+
+    initialisasi halaman kelas saya
+
+[33mcommit a8fcf4b1c92ba2944955156d75c8fb2f9c3196dc[m[33m ([m[1;31morigin/FEAT-Beranda-Page[m[33m)[m
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Sat Nov 25 14:21:25 2023 +0700
+
+    delete unused files
+
+[33mcommit 235f4019699f8a768cd69923fb77af28ce7735b6[m
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Sat Nov 25 14:03:06 2023 +0700
+
+    update slicing beranda and navbar v desktop
+
+[33mcommit c0b46fc1881ebcd18bb4024cc3f8e2cc571b5528[m
+Merge: 55406c3 db71c72
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Fri Nov 24 00:48:37 2023 +0700
+
+    Merge branch 'feat_navbar' of https://github.com/irfanmusthafaa/final_chapter_team02 into FEAT-Beranda-Page
+
+[33mcommit db71c72671ab717496b8eb3f179dfe83eb67c954[m
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Fri Nov 24 00:26:41 2023 +0700
+
+    update slicing navbar desktop
+
+[33mcommit 55406c354e64b2c5cf31dbd343f2657001c5b2dd[m
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Fri Nov 24 00:03:03 2023 +0700
+
+    add file Hero
+
+[33mcommit f36bfd249b61b985404f67cabfccc1db22475a02[m
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Thu Nov 23 23:50:37 2023 +0700
+
+    slicing navbar desktop
+
+[33mcommit e4bcdda16503fe67846af0a54072180690b4ddba[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Wed Nov 22 12:50:24 2023 +0700
+
+    setup first proyek
+
+[33mcommit 02b21e38d10c987648eaffa1caf2f49375cdc53a[m
+Author: Irfan Mustafa <irfanmustafa2307@gmail.com>
+Date:   Fri Nov 17 20:02:23 2023 +0700
+
+    first commit

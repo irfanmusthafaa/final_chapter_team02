@@ -9,7 +9,7 @@ export const BarProgres = () => {
   };
 
   return (
-    <div className="flex w-full bg-gray-300 h-5 mt-2 rounded-full overflow-hidden">
+    <div className="flex w-full bg-gray-300 h-5 rounded-full overflow-hidden">
        
       <div
         className="flex h-full bg-purple-900"
