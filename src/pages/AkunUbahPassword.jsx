@@ -13,9 +13,9 @@ import { MenuAkun } from "../assets/components/MenuAkun";
 export const AkunUbahPassword = () => {
   //Menu
   const propsMenu = [
-    { label: "Profil Saya", link: "/akun/profil", img: iconEdit, textColor: "text-black" },
-    { label: "Ubah Password", link: "/akun/ubah-password", img: iconSetting, textColor: "text-purple-700 font-bold " },
-    { label: "Riwayat Pembayaran", link: "/akun/riwayat-pembayaran", img: iconCart, textColor: "text-black " },
+    { label: "Profil Saya", link: "/profil", img: iconEdit, textColor: "text-black" },
+    { label: "Ubah Password", link: "/ubah-password", img: iconSetting, textColor: "text-purple-700 font-bold " },
+    { label: "Riwayat Pembayaran", link: "/riwayat-pembayaran", img: iconCart, textColor: "text-black " },
     { label: "Keluar", link: "/login", img: iconSignout, textColor: "text-black " },
   ];
   return (
