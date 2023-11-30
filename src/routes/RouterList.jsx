@@ -11,6 +11,7 @@ import { AdminKelolaKelas } from "../pages/Admin/AdminKelolaKelas";
 import { Register } from "../pages/Register";
 import { Login } from "../pages/Login";
 import { ResetPass } from "../pages/ResetPass";
+import { OTP } from "../pages/OTP";
 
 
 export const RouterList = () => {
@@ -28,6 +29,7 @@ export const RouterList = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/reset-password" element={<ResetPass/>}></Route>
+        <Route path="/otp" element={<OTP />}></Route>
       </Routes>
     </BrowserRouter>
   );
