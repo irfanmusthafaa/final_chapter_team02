@@ -25,7 +25,7 @@ export const DetailPembayaran = () => {
             <FontAwesomeIcon icon={faArrowLeft} />
             <label className="text-sm font-medium">Kembali</label>
           </div>
-          <div className="flex justify-center item-center">
+          <div className="flex justify-center items-center">
             <div className="bg-[#FF0000] w-2/3 flex justify-center items-center rounded-lg text-white font-semibold text-sm h-[2.5rem]">
               Selesaikan Pembayaran sampai 10 Desember 2023 12:00
             </div>
