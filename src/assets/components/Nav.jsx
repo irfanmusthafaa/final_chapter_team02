@@ -1,23 +1,33 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import logo from "../images/logo3.png";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../images/icon-tech.png";
 import searchIcon from "../images/icon-search3.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faList, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 
-export const Nav = () => {
+export const Nav = ({ text }) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
+
+  const location = useLocation(); // Get the current location from React Router
+  const activePage = location.pathname.substring(1);
+
+  // const handleMenuClick = (page) => {
+  //   setActivePage(page);
+  // };
   return (
     <>
-      <nav className=" flex flex-wrap items-center justify-between px-5 py-7  bg-purple-700">
+      <nav className=" flex flex-wrap items-center justify-between px-16 py-7  bg-purple-700">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full  flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <div className="flex   gap-10">
-              <div className="flex justify-center items-center gap-2">
-                <img src={logo} placeholder="logo" width={180} />
-              </div>
+              <a href="/" className="flex justify-center items-center gap-2">
+                <img src={logo} placeholder="logo" width={150} />
+              </a>
               <div className="lg:flex sm:hidden">
                 <div className="relative">
+                 
                   <input
                     type="text"
                     placeholder="Cari Kelas..."
@@ -49,15 +59,50 @@ export const Nav = () => {
             {isLoggedIn ? (
               <div className="flex flex-col lg:flex-row list-none lg:ml-auto">
                 <div className="flex justify-center items-center gap-1">
-                  <button className="bg-purple-500 cursor-pointer rounded-xl px-5 border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900">
-                    <FontAwesomeIcon icon={faList} /> Kelas
-                  </button>
-                  <button className="bg-transparent cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:opacity-75">
-                    <FontAwesomeIcon icon={faBell} />
-                  </button>
-                  <button className="bg-transparent cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:opacity-75">
-                    <FontAwesomeIcon icon={faUser} />
-                  </button>
+                  <Link to="/KelasSaya/KelasBerjalan">
+                    <button
+                      className={`${
+                        activePage !== "notifikasi" &&
+                        activePage !== "profil" &&
+                        activePage !== "ubah-password" &&
+                        activePage !== "riwayat-pembayaran"
+                          ? "bg-purple-900 rounded-xl px-5 no-underline  "
+                          : "bg-transparent"
+                      }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
+                    >
+                      <FontAwesomeIcon icon={faList} />
+                      {`${
+                        activePage !== "notifikasi" &&
+                        activePage !== "profil" &&
+                        activePage !== "ubah-password" &&
+                        activePage !== "riwayat-pembayaran"
+                          ? "Kelas"
+                          : ""
+                      }`}
+                    </button>
+                  </Link>
+                  <Link to="/notifikasi">
+                    <button
+                      className={`${
+                        activePage === "notifikasi" ? "bg-purple-900 rounded-xl px-5 no-underline  " : "bg-transparent"
+                      }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
+                    >
+                      <FontAwesomeIcon icon={faBell} />
+                      {`${activePage === "notifikasi" ? "Notifikasi" : ""}`}
+                    </button>
+                  </Link>
+                  <Link to="/profil">
+                    <button
+                      className={`${
+                        activePage === "profil" || activePage === "ubah-password" || activePage === "riwayat-pembayaran"
+                          ? "bg-purple-900 rounded-xl px-5 no-underline  "
+                          : "bg-transparent"
+                      }  cursor-pointer border-none flex justify-center font-bold items-center gap-2 p-3 text-white hover:bg-purple-900`}
+                    >
+                      <FontAwesomeIcon icon={faUser} />
+                      {`${activePage === "profil" || activePage === "ubah-password" || activePage === "riwayat-pembayaran" ? "Akun" : ""}`}
+                    </button>
+                  </Link>
                 </div>
               </div>
             ) : (
