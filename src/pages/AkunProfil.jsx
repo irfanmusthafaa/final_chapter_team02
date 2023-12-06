@@ -35,7 +35,7 @@ export const AkunProfil = () => {
     { label: "Profil Saya", link: "/profil", img: iconEdit, textColor: "text-purple-700 font-bold" },
     { label: "Ubah Password", link: "/ubah-password", img: iconSetting, textColor: "text-black " },
     { label: "Riwayat Pembayaran", link: "/riwayat-pembayaran", img: iconCart, textColor: "text-black " },
-    { label: "Keluar", link: "/login", img: iconSignout, textColor: "text-black " },
+    // { label: "Keluar", link: "/login", img: iconSignout, textColor: "text-black " },
   ];
 
   const handleChange = (info) => {

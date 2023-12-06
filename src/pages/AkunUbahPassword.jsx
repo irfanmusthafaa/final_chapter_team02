@@ -16,7 +16,7 @@ export const AkunUbahPassword = () => {
     { label: "Profil Saya", link: "/profil", img: iconEdit, textColor: "text-black" },
     { label: "Ubah Password", link: "/ubah-password", img: iconSetting, textColor: "text-purple-700 font-bold " },
     { label: "Riwayat Pembayaran", link: "/riwayat-pembayaran", img: iconCart, textColor: "text-black " },
-    { label: "Keluar", link: "/login", img: iconSignout, textColor: "text-black " },
+    // { label: "Keluar", link: "/login", img: iconSignout, textColor: "text-black " },
   ];
   return (
     <>
