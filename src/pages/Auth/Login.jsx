@@ -28,8 +28,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      // toast.error(error.response.data.err);
-      toast.error(error.response.data.err)
+      toast.error(error.response.data.err);
     }
     if (isSuccess) {
       toast.success("Login Berhasil");
