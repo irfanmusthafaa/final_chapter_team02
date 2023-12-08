@@ -14,7 +14,7 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  const { mutate: dataRegister, data, status, isSuccess, error, isError } = useRegisterUser();
+  const { mutate: dataRegister, status, isSuccess, error, data, success, isError } = useRegisterUser();
 
   const handleInput = (e) => {
     if (e) {
@@ -35,14 +35,19 @@ export const Register = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.response.data.err);
+      toast.error(error.response.data.message);
     }
     if (isSuccess) {
-      navigate("/otp", { state: { email: Email } });
+      console.log(data.data.data.token, "data regisss");
+      navigate("/otp", { state: { email: Email, tokenRegister: data.data.data.token } });
     }
   }, [status]);
 
   const registerUser = () => {
+    if (!FullName || !Email || !NoTelp || !Password) {
+      toast.error("Incomplete Data !!");
+      return;
+    }
     dataRegister({
       fullName: FullName,
       email: Email,
@@ -62,7 +67,7 @@ export const Register = () => {
           <h2 className="text-purple-700">Daftar</h2>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Nama</label>
-            <Input onChange={handleInput} id="fullname" className="border rounded-lg" type="text" placeholder="Nama Lengkap" />
+            <Input onChange={handleInput} id="fullname" className="border rounded-lg" type="text" maxLength={13} placeholder="Nama Lengkap" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Email</label>
@@ -70,7 +75,7 @@ export const Register = () => {
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Nomor Telepon</label>
-            <Input onChange={handleInput} id="notelp" className="border rounded-lg" type="text" placeholder="+62." />
+            <Input onChange={handleInput} id="notelp" className="border rounded-lg" type="text" maxLength={13} placeholder="+62." />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Password</label>
@@ -87,9 +92,6 @@ export const Register = () => {
               onClick={() => {
                 registerUser();
               }}
-              // onClick={() => {
-              //   navigate("/otp", { state: { email: Email } });
-              // }}
               className="w-full bg-purple-700 text-white font-medium border-0 h-8 rounded-lg mt-2 hover:bg-purple-900"
             >
               Daftar

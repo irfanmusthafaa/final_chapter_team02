@@ -37,6 +37,10 @@ export const Login = () => {
   }, [status]);
 
   const loginUser = () => {
+    if (!Email || !Password) {
+      toast.error("Mohon Lengkapi Data !!");
+      return;
+    }
     dataLogin({
       email: Email,
       password: Password,

@@ -1,19 +1,26 @@
-import React, { createRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import image from "../../assets/img/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRegisterOTP } from "../../services/auth/register-otp";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { API_ENDPOINT } from "../../utils/api-endpoint";
 
 export const OTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [resendCountdown, setResendCountdown] = useState(5);
+  const [countDownDisabled, setCountDownDisabled] = useState(false);
+  const [resendDisabled, setResendDisabled] = useState(true);
   const navigate = useNavigate();
 
   //memanggil email di register
   const data = useLocation();
   const [Email, setEmail] = useState(data.state ? data.state.email : "");
+  const [TokenRegister, setTokenRegister] = useState(data.state ? data.state.tokenRegister : "");
   console.log(Email, "emailll");
+  console.log(TokenRegister, "tokenregist");
 
   const kodeOTP = otp.join("");
   console.log(kodeOTP, "kodee");
@@ -47,12 +54,42 @@ export const OTP = () => {
     });
   };
 
+  // Kirim ulang OTP
+  useEffect(() => {
+    let timer;
+
+    if (resendCountdown > 0) {
+      timer = setTimeout(() => {
+        setResendCountdown((prev) => prev - 1);
+      }, 1000);
+    } else if (resendCountdown === 0) {
+      setResendDisabled(false);
+      setCountDownDisabled(true);
+    }
+
+    return () => clearTimeout(timer);
+  }, [resendCountdown, resendDisabled]);
+
+  const handleResendOTP = async () => {
+    try {
+      setResendDisabled(true);
+      setCountDownDisabled(false);
+      setResendCountdown(5);
+
+      await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_REGISTER}?token=${TokenRegister}`);
+    } catch (error) {
+      toast.error("Try Register Again");
+    }
+  };
+
   return (
     <div className="w-full h-screen flex flex-row">
       <div className="w-2/3 flex flex-col items-center gap-5 pt-[7rem]">
         <div className="w-2/3 flex flex-col gap-2">
           <div className="flex items-start">
-            <FontAwesomeIcon icon={faArrowLeft} />
+            <Link to="/register">
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </Link>
           </div>
           <div className="pl-8 flex flex-col gap-8 ">
             <h2 className="text-purple-700">Masukkan OTP</h2>
@@ -68,9 +105,7 @@ export const OTP = () => {
                     value={digit}
                     type="number"
                     inputMode="numeric"
-                    // onChange={(e) => handleChange(e, index)}
                     onChange={(e) => handleChange(e, index)}
-                    // onKeyDown={(e) => handleBackspace(e, index)}
                     maxLength="1"
                     className="w-10 h-10 items-center text-center border border-purple-700 rounded-2xl"
                   />
@@ -78,7 +113,12 @@ export const OTP = () => {
               </div>
 
               <div className="flex flex-col gap-1 ">
-                <label className="font-normal text-xs">Kirim ulang OTP dalam 60 detik</label>
+                {!countDownDisabled ? <label className="font-normal text-xs">Kirim ulang OTP dalam {resendCountdown} detik </label> : null}
+                {!resendDisabled ? (
+                  <label className="text-red-500 font-bold text-xs cursor-pointer" onClick={handleResendOTP}>
+                    Kirim Ulang
+                  </label>
+                ) : null}
               </div>
             </div>
             <div className="flex flex-col gap-1">

@@ -6,7 +6,9 @@ import { CookiesKey, CookiesStorage } from "../../utils/cookies";
 
 const RegisterUser = async (input) => {
   return await http.post(API_ENDPOINT.AUTH_REGISTER, input);
-  // CookiesStorage.set(CookiesKey.AuthToken, result.data.data.token);
+  // .then((result) => {
+  //   console.log(result.data.data.token, "result register");
+  // });
 };
 
 const useRegisterUser = () => {

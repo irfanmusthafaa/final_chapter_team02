@@ -10,15 +10,15 @@ import { AkunRiwayatPembayaran } from "../pages/AkunRiwayatPembayaran";
 import { AdminLogin } from "../pages/Admin/AdminLogin";
 import { AdminDashboard } from "../pages/Admin/AdminDashboard";
 import { AdminKelolaKelas } from "../pages/Admin/AdminKelolaKelas";
-import { ResetPass } from "../pages/ResetPass";
+import { ResetPass } from "../pages/Auth/ResetPass";
 import { KelasBerjalan } from "../pages/KelasSaya/KelasBerjalan";
 import { TopikKelas } from "../pages/KelasSaya/TopikKelas";
 import { DetailKelasPage } from "../pages/DetailKelas/DetailKelasPage";
 import App from "../assets/components/modal/ModalSatu";
-import { NewPass } from "../pages/NewPass";
 import { Login } from "../pages/Auth/Login";
 import { Register } from "../pages/Auth/Register";
 import { OTP } from "../pages/Auth/OTP";
+import { NewPass } from "../pages/Auth/NewPass";
 
 export const RouterList = () => {
   return (

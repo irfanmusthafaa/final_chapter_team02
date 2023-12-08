@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-import image from "../assets/img/logo.png";
+import image from "../../assets/img/logo.png";
 
 export const NewPass = () => {
   return (
@@ -16,9 +16,7 @@ export const NewPass = () => {
             <Input.Password
               placeholder="Masukkan Password Baru"
               type="password"
-              iconRender={(visible) =>
-                visible ? <EyeInvisibleOutlined /> : <EyeOutlined />
-              }
+              iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -28,15 +26,11 @@ export const NewPass = () => {
             <Input.Password
               placeholder="Ulangi Password Baru"
               type="password"
-              iconRender={(visible) =>
-                visible ? <EyeInvisibleOutlined /> : <EyeOutlined />
-              }
+              iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
             />
           </div>
           <div>
-            <button className="w-full bg-[#7c3aed] text-white font-medium border-0 h-8 rounded-lg mt-2">
-              Simpan
-            </button>
+            <button className="w-full bg-[#7c3aed] text-white font-medium border-0 h-8 rounded-lg mt-2">Simpan</button>
           </div>
         </div>
       </div>
