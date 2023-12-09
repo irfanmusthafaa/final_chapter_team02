@@ -74,7 +74,7 @@ export const PasswordOTP = () => {
       setCountDownDisabled(false);
       setResendCountdown(5);
 
-      await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_REGISTER}?token=${TokenForgotPassword}`);
+      await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_PASSWORD}?token=${TokenForgotPassword}`);
     } catch (error) {
       toast.error("Try Register Again");
     }

@@ -35,15 +35,28 @@ export const NewPass = () => {
     }
   }, [status]);
 
+  const isPasswordValid = () => {
+    // Check password length
+    if (NewPassword.length < 8 || NewPassword.length > 12) {
+      toast.error("Password must be between 8 and 12 characters.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleNewPassword = () => {
     if (!NewPassword || !TryNewPassword) {
-      toast.error("Mohon Lengkapi Data !!");
+      toast.error("Incomplete Data!!");
       return;
     }
-    dataNewPassword({
-      newPassword: NewPassword,
-      newPasswordConfirmation: TryNewPassword,
-    });
+
+    if (isPasswordValid()) {
+      dataNewPassword({
+        newPassword: NewPassword,
+        newPasswordConfirmation: TryNewPassword,
+      });
+    }
   };
 
   return (
