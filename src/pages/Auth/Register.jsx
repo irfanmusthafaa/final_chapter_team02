@@ -55,17 +55,29 @@ export const Register = () => {
     }
   }, [status]);
 
+  const isPasswordValid = () => {
+    // Check password length
+    if (Password.length < 8 || Password.length > 12) {
+      toast.error("Password must be between 8 and 12 characters.");
+      return false;
+    }
+
+    return true;
+  };
+
   const registerUser = () => {
     if (!FullName || !Email || !NoTelp || !Password) {
       toast.error("Incomplete Data !!");
       return;
     }
-    dataRegister({
-      fullName: FullName,
-      email: Email,
-      noTelp: NoTelp,
-      password: Password,
-    });
+    if (isPasswordValid()) {
+      dataRegister({
+        fullName: FullName,
+        email: Email,
+        noTelp: NoTelp,
+        password: Password,
+      });
+    }
   };
 
   const handleLoginClick = () => {

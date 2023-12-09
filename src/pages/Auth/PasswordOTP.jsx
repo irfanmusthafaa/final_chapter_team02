@@ -7,22 +7,19 @@ import { useRegisterOTP } from "../../services/auth/register-otp";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { API_ENDPOINT } from "../../utils/api-endpoint";
-import image2 from "../../assets/img/up logo.png";
-import image3 from "../../assets/img/2.png";
+import { useForgotPasswordOTPMutation } from "../../services/auth/forgot-password-otp";
 
-export const OTP = () => {
+export const PasswordOTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [resendCountdown, setResendCountdown] = useState(60);
   const [countDownDisabled, setCountDownDisabled] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(true);
   const navigate = useNavigate();
 
-  //memanggil email di register
+  //memanggil token di forgot password
   const data = useLocation();
-  const [Email, setEmail] = useState(data.state ? data.state.email : "");
-  const [TokenRegister, setTokenRegister] = useState(data.state ? data.state.tokenRegister : "");
-  console.log(Email, "emailll");
-  console.log(TokenRegister, "tokenregist");
+  const [TokenForgotPassword, setTokenForgotPassword] = useState(data.state ? data.state.tokenForgotPassword : "");
+  // console.log(TokenForgotPassword, "token otpp");
 
   const kodeOTP = otp.join("");
   console.log(kodeOTP, "kodee");
@@ -37,22 +34,21 @@ export const OTP = () => {
     setOtp(newOtp);
   };
 
-  const { mutate: dataOTP, status, isSuccess, isError, error } = useRegisterOTP();
+  const { mutate: dataOTP, status, isSuccess, isError, error } = useForgotPasswordOTPMutation();
 
   useEffect(() => {
     if (isError) {
       toast.error(error.response.data.err);
     }
     if (isSuccess) {
-      toast.success("Register Berhasil");
-      navigate("/login");
+      toast.success("OTP Berhasil Terverifikasi");
+      navigate("/new-password", { state: { tokenNewPassword: TokenForgotPassword } });
     }
   }, [status]);
 
   const handleOTP = () => {
     dataOTP({
-      email: Email,
-      activationCode: kodeOTP,
+      otp: kodeOTP,
     });
   };
 
@@ -78,31 +74,26 @@ export const OTP = () => {
       setCountDownDisabled(false);
       setResendCountdown(60);
 
-      await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_REGISTER}?token=${TokenRegister}`);
+      await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_PASSWORD}?token=${TokenForgotPassword}`);
     } catch (error) {
       toast.error("Try Register Again");
     }
   };
 
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row">
-      <div className="flex justify-center">
-        <img src={image2} className="w-1/6 md:hidden pt-3" alt="" />
-      </div>
-      <div className="w-full md:w-2/3 flex flex-col items-center gap-5 pt-[2rem] md:pt-[7rem]">
-        <div className="w-5/6 md:w-2/3 flex flex-col gap-2">
-          <div className="md:flex items-start hidden">
-            <Link to="/register">
+    <div className="w-full h-screen flex flex-row">
+      <div className="w-2/3 flex flex-col items-center gap-5 pt-[7rem]">
+        <div className="w-2/3 flex flex-col gap-2">
+          <div className="flex items-start">
+            <Link to="/reset-password">
               <FontAwesomeIcon icon={faArrowLeft} />
             </Link>
           </div>
-          <div className="md:pl-6 flex flex-col gap-8 ">
+          <div className="pl-8 flex flex-col gap-8 ">
             <h2 className="text-purple-700">Masukkan OTP</h2>
             <div className="flex flex-col gap-6 items-center">
               <div className="flex flex-col gap-1 ">
-                <label className="font-normal text-xs">
-                  Ketik 6 digit kode yang sudah dikirimkan ke <span className="font-bold text-black">{Email}</span>
-                </label>
+                <label className="font-normal text-xs">Ketik 6 digit kode yang sudah dikirimkan ke </label>
               </div>
               <div className="flex flex-row gap-3">
                 {otp.map((digit, index) => (
@@ -141,8 +132,7 @@ export const OTP = () => {
           </div>
         </div>
       </div>
-      <img src={image3} className="w-full absolute bottom-0 md:hidden" alt="" />
-      <div className="md:flex md:w-1/2 bg-purple-700 flex justify-center items-center hidden">
+      <div className="w-1/2 bg-purple-700 flex justify-center items-center">
         <img src={image} className="w-1/2" alt="" />
       </div>
     </div>

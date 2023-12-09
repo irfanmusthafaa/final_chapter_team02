@@ -1,12 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "antd";
 import image from "../../assets/img/logo.png";
 import { useNavigate } from "react-router-dom";
+import { useForgotPassword } from "../../services/auth/forgot-password";
+import { toast } from "react-toastify";
 import image2 from "../../assets/img/up logo.png";
 import image3 from "../../assets/img/2.png";
 
 export const ResetPass = () => {
+  const [Email, setEmail] = useState("");
+
   const navigate = useNavigate();
+
+  const { mutate: dataForgotPassword, status, data, isSuccess, isError, error } = useForgotPassword();
+
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "email") {
+        setEmail(e.target.value);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.response.data.err);
+    }
+    if (isSuccess) {
+      console.log(data, "data sukses");
+      toast.success("OTP Berhasil Dikirim");
+      navigate("/password-otp", { state: { tokenForgotPassword: data.data.data.token } });
+    }
+  }, [status]);
+
+  const handleForgotPassword = () => {
+    if (!Email) {
+      toast.error("Mohon Lengkapi Data !!");
+      return;
+    }
+    dataForgotPassword({
+      email: Email,
+    });
+  };
 
   return (
     <div className="w-full h-screen flex flex-col md:flex-row gap-5">
@@ -18,10 +53,22 @@ export const ResetPass = () => {
           <h2 className="text-[#7c3aed]">Reset Password</h2>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Email</label>
-            <Input className="border rounded-lg" type="text" placeholder="Contoh: johndee@gmail.com" />
+            <Input className="border rounded-lg" id="email" onChange={handleInput} type="text" placeholder="Masukkan Email" />
           </div>
+          <div className="flex flex-col gap-1">
+            <label className="font-normal text-sm">Email</label>
+            <Input className="border rounded-lg" id="email" onChange={handleInput} type="text" placeholder="Masukkan Email" />
+          </div>
+
           <div>
-            <button className="w-full bg-[#7c3aed] text-white font-medium border-0 h-8 rounded-lg mt-2 hover:bg-purple-900">Reset Password</button>
+            <button
+              onClick={() => {
+                handleForgotPassword();
+              }}
+              className="w-full bg-[#7c3aed] text-white font-medium border-0 h-8 rounded-lg mt-2"
+            >
+              Reset Password
+            </button>
           </div>
         </div>
       </div>
