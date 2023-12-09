@@ -16,15 +16,7 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  const {
-    mutate: dataRegister,
-    status,
-    isSuccess,
-    error,
-    data,
-    success,
-    isError,
-  } = useRegisterUser();
+  const { mutate: dataRegister, status, isSuccess, error, data, success, isError } = useRegisterUser();
 
   const handleInput = (e) => {
     if (e) {
@@ -45,7 +37,7 @@ export const Register = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.err ? error.response.data.err : error.response.data.message);
     }
     if (isSuccess) {
       console.log(data.data.data.token, "data regisss");
@@ -94,35 +86,15 @@ export const Register = () => {
           <h2 className="text-purple-700">Daftar</h2>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Nama</label>
-            <Input
-              onChange={handleInput}
-              id="fullname"
-              className="border rounded-lg"
-              type="text"
-              maxLength={13}
-              placeholder="Nama Lengkap"
-            />
+            <Input onChange={handleInput} id="fullname" className="border rounded-lg" type="text" maxLength={13} placeholder="Nama Lengkap" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Email</label>
-            <Input
-              onChange={handleInput}
-              id="email"
-              className="border rounded-lg"
-              type="email"
-              placeholder="Contoh: johndee@gmail.com"
-            />
+            <Input onChange={handleInput} id="email" className="border rounded-lg" type="email" placeholder="Contoh: johndee@gmail.com" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Nomor Telepon</label>
-            <Input
-              onChange={handleInput}
-              id="notelp"
-              className="border rounded-lg"
-              type="text"
-              maxLength={13}
-              placeholder="+62."
-            />
+            <Input onChange={handleInput} id="notelp" className="border rounded-lg" type="text" maxLength={13} placeholder="+62." />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Password</label>
@@ -131,9 +103,7 @@ export const Register = () => {
               id="password"
               placeholder="Buat Password"
               type="password"
-              iconRender={(visible) =>
-                visible ? <EyeInvisibleOutlined /> : <EyeOutlined />
-              }
+              iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
             />
           </div>
           <div className="flex flex-col">
@@ -149,11 +119,7 @@ export const Register = () => {
         </div>
         <div className="flex flex-row text-center">
           <label className="font-medium text-xs">Sudah punya akun? </label>
-          <label
-            className="text-purple-700 font-medium text-xs pl-1 hover:text-purple-900"
-            onClick={handleLoginClick}
-            style={{ cursor: "pointer" }}
-          >
+          <label className="text-purple-700 font-medium text-xs pl-1 hover:text-purple-900" onClick={handleLoginClick} style={{ cursor: "pointer" }}>
             Masuk di sini
           </label>
         </div>
