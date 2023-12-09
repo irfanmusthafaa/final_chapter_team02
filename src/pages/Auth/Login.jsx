@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useLoginUser } from "../../services/auth/login";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import image2 from "../../assets/img/up logo.png";
+import image3 from "../../assets/img/2.png";
 
 export const Login = () => {
   const [Email, setEmail] = useState("");
@@ -56,11 +58,13 @@ export const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-row">
-      <div className="w-2/3 flex flex-col justify-center items-center gap-5">
-        <div className="w-1/2 flex flex-col gap-4">
+    <div className="w-full h-screen flex flex-col md:flex-row gap-5">
+      <div className="flex justify-center">
+        <img src={image2} className="w-1/6 md:hidden pt-3" alt="" />
+      </div>
+      <div className="w-full md:w-2/3 flex flex-col justify-center items-center gap-5">
+        <div className="w-5/6 md:w-1/2 flex flex-col gap-3">
           <h2 className="text-purple-700">Masuk</h2>
-
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Email/No Telepon</label>
             <Input onChange={handleInput} id="email" className="border rounded-lg" type="text" placeholder="Contoh: johndee@gmail.com" />
@@ -93,12 +97,13 @@ export const Login = () => {
         </div>
         <div className="flex flex-row text-center">
           <label className="font-medium text-xs">Belum punya akun? </label>
-          <label className="text-purple-700 font-medium text-xs" onClick={handleRegistClick} style={{ cursor: "pointer" }}>
+          <label className="text-purple-700 font-medium text-xs pl-1" onClick={handleRegistClick} style={{ cursor: "pointer" }}>
             Daftar di sini
           </label>
         </div>
       </div>
-      <div className="w-1/2 bg-purple-700 flex justify-center items-center">
+      <img src={image3} className="w-full absolute bottom-0 md:hidden" alt="" />
+      <div className="bg-purple-700 md:flex md:w-1/2 justify-center items-center hidden">
         <img src={image} className="w-1/2" alt="" />
       </div>
     </div>
