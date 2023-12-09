@@ -11,7 +11,7 @@ import { useForgotPasswordOTPMutation } from "../../services/auth/forgot-passwor
 
 export const PasswordOTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [resendCountdown, setResendCountdown] = useState(5);
+  const [resendCountdown, setResendCountdown] = useState(60);
   const [countDownDisabled, setCountDownDisabled] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(true);
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ export const PasswordOTP = () => {
     try {
       setResendDisabled(true);
       setCountDownDisabled(false);
-      setResendCountdown(5);
+      setResendCountdown(60);
 
       await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_PASSWORD}?token=${TokenForgotPassword}`);
     } catch (error) {

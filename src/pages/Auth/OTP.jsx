@@ -10,7 +10,7 @@ import { API_ENDPOINT } from "../../utils/api-endpoint";
 
 export const OTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [resendCountdown, setResendCountdown] = useState(5);
+  const [resendCountdown, setResendCountdown] = useState(60);
   const [countDownDisabled, setCountDownDisabled] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(true);
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ export const OTP = () => {
     try {
       setResendDisabled(true);
       setCountDownDisabled(false);
-      setResendCountdown(5);
+      setResendCountdown(60);
 
       await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_REGISTER}?token=${TokenRegister}`);
     } catch (error) {
