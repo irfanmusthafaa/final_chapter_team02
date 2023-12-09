@@ -55,11 +55,6 @@ export const ResetPass = () => {
             <label className="font-normal text-sm">Email</label>
             <Input className="border rounded-lg" id="email" onChange={handleInput} type="text" placeholder="Masukkan Email" />
           </div>
-          <div className="flex flex-col gap-1">
-            <label className="font-normal text-sm">Email</label>
-            <Input className="border rounded-lg" id="email" onChange={handleInput} type="text" placeholder="Masukkan Email" />
-          </div>
-
           <div>
             <button
               onClick={() => {

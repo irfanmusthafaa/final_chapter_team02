@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { API_ENDPOINT } from "../../utils/api-endpoint";
 import { useForgotPasswordOTPMutation } from "../../services/auth/forgot-password-otp";
+import image2 from "../../assets/img/up logo.png";
+import image3 from "../../assets/img/2.png";
 
 export const PasswordOTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -81,15 +83,18 @@ export const PasswordOTP = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-row">
-      <div className="w-2/3 flex flex-col items-center gap-5 pt-[7rem]">
-        <div className="w-2/3 flex flex-col gap-2">
-          <div className="flex items-start">
+    <div className="w-full h-screen flex flex-col md:flex-row">
+      <div className="flex justify-center">
+        <img src={image2} className="w-1/6 md:hidden pt-3" alt="" />
+      </div>
+      <div className="w-full md:w-2/3 flex flex-col items-center gap-5 pt-[2rem] md:pt-[7rem]">
+        <div className="w-5/6 md:w-2/3 flex flex-col gap-2">
+          <div className="md:flex items-start hidden">
             <Link to="/reset-password">
               <FontAwesomeIcon icon={faArrowLeft} />
             </Link>
           </div>
-          <div className="pl-8 flex flex-col gap-8 ">
+          <div className="md:pl-6 flex flex-col gap-8 ">
             <h2 className="text-purple-700">Masukkan OTP</h2>
             <div className="flex flex-col gap-6 items-center">
               <div className="flex flex-col gap-1 ">
@@ -132,7 +137,8 @@ export const PasswordOTP = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 bg-purple-700 flex justify-center items-center">
+      <img src={image3} className="w-full absolute bottom-0 md:hidden" alt="" />
+      <div className="md:flex md:w-1/2 bg-purple-700 flex justify-center items-center hidden">
         <img src={image} className="w-1/2" alt="" />
       </div>
     </div>
