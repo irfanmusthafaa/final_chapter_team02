@@ -3,4 +3,8 @@ export const API_ENDPOINT = {
   AUTH_REGISTER: "/api/v1/auth/register",
   AUTH_OTP: "/api/v1/auth/verify-otp",
   AUTH_RESEND_OTP_REGISTER: "/api/v1/auth/resend-otp",
+  AUTH_FORGOT_PASSWORD: "/api/v1/auth/forrgot-password",
+  AUTH_OTP_FORGOT_PASSWORD: "/api/v1/auth/verify-otp-password",
+  AUTH_RESET_PASSWORD: "/api/v1/auth/reset-password",
+  AUTH_CHANGE_PASSWORD: "/api/v1/auth/change-password",
 };

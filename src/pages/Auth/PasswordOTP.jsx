@@ -7,20 +7,19 @@ import { useRegisterOTP } from "../../services/auth/register-otp";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { API_ENDPOINT } from "../../utils/api-endpoint";
+import { useForgotPasswordOTPMutation } from "../../services/auth/forgot-password-otp";
 
-export const OTP = () => {
+export const PasswordOTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [resendCountdown, setResendCountdown] = useState(5);
   const [countDownDisabled, setCountDownDisabled] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(true);
   const navigate = useNavigate();
 
-  //memanggil email di register
+  //memanggil token di forgot password
   const data = useLocation();
-  const [Email, setEmail] = useState(data.state ? data.state.email : "");
-  const [TokenRegister, setTokenRegister] = useState(data.state ? data.state.tokenRegister : "");
-  console.log(Email, "emailll");
-  console.log(TokenRegister, "tokenregist");
+  const [TokenForgotPassword, setTokenForgotPassword] = useState(data.state ? data.state.tokenForgotPassword : "");
+  // console.log(TokenForgotPassword, "token otpp");
 
   const kodeOTP = otp.join("");
   console.log(kodeOTP, "kodee");
@@ -35,22 +34,21 @@ export const OTP = () => {
     setOtp(newOtp);
   };
 
-  const { mutate: dataOTP, status, isSuccess, isError, error } = useRegisterOTP();
+  const { mutate: dataOTP, status, isSuccess, isError, error } = useForgotPasswordOTPMutation();
 
   useEffect(() => {
     if (isError) {
       toast.error(error.response.data.err);
     }
     if (isSuccess) {
-      toast.success("Register Berhasil");
-      navigate("/login");
+      toast.success("OTP Berhasil Terverifikasi");
+      navigate("/new-password", { state: { tokenNewPassword: TokenForgotPassword } });
     }
   }, [status]);
 
   const handleOTP = () => {
     dataOTP({
-      email: Email,
-      activationCode: kodeOTP,
+      otp: kodeOTP,
     });
   };
 
@@ -76,7 +74,7 @@ export const OTP = () => {
       setCountDownDisabled(false);
       setResendCountdown(5);
 
-      await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_REGISTER}?token=${TokenRegister}`);
+      await axios.get(`${import.meta.env.VITE_APP_URL}${API_ENDPOINT.AUTH_RESEND_OTP_REGISTER}?token=${TokenForgotPassword}`);
     } catch (error) {
       toast.error("Try Register Again");
     }
@@ -87,7 +85,7 @@ export const OTP = () => {
       <div className="w-2/3 flex flex-col items-center gap-5 pt-[7rem]">
         <div className="w-2/3 flex flex-col gap-2">
           <div className="flex items-start">
-            <Link to="/register">
+            <Link to="/reset-password">
               <FontAwesomeIcon icon={faArrowLeft} />
             </Link>
           </div>
@@ -95,9 +93,7 @@ export const OTP = () => {
             <h2 className="text-purple-700">Masukkan OTP</h2>
             <div className="flex flex-col gap-6 items-center">
               <div className="flex flex-col gap-1 ">
-                <label className="font-normal text-xs">
-                  Ketik 6 digit kode yang sudah dikirimkan ke <span className="font-bold text-black">{Email}</span>
-                </label>
+                <label className="font-normal text-xs">Ketik 6 digit kode yang sudah dikirimkan ke </label>
               </div>
               <div className="flex flex-row gap-3">
                 {otp.map((digit, index) => (

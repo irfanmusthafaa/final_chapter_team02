@@ -6,6 +6,7 @@ import { CookiesKey, CookiesStorage } from "../../utils/cookies";
 export const MenuAkun = ({ menus }) => {
   const handleLogout = () => {
     CookiesStorage.remove(CookiesKey.AuthToken);
+    CookiesStorage.remove(CookiesKey.User);
     window.location.href = "/login";
   };
   return (
