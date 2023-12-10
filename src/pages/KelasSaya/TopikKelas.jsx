@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FilterKelas } from '../../assets/components/FilterKelas'
 import searchIcon from "../../assets/images/icon-search2.png";
 import { Button } from 'antd'
@@ -6,31 +6,48 @@ import { Nav } from '../../assets/components/Nav';
 import { NavButton } from '../../assets/components/button/buttton_navigasi/ButtonNav';
 import img from "../../assets/images/kursus.png";
 import { CardTopikKelas } from '../../assets/components/card/card_kelas_saya/CardTopikKelas';
+import { fetchDataCategory, useCategoryDataQuery } from '../../services/category/get-data-category';
+import { useClassDataQuery } from '../../services/class/get-data-class';
 
 export const TopikKelas = () => {
 
+    const [Filter, setFilter]= useState('');
+    const [Kategori, setKategori]= useState('');
+    const [Level, setLevel]= useState('');
+    
+
     const [activeButton, setActiveButton] = useState('ALL');
+
+    const [Category, setCategory] = useState([]);
+    const { data: dataCategory } = useCategoryDataQuery();
+
+    const [Class, setClass] = useState([]);
+    const [tes, setTes] = useState(1);
+    const [tes1, setTes1] = useState('IntermediateLevel');
+    const { data: dataClass } = useClassDataQuery({
+        categoryId: Kategori ? Kategori : '',
+        levelName: Level ? Level : '',
+        // isFree:'false'
+    }); 
+
+    
+
+    useEffect(()=>{
+        setCategory(dataCategory);
+        if (dataClass) {
+            setClass(dataClass.result);
+        }
+        
+    }, [dataCategory, dataClass, tes, Kategori])
 
     // const [PilihKelas, setPilihKelas] = useState(null);
 
     //SEMENTARA
     const handleButtonClick = (buttonText) => {
         setActiveButton(buttonText);
-        console.log('Tombol diklik!');
+        console.log(buttonText, "ini hasil klik");
 
     };
-//DATA SEMENTARA
-const contentData = {
-    img: img,
-    title: 'UI/UX Design',
-    author: 'Angela Doe',
-    deskripsi: 'ini mempelajari ui/ux fundamental',
-    rating: '4.5', // Change this to your actual rating
-    level: 'Intermediate',
-    modules: 8,
-    durasi: '12',
-  };
-
 
     // INI UNTUK NANTI API
 //    const handleButtonClick = (kelas) => {
@@ -75,7 +92,7 @@ const contentData = {
                 </div>
                 <div className='flex flex-row h-[100%] gap-10 mt-[2%]'>
                     <div>
-                        <FilterKelas/>
+                        <FilterKelas category={Category}/>
                     </div>
                     <div className=''>
                         
@@ -87,9 +104,13 @@ const contentData = {
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
                             {/* content */}
-                            <CardTopikKelas {...contentData}/>
+                            {Class.map((item) => (
+                                <CardTopikKelas key={item.id} class={item} category={Category}/>
+                            ))}
                             
                             
+                            {console.log(Category, "kategori")}
+                            {console.log(Class, "kelass")}
                         </div>
                     </div>
                 </div>
