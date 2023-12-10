@@ -99,7 +99,7 @@ export const TopikKelas = () => {
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
                             {/* content */}
                             {Class.map((item) => (
-                                <CardTopikKelas key={item.id} class={item} category={Category}/>
+                                <CardTopikKelas key={item.id} class={item} category={Category} free={IsFree}/>
                             ))}
                             
                             

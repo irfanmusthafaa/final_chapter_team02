@@ -26,9 +26,9 @@ export const CardTopikKelas = (props) => {
   };
   
     return (
-        <div className="flex flex-col bg-white border-2  rounded-3xl w-full">
-            <img src={Class.thumbnailPicture} alt="img" className='object-cover h-auto'/>
-            <div className="px-4 my-4">
+        <div className="flex flex-col bg-white border-2 w-[23rem] rounded-3xl overflow-hidden max-h-64">
+            <img src={Class.thumbnailPicture} alt="img" className='object-cover max-h-20'/>
+            <div className="px-4 mb-3 mt-1">
                 <div className="flex justify-between items-center">
                     <p className="text-purple-700 font-bold ">{Categori} #category</p>
                     <p className="text-xs flex justify-center items-center gap-1">
@@ -82,7 +82,7 @@ export const CardTopikKelas = (props) => {
                 </div>
                 <div>
                     {/* button */}
-                    <CustomButtonSatu button_text="Premium" iconPath={diamondIcon} onClick={cekBayar}/>
+                    <CustomButtonSatu button_text={props.free ? 'Mulai Kelas' : 'Premium'} iconPath={props.free ? ' ' : diamondIcon} onClick={cekBayar}/>
                    
                 </div>
             </div>
