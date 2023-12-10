@@ -49,7 +49,7 @@ export const FilterKelas = (props) => {
                   >
                     Paling Baru
                   </Checkbox>
-                   {console.log(Filter, "tes state filter ")}
+                   {/* {console.log(Filter, "ini filter ")} */}
                 </li>
                 <li>
                     <Checkbox
@@ -89,7 +89,7 @@ export const FilterKelas = (props) => {
               ) : (
                 <p className='text-sm'>loading...</p>
               )}
-              {console.log(Kategori, "ini kategori ")}
+              {/* {console.log(Kategori, "ini kategori ")} */}
             </ul>
           </div>
           <div>
@@ -123,7 +123,7 @@ export const FilterKelas = (props) => {
                       checked={Level.includes('AdvancedLevel')}
                     >Advanced Level</Checkbox>
                 </li>
-              {console.log(Level, "ini level ")}
+              {/* {console.log(Level, "ini level ")} */}
             </ul>
 
         </div>

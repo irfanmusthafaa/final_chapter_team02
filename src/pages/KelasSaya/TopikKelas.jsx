@@ -14,6 +14,7 @@ export const TopikKelas = () => {
     const [Filter, setFilter]= useState('');
     const [Kategori, setKategori]= useState('');
     const [Level, setLevel]= useState('');
+    const [IsFree, setIsFree]= useState(null);
     
 
     const [activeButton, setActiveButton] = useState('ALL');
@@ -27,7 +28,7 @@ export const TopikKelas = () => {
     const { data: dataClass } = useClassDataQuery({
         categoryId: Kategori ? Kategori : '',
         levelName: Level ? Level : '',
-        // isFree:'false'
+        isFree: IsFree
     }); 
 
     
@@ -45,24 +46,17 @@ export const TopikKelas = () => {
     //SEMENTARA
     const handleButtonClick = (buttonText) => {
         setActiveButton(buttonText);
-        console.log(buttonText, "ini hasil klik");
+        setIsFree(buttonText)
+        if (buttonText === 'ALL') {
+            setIsFree(null);
+        } else if (buttonText === 'Kelas Premium') {
+            setIsFree(false);
+        } else if (buttonText === 'Kelas Gratis') {
+            setIsFree(true);
+        }
 
     };
 
-    // INI UNTUK NANTI API
-//    const handleButtonClick = (kelas) => {
-//     // ini akan menerima parameter
-
-//     // Contoh api requestnya
-//     Axios.get(`https://ContohApi/api/data?category=${kelas}`)
-//         .then(response => {
-//             // Lakukan sesuatu dengan data yang diterima dari API
-//             console.log('Data from API:', response.data);
-//         })
-//         .catch(error => {
-//             console.error('Error fetching data:', error);
-//         });
-//     };
   return (
     <div className='bg-purple-100'>
         <Nav />
@@ -100,7 +94,7 @@ export const TopikKelas = () => {
                             <NavButton button_text="ALL" onClick={() => handleButtonClick('ALL')} isActive={activeButton === 'ALL'}/>
                             <NavButton button_text="Kelas Premium" onClick={() => handleButtonClick('Kelas Premium')} isActive={activeButton === 'Kelas Premium'}/>
                             <NavButton button_text="Kelas Gratis" onClick={() => handleButtonClick('Kelas Gratis')} isActive={activeButton === 'Kelas Gratis'}/>
-                        
+                            {console.log(IsFree, "ini gratis atau premium")}
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
                             {/* content */}
