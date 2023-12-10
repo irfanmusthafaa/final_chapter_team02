@@ -5,6 +5,8 @@ import image from "../../assets/img/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useRegisterUser } from "../../services/auth/register";
 import { toast } from "react-toastify";
+import image2 from "../../assets/img/up logo.png";
+import image3 from "../../assets/img/2.png";
 
 export const Register = () => {
   const [FullName, setFullName] = useState("");
@@ -35,25 +37,39 @@ export const Register = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.err ? error.response.data.err : error.response.data.message);
     }
     if (isSuccess) {
       console.log(data.data.data.token, "data regisss");
-      navigate("/otp", { state: { email: Email, tokenRegister: data.data.data.token } });
+      navigate("/otp", {
+        state: { email: Email, tokenRegister: data.data.data.token },
+      });
     }
   }, [status]);
+
+  const isPasswordValid = () => {
+    // Check password length
+    if (Password.length < 8 || Password.length > 12) {
+      toast.error("Password must be between 8 and 12 characters.");
+      return false;
+    }
+
+    return true;
+  };
 
   const registerUser = () => {
     if (!FullName || !Email || !NoTelp || !Password) {
       toast.error("Incomplete Data !!");
       return;
     }
-    dataRegister({
-      fullName: FullName,
-      email: Email,
-      noTelp: NoTelp,
-      password: Password,
-    });
+    if (isPasswordValid()) {
+      dataRegister({
+        fullName: FullName,
+        email: Email,
+        noTelp: NoTelp,
+        password: Password,
+      });
+    }
   };
 
   const handleLoginClick = () => {
@@ -61,9 +77,12 @@ export const Register = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-row">
-      <div className="w-2/3 flex flex-col justify-center items-center gap-5">
-        <div className="w-1/2 flex flex-col gap-2">
+    <div className="w-full h-screen flex flex-col md:flex-row gap-5">
+      <div className="flex justify-center">
+        <img src={image2} className="w-1/6 md:hidden pt-3" alt="" />
+      </div>
+      <div className="w-full md:w-2/3 flex flex-col justify-center items-center gap-3">
+        <div className="w-5/6 md:w-1/2 flex flex-col gap-2">
           <h2 className="text-purple-700">Daftar</h2>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Nama</label>
@@ -87,7 +106,7 @@ export const Register = () => {
               iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
             />
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col">
             <button
               onClick={() => {
                 registerUser();
@@ -100,12 +119,13 @@ export const Register = () => {
         </div>
         <div className="flex flex-row text-center">
           <label className="font-medium text-xs">Sudah punya akun? </label>
-          <label className="text-purple-700 font-medium text-xs" onClick={handleLoginClick} style={{ cursor: "pointer" }}>
+          <label className="text-purple-700 font-medium text-xs pl-1 hover:text-purple-900" onClick={handleLoginClick} style={{ cursor: "pointer" }}>
             Masuk di sini
           </label>
         </div>
       </div>
-      <div className="w-1/2 bg-purple-700 flex justify-center items-center">
+      <img src={image3} className="w-full absolute bottom-0 md:hidden" alt="" />
+      <div className="bg-purple-700 md:flex md:w-1/2 justify-center items-center hidden">
         <img src={image} className="w-1/2" alt="" />
       </div>
     </div>

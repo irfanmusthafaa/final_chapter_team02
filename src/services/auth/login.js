@@ -7,6 +7,7 @@ import { CookiesKey, CookiesStorage } from "../../utils/cookies";
 const LoginUser = async (input) => {
   return await http.post(API_ENDPOINT.AUTH_LOGIN, input).then((result) => {
     CookiesStorage.set(CookiesKey.AuthToken, result.data.data.token);
+    CookiesStorage.set(CookiesKey.User, decodeURIComponent(result.data.data.user.email));
     return result;
   });
 };

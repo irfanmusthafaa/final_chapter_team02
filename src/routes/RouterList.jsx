@@ -19,6 +19,7 @@ import { Login } from "../pages/Auth/Login";
 import { Register } from "../pages/Auth/Register";
 import { OTP } from "../pages/Auth/OTP";
 import { NewPass } from "../pages/Auth/NewPass";
+import { PasswordOTP } from "../pages/Auth/PasswordOTP";
 
 export const RouterList = () => {
   return (
@@ -43,6 +44,7 @@ export const RouterList = () => {
         <Route path="/Detailkelas" element={<DetailKelasPage />}></Route>
         <Route path="TesModal" element={<App />}></Route>
         <Route path="/new-password" element={<NewPass />}></Route>
+        <Route path="/password-otp" element={<PasswordOTP />}></Route>
       </Routes>
     </BrowserRouter>
   );

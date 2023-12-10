@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Nav } from "../assets/components/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,10 @@ import iconSignout from "../assets/images/ic_log-out.png";
 import { Input, message, Upload } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { MenuAkun } from "../assets/components/MenuAkun";
+import { useNavigate } from "react-router-dom";
+import { useChangePassword } from "../services/auth/change-password";
+import { CookiesKey, CookiesStorage } from "../utils/cookies";
+import { toast } from "react-toastify";
 
 export const AkunUbahPassword = () => {
   //Menu
@@ -18,6 +22,56 @@ export const AkunUbahPassword = () => {
     { label: "Riwayat Pembayaran", link: "/riwayat-pembayaran", img: iconCart, textColor: "text-black " },
     // { label: "Keluar", link: "/login", img: iconSignout, textColor: "text-black " },
   ];
+
+  const [Email, setEmail] = useState("");
+  const [CurrentPassword, setCurrentPassword] = useState("");
+  const [NewPassword, setNewPassword] = useState("");
+  const [NewPasswordConfirm, setNewPasswordConfirm] = useState("");
+
+  const navigate = useNavigate();
+
+  const { mutate: dataChangePassword, status, isSuccess, isError, error } = useChangePassword();
+
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "currentPassword") {
+        setCurrentPassword(e.target.value);
+      }
+      if (e.target.id === "newPassword") {
+        setNewPassword(e.target.value);
+      }
+      if (e.target.id === "newPasswordConfirm") {
+        setNewPasswordConfirm(e.target.value);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (error) {
+      if (error.response.status === 401) {
+        toast.error(error.response.data.err, "error cheng");
+      } else if (error.response.status === 400) {
+        toast.warn(error.response.data.error, "error match");
+      }
+    }
+    if (isSuccess) {
+      toast.success("Ubah Password Berhasil");
+      navigate("/");
+    }
+  }, [status]);
+
+  const handleChangePassword = () => {
+    if (!CurrentPassword || !NewPassword || !NewPasswordConfirm) {
+      toast.error("Mohon Lengkapi Data !!");
+      return;
+    }
+    dataChangePassword({
+      email: CookiesStorage.get(CookiesKey.User),
+      currentPassword: CurrentPassword,
+      new_password: NewPassword,
+      new_password_confirm: NewPasswordConfirm,
+    });
+  };
   return (
     <>
       <Nav />
@@ -50,6 +104,8 @@ export const AkunUbahPassword = () => {
                     placeholder="Masukkan Password Lama"
                     type="password"
                     iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
+                    onChange={handleInput}
+                    id="currentPassword"
                   />
                 </div>
                 <div className="flex flex-col gap-1 w-3/4">
@@ -59,6 +115,8 @@ export const AkunUbahPassword = () => {
                     placeholder="Masukkan Password Baru"
                     type="password"
                     iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
+                    onChange={handleInput}
+                    id="newPassword"
                   />
                 </div>
                 <div className="flex flex-col gap-1 w-3/4">
@@ -68,10 +126,17 @@ export const AkunUbahPassword = () => {
                     placeholder="Ulangi Password Baru"
                     type="password"
                     iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
+                    onChange={handleInput}
+                    id="newPasswordConfirm"
                   />
                 </div>
 
-                <button className="w-3/4 py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2">
+                <button
+                  onClick={() => {
+                    handleChangePassword();
+                  }}
+                  className="w-3/4 py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2"
+                >
                   Ubah Password
                 </button>
               </div>
