@@ -1,15 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import http from "../../utils/http";
 import { API_ENDPOINT } from "../../utils/api-endpoint";
+import { useQuery } from "@tanstack/react-query";
 
 const fetchDataCategory = async ({ queryKey }) => {
   const [_key] = queryKey;
-  const { data } = await http.get(_key).then((result) => {
-    console.log(result.data.data, "ini datanya");
-    return result;
-  });
+  const { data } = await http
+    .get(_key)
+    .then((result) => {
+      // console.log(result.data.data, "ini datanya");
+      return result.data;
+    })
+    .catch((error) => {
+      // Menghandle error jika terjadi
+      console.error("Error fetching data:", error);
+      return null; // Atau berikan nilai default sesuai kebutuhan
+    });
 
-  return data.data;
+  return data;
 };
 
 const useCategoryDataQuery = (options) => {
