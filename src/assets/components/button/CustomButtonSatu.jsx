@@ -8,7 +8,7 @@ export const CustomButtonSatu = ({ button_text, iconPath, onClick }) => {
       onClick={onClick}
     >
       {/* <FontAwesomeIcon icon={faGem} className='me-1'/> */}
-      {iconPath && <img src={iconPath} alt="Icon" className="me-1 h-5 w-5 color-white" />}
+      {iconPath && <img src={iconPath} alt="Icon" className="me-1 h-2.5 w-3 color-white" />}
       {button_text}
     </button>
   );

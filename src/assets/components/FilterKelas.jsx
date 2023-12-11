@@ -3,51 +3,34 @@ import { useState } from 'react';
 import { Button, Checkbox } from 'antd';
 
 
-export const FilterKelas = () => {
+export const FilterKelas = (props) => {
 
-      const [filterStatus, setFilterStatus] = useState({
-    palingBaru: false,
-    palingPopular: false,
-    promo: false,
-    uiUxDesign: false,
-    webDevelopment: false,
-    androidDevelopment: false,
-    dataScience: false,
-    businessIntelligence: false,
-    semuaLevel: false,
-    beginnerLevel: false,
-    intermediateLevel: false,
-    advancedLevel: false,
-  });
+     
+  const [Filter, setFilter]= useState('');
+  const [Kategori, setKategori]= useState('');
+  const [Level, setLevel]= useState('belum di check');
 
-  const handleCheckboxChange = (filter) => {
-    setFilterStatus((prevStatus) => ({
-      ...prevStatus,
-      [filter]: !prevStatus[filter],
-    }));
+  const handleCheckboxKategori = (event) => {
+    const value = event.target.value;
+    if (Kategori.includes(value)) {
+      setKategori(Kategori.filter((item) => item !== value));
+    } else {
+      setKategori([...Kategori, value]);
+    }
   };
 
-  const handleClearFilters = () => {
-    setFilterStatus({
-      palingBaru: false,
-      palingPopular: false,
-      promo: false,
-      uiUxDesign: false,
-      webDevelopment: false,
-      androidDevelopment: false,
-      dataScience: false,
-      businessIntelligence: false,
-      semuaLevel: false,
-      beginnerLevel: false,
-      intermediateLevel: false,
-      advancedLevel: false,
-    });
+  const handleCheckboxLevel = (event) => {
+    const value = event.target.value;
+    if (Level.includes(value)) {
+      setLevel(Level.filter((item) => item !== value));
+    } else {
+      setLevel([...Level, value]);
+    }
   };
-
   
-//     const onChange = (e) => {
-//   console.log(`checked = ${e.target.checked}`);
-// };
+
+
+// console.log(props.category,"ini categori");
 
 
 
@@ -59,17 +42,28 @@ export const FilterKelas = () => {
             <h4 className="mx-0 my-2 mt-0">Filter</h4>
             <ul className="list-none m-0 p-0">
                 <li>
-                    <Checkbox onChange={() => handleCheckboxChange('palingBaru')} checked={filterStatus.palingBaru}>
+                 
+                  <Checkbox
+                    onChange={() =>  setFilter('paling_baru')}
+                    checked={Filter === 'paling_baru'}
+                  >
                     Paling Baru
-                    </Checkbox>
+                  </Checkbox>
+                   {console.log(Filter, "tes state filter ")}
                 </li>
                 <li>
-                    <Checkbox onChange={() => handleCheckboxChange('palingPopular')} checked={filterStatus.palingPopular}>
+                    <Checkbox
+                      onChange={() =>  setFilter('paling_popular')}
+                      checked={Filter === 'paling_popular'}
+                    >
                     Paling Popular
                     </Checkbox>
                 </li>
                 <li>
-                    <Checkbox onChange={() => handleCheckboxChange('promo')} checked={filterStatus.promo}>
+                    <Checkbox
+                      onChange={() =>  setFilter('promo')}
+                      checked={Filter === 'promo'}
+                    >
                     Promo
                     </Checkbox>
                 </li>
@@ -79,45 +73,62 @@ export const FilterKelas = () => {
           <div>
             <h4 className="mx-0 my-2">Kategori</h4>
             <ul className="list-none m-0 p-0">
-              <li>
-                <Checkbox onChange={() => handleCheckboxChange('uiUXDesain')} checked={filterStatus.uiUXDesain}>UI/UX Design</Checkbox>
-              </li>
-              <li>
-                <Checkbox onChange={() => handleCheckboxChange('webDevelopment')} checked={filterStatus.webDevelopment}>WEB Development</Checkbox>
-              </li>
-              <li>
-                <Checkbox onChange={() => handleCheckboxChange('androidDevelopment')} checked={filterStatus.androidDevelopment} >Android Development</Checkbox>
-              </li>
-              <li>
-                <Checkbox onChange={() => handleCheckboxChange('dataScience')} checked={filterStatus.dataScience}>Data Science</Checkbox>
-              </li>
-              <li>
-                <Checkbox onChange={() => handleCheckboxChange('businesIntelligence')} checked={filterStatus.businesIntelligence}>Business Intelligence</Checkbox>
-              </li>
-              
+              {Array.isArray(props.category) ? (
+                props.category.map(item => (
+                  <li key={item.id}>
+                    <Checkbox 
+                      value={item.id}
+                      onChange={handleCheckboxKategori}
+                      //  checked={filter.includes('paling_baru')}
+                      checked={Kategori.includes(item.id)}
+                    >
+                      {item.categoryName}
+                    </Checkbox>
+                  </li>
+                ))
+              ) : (
+                <p className='text-sm'>loading...</p>
+              )}
+              {console.log(Kategori, "ini kategori ")}
             </ul>
           </div>
           <div>
             <h4 className="mx-0 my-2">Level Kesulitan</h4>
             <ul className="list-none m-0 p-0">
                 <li>
-                    <Checkbox onChange={() => handleCheckboxChange('semuaLevel')} checked={filterStatus.semuaLevel} >Semua Level</Checkbox>
+                    <Checkbox 
+                      value=''
+                      onChange={() =>  setLevel('')}
+                      checked={Level === ''}
+                    >Semua Level</Checkbox>
                 </li>
                 <li>
-                    <Checkbox onChange={() => handleCheckboxChange('beginderLevel')} checked={filterStatus.beginderLevel} >Beginder Level</Checkbox>
+                    <Checkbox
+                      value='BeginderLevel' 
+                      onChange={handleCheckboxLevel}
+                      checked={Level.includes('BeginderLevel')}
+                    >Beginder Level</Checkbox>
                 </li>
                 <li>
-                    <Checkbox onChange={() => handleCheckboxChange('intermediateLevel')} checked={filterStatus.intermediateLevel} >Intermediate Level</Checkbox>
+                    <Checkbox
+                      value='IntermediateLevel' 
+                      onChange={handleCheckboxLevel}
+                      checked={Level.includes('IntermediateLevel')}
+                    >Intermediate Level</Checkbox>
                 </li>
                 <li>
-                    <Checkbox onChange={() => handleCheckboxChange('advanceLevel')} checked={filterStatus.advanceLevel} >Advanced Level</Checkbox>
+                    <Checkbox 
+                      value='AdvancedLevel' 
+                      onChange={handleCheckboxLevel}
+                      checked={Level.includes('AdvancedLevel')}
+                    >Advanced Level</Checkbox>
                 </li>
-              
+              {console.log(Level, "ini level ")}
             </ul>
 
         </div>
 
-        <Button className='mt-8 text-red-600' type="danger"  onClick={handleClearFilters}>
+        <Button className='mt-8 text-red-600' type="danger" >
           Hapus Filter
         </Button>
     </div>
