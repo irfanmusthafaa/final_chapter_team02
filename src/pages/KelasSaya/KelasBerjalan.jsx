@@ -37,18 +37,18 @@ export const KelasBerjalan= () => {
         
     }, [dataCategory, dataClass, tes, Kategori])
     
-    // const handleButtonClick = (buttonText) => {
-    //     setActiveButton(buttonText);
-    //     setIsFree(buttonText)
-    //     if (buttonText === 'ALL') {
-    //         setIsFree(null);
-    //     } else if (buttonText === 'Kelas Premium') {
-    //         setIsFree(false);
-    //     } else if (buttonText === 'Kelas Gratis') {
-    //         setIsFree(true);
-    //     }
+    const handleButtonClick = (buttonText) => {
+        setActiveButton(buttonText);
+        setIsFree(buttonText)
+        if (buttonText === 'ALL') {
+            // setIsFree(null);
+        } else if (buttonText === 'In Progress') {
+            // setIsFree(false);
+        } else if (buttonText === 'Selesai') {
+            // setIsFree(true);
+        }
 
-    // };
+    };
 
   return (
     <div className='bg-purple-100'>
