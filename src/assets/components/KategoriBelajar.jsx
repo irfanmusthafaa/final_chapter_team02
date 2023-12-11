@@ -26,36 +26,15 @@ export const KategoriBelajar = () => {
             Lihat Semua
           </a>
         </div>
-        <div className="flex flex-wrap  justify-between w-4/5 ">
+        <div className="flex flex-wrap  justify-between w-4/5 mt-4 ">
           {Category?.map((data) => (
             <>
-              <div key={data.id} className="flex flex-col justify-center items-center gap-2   ">
-                <img src={data.thumbnailPictureCategory} placeholder="img" className="w-32 h-20 object-cover" />
-                <p className="text-sm font-semibold text-black">{data.categoryName}</p>
+              <div key={data.id} className="flex flex-col justify-center items-center  ">
+                <img src={data.thumbnailPictureCategory} placeholder="img" className="w-32 h-20 object-cover rounded-xl   " />
+                <p className="text-xs font-semibold mt-3 text-black">{data.categoryName}</p>
               </div>
             </>
           ))}
-
-          {/* <div className="flex flex-col justify-center items-center gap-2  ">
-            <img src={img} placeholder="img" className="w-full object-cover" />
-            <p className="text-sm font-semibold text-black">UI/UX Desain</p>
-          </div>
-          <div className="flex flex-col justify-center items-center gap-2  ">
-            <img src={img} placeholder="img" className="w-full object-cover" />
-            <p className="text-sm font-semibold text-black">UI/UX Desain</p>
-          </div>
-          <div className="flex flex-col justify-center items-center gap-2  ">
-            <img src={img} placeholder="img" className="w-full object-cover" />
-            <p className="text-sm font-semibold text-black">UI/UX Desain</p>
-          </div>
-          <div className="flex flex-col justify-center items-center gap-2  ">
-            <img src={img} placeholder="img" className="w-full object-cover" />
-            <p className="text-sm font-semibold text-black">UI/UX Desain</p>
-          </div>
-          <div className="flex flex-col justify-center items-center gap-2  ">
-            <img src={img} placeholder="img" className="w-full object-cover" />
-            <p className="text-sm font-semibold text-black">UI/UX Desain</p>
-          </div> */}
         </div>
       </div>
     </>
