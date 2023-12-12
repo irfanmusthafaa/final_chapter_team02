@@ -15,7 +15,6 @@ export const AdminKelolaKelas = () => {
   const kelasMenus = [
     { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-transparent" },
     { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-purple-500" },
-    { label: "Keluar", link: "/admin/login", bgColor: "bg-transparent" },
   ];
 
   const handleMenuClick = (e) => {
