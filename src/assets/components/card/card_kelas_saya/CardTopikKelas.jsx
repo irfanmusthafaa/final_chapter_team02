@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CustomButtonSatu } from '../../button/CustomButtonSatu'
 import diamondIcon from '../../../images/icon/diamond.svg'
 
-export const CardTopikKelas = ({ img, title, author, rating, deskripsi, level, modules, durasi }) => {
+export const CardTopikKelas = (props) => {
+
+    const [Class, setClass] = useState(props.class);
+    const [Categori, setCategori] = useState(props.categori);
  
     const cekBayar = () => {
 
@@ -24,10 +27,10 @@ export const CardTopikKelas = ({ img, title, author, rating, deskripsi, level, m
   
     return (
         <div className="flex flex-col bg-white border-2  rounded-3xl w-full">
-            <img src={img} alt="img" className='object-cover h-auto'/>
+            <img src={Class.thumbnailPicture} alt="img" className='object-cover h-auto'/>
             <div className="px-4 my-4">
                 <div className="flex justify-between items-center">
-                    <p className="text-purple-700 font-bold ">{title}</p>
+                    <p className="text-purple-700 font-bold ">{Categori} #category</p>
                     <p className="text-xs flex justify-center items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path
@@ -35,11 +38,11 @@ export const CardTopikKelas = ({ img, title, author, rating, deskripsi, level, m
                             fill="#F9CC00"
                         />
                         </svg>{" "}
-                        {rating}
+                        {"#rating"}
                     </p>
                 </div>
-                <p className="text-black font-bold mt-1">{deskripsi}</p>
-                <p className="text-black text-sm mt-1">By:{author}</p>
+                <p className="text-black font-bold mt-1">{Class.className}</p>
+                <p className="text-black text-sm mt-1">By:{'#author'}</p>
                 <div className="flex gap-5 text-xs mt-1">
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -48,7 +51,7 @@ export const CardTopikKelas = ({ img, title, author, rating, deskripsi, level, m
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold text-purple-900">{level}</p>
+                        <p className="font-semibold text-purple-900">{Class.levelName}</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -61,11 +64,11 @@ export const CardTopikKelas = ({ img, title, author, rating, deskripsi, level, m
                         </g>
                         <defs>
                             <clipPath id="clip0_76_2206">
-                            <rect width="12" height="12" fill="white" />
+                                <rect width="12" height="12" fill="white" />
                             </clipPath>
                         </defs>
                         </svg>
-                        <p className="font-semibold">{modules} Modul</p>
+                        <p className="font-semibold">{'#10'} Modul</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -74,7 +77,7 @@ export const CardTopikKelas = ({ img, title, author, rating, deskripsi, level, m
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold">{durasi} Menit</p>
+                        <p className="font-semibold">{'#120'} Menit</p>
                     </div>
                 </div>
                 <div>

@@ -8,14 +8,20 @@ import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import iconPrefix from "../../assets/images/icon-prefix2.png";
 import { TableKelas } from "../../assets/components/Admin/TableKelas";
 import { ModalTambahKelas } from "../../assets/components/Admin/ModalTambahKelas";
+import searchIcon from "../../assets/images/icon-search3.png";
 const { TextArea } = Input;
 
 export const AdminKelolaKelas = () => {
   const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   const kelasMenus = [
     { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-transparent" },
     { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-purple-500" },
-    { label: "Keluar", link: "/admin/login", bgColor: "bg-transparent" },
   ];
 
   const handleMenuClick = (e) => {
@@ -71,10 +77,22 @@ export const AdminKelolaKelas = () => {
                 </button>
               </Dropdown>
               <FontAwesomeIcon icon={faSearch} className="text-purple-700" />
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Cari"
+                  className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
+                  value={searchTerm}
+                  onChange={handleSearch}
+                />
+                <button className="absolute bg-transparent border-none inset-y-0 -ml-10 ">
+                  <img src={searchIcon} alt="Search Icon" className="h-6 w-6 cursor-pointer" />
+                </button>
+              </div>
             </div>
           </div>
           {/* Tabel */}
-          <TableKelas />
+          <TableKelas searchTerm={searchTerm} />
           <Modal centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} footer={null} width={700} className="mt-10">
             <ModalTambahKelas />
           </Modal>
