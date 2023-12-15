@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useRegisterUser } from "../../services/auth/register";
 import { toast } from "react-toastify";
 import image2 from "../../assets/img/up logo.png";
-import image3 from "../../assets/img/2.png";
+import image3 from "../../assets/img/wave.png"
 
 export const Register = () => {
   const [FullName, setFullName] = useState("");

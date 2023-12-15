@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useNewPasswordMutation } from "../../services/auth/reset-password";
 import { toast } from "react-toastify";
 import image2 from "../../assets/img/up logo.png";
-import image3 from "../../assets/img/2.png";
+import image3 from "../../assets/img/wave.png"
 
 export const NewPass = () => {
   const [NewPassword, setNewPassword] = useState("");

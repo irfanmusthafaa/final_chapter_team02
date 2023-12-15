@@ -7,7 +7,7 @@ import { useLoginUser } from "../../services/auth/login";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import image2 from "../../assets/img/up logo.png";
-import image3 from "../../assets/img/2.png";
+import image3 from "../../assets/img/wave.png"
 
 export const Login = () => {
   const [Email, setEmail] = useState("");

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useForgotPassword } from "../../services/auth/forgot-password";
 import { toast } from "react-toastify";
 import image2 from "../../assets/img/up logo.png";
-import image3 from "../../assets/img/2.png";
+import image3 from "../../assets/img/wave.png"
 
 export const ResetPass = () => {
   const [Email, setEmail] = useState("");

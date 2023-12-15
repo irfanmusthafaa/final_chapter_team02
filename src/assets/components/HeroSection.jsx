@@ -1,24 +1,60 @@
-import { Button } from "antd";
-import banner from "../images/Banner.png";
+import { useNavigate } from "react-router-dom";
+import image from "../img/1.png";
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
+
+  const handleIkutiKelas = () => {
+    navigate("/KelasSaya/TopikKelas");
+  };
   return (
     <>
-      <div className="flex w-full">
-        <div className="w-[60%] relative">
-          <img src={banner} alt="banner" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-purple-700"></div>
+      <div className="hidden md:flex w-full">
+        <div className="w-full relative">
+          <div className="w-full h-screen bg-purple-700 flex">
+            <div className="flex flex-col">
+              <img
+                src={image}
+                className="absolute right-0 pt-[6rem] h-[83.8%]"
+              />
+              <div className=" flex flex-col justify-center items-center gap-2 w-[32.5rem] pt-[6rem] h-screen">
+                <h1 className="text-white">Kuasai Skills Digital</h1>
+                <h1 className="text-white">dan Gapai Masa Depan Mu</h1>
+                <h1 className="text-white">#FirstStepForYourFuture</h1>
+                <h1 className="text-amber-400">bersama TechAcademy</h1>
+                <div
+                  className="bg-white w-1/2 flex justify-center items-center h-10 cursor-pointer text-purple-700 font-bold rounded-full hover:bg-purple-900 hover:text-white"
+                  onClick={handleIkutiKelas}
+                >
+                  Ikuti Kelas
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="w-[40%]  bg-purple-700 flex flex-col justify-center ">
-          <div className=" ">
-            <h3 className="text-white font-bold mb-1">Belajar</h3>
-            <h3 className="text-white font-bold mb-5">dari Praktisi Terbaik!</h3>
-            <button
-              size="large"
-              className="bg-white px-10 py-3 cursor-pointer text-purple-700 font-bold rounded-full hover:bg-purple-900 hover:text-white border-0"
-            >
-              IKUTI KELAS
-            </button>
+      </div>
+      {/* mobile */}
+      <div className="flex w-full md:hidden">
+        <div className="w-full relative">
+          <div className="w-full h-screen bg-purple-700 flex">
+            <div className="flex flex-col">
+              <img
+                src={image}
+                className="mx-5 w-[20rem] mt-[6.5rem] h-[30%] bg-white rounded-lg"
+              />
+              <div className="w-[22.5rem] pt-8 flex flex-col items-center gap-2 h-screen">
+                <h2 className="text-white">Kuasai Skills Digital</h2>
+                <h2 className="text-white">dan Gapai Masa Depan Mu</h2>
+                <h2 className="text-white">#FirstStepForYourFuture</h2>
+                <h2 className="text-amber-400">bersama TechAcademy</h2>
+                <div
+                  className="bg-white w-1/2 flex justify-center items-center h-10 cursor-pointer text-purple-700 font-bold rounded-full hover:bg-purple-900 hover:text-white"
+                  onClick={handleIkutiKelas}
+                >
+                  Ikuti Kelas
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

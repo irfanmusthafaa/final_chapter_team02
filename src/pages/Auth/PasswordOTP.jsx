@@ -9,7 +9,7 @@ import axios from "axios";
 import { API_ENDPOINT } from "../../utils/api-endpoint";
 import { useForgotPasswordOTPMutation } from "../../services/auth/forgot-password-otp";
 import image2 from "../../assets/img/up logo.png";
-import image3 from "../../assets/img/2.png";
+import image3 from "../../assets/img/wave.png"
 
 export const PasswordOTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);

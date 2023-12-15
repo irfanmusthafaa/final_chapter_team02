@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { API_ENDPOINT } from "../../utils/api-endpoint";
 import image2 from "../../assets/img/up logo.png";
-import image3 from "../../assets/img/2.png";
+import image3 from "../../assets/img/wave.png"
 
 export const OTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
