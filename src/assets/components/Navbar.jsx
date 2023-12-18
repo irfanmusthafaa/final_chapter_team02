@@ -12,7 +12,7 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import image from "../img/ppp.png";
 import searchIcon from "../images/icon-search3.png";
 
@@ -65,18 +65,8 @@ export const Navbar = () => {
 
   const location = useLocation();
 
-  const navigate = useNavigate();
-
   const handleNavigation = (path) => {
     window.location.href = path;
-  };
-
-  const handleRegistPage = () => {
-    navigate("/register");
-  };
-
-  const handleLoginPage = () => {
-    navigate("/login");
   };
 
   useEffect(() => {
