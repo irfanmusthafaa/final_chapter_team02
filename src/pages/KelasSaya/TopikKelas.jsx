@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { FilterKelas } from '../../assets/components/FilterKelas'
 import searchIcon from "../../assets/images/icon-search2.png";
-import { Button } from 'antd'
 import { Nav } from '../../assets/components/Nav';
 import { NavButton } from '../../assets/components/button/buttton_navigasi/ButtonNav';
-import img from "../../assets/images/kursus.png";
 import { CardTopikKelas } from '../../assets/components/card/card_kelas_saya/CardTopikKelas';
 import { fetchDataCategory, useCategoryDataQuery } from '../../services/category/get-data-category';
 import { useClassDataQuery } from '../../services/class/get-data-class';
 
+
 export const TopikKelas = () => {
 
-    const [Filter, setFilter]= useState('');
     const [Kategori, setKategori]= useState('');
     const [Level, setLevel]= useState('');
     const [IsFree, setIsFree]= useState(null);
+    const [Latest, setLatest]= useState(null);
+    const [Popular, setPopular]= useState(null);
+    const [Promo, setPromo]= useState(null);
     
 
     const [activeButton, setActiveButton] = useState('ALL');
@@ -23,12 +24,13 @@ export const TopikKelas = () => {
     const { data: dataCategory } = useCategoryDataQuery();
 
     const [Class, setClass] = useState([]);
-    const [tes, setTes] = useState(1);
-    const [tes1, setTes1] = useState('IntermediateLevel');
     const { data: dataClass } = useClassDataQuery({
-        categoryId: Kategori ? Kategori : '',
-        levelName: Level ? Level : '',
-        isFree: IsFree
+        categoryId: Kategori,
+        levelName: Level,
+        isFree: IsFree,
+        latest: Latest,
+        popular: Popular,
+        promo : Promo
     }); 
 
     
@@ -39,9 +41,9 @@ export const TopikKelas = () => {
             setClass(dataClass.result);
         }
         
-    }, [dataCategory, dataClass, tes, Kategori])
+    }, [dataCategory, dataClass])
 
-    // const [PilihKelas, setPilihKelas] = useState(null);
+   
 
     //SEMENTARA
     const handleButtonClick = (buttonText) => {
@@ -56,7 +58,7 @@ export const TopikKelas = () => {
         }
 
     };
-
+    
   return (
     <div className='bg-purple-100'>
         <Nav />
@@ -86,7 +88,28 @@ export const TopikKelas = () => {
                 </div>
                 <div className='flex flex-row h-[100%] gap-10 mt-[2%]'>
                     <div>
-                        <FilterKelas category={Category}/>
+                        <FilterKelas 
+                            
+                            category={Category} 
+                            kategori={Kategori} 
+                            level={Level} 
+                            latest={Latest} 
+                            popular={Popular} 
+                            promo={Promo} 
+                        
+                            setKategori={setKategori}
+                            setLevel={setLevel}
+                            setLatest={setLatest}
+                            setPopular={setPopular}
+                            setPromo={setPromo}
+                            // setIsFree={setIsFree}
+                        />
+
+                        {console.log(Kategori, "ini Kategori ")}
+                        {console.log(Level, "ini Level ")}
+                        {console.log(Latest, "ini yang terbaru ")}
+                        {console.log(Popular, "ini Popular ")}
+                        {console.log(Promo, "ini Promo ")}
                     </div>
                     <div className=''>
                         
@@ -94,17 +117,14 @@ export const TopikKelas = () => {
                             <NavButton button_text="ALL" onClick={() => handleButtonClick('ALL')} isActive={activeButton === 'ALL'}/>
                             <NavButton button_text="Kelas Premium" onClick={() => handleButtonClick('Kelas Premium')} isActive={activeButton === 'Kelas Premium'}/>
                             <NavButton button_text="Kelas Gratis" onClick={() => handleButtonClick('Kelas Gratis')} isActive={activeButton === 'Kelas Gratis'}/>
-                            {console.log(IsFree, "ini gratis atau premium")}
+                            {console.log(IsFree, "ini is free")}
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
                             {/* content */}
-                            {Class.map((item) => (
-                                <CardTopikKelas key={item.id} class={item} category={Category} free={IsFree}/>
+                            {Class.map((item, index) => (
+                                <CardTopikKelas key={index} class={item} category={Category} free={IsFree}/>
                             ))}
                             
-                            
-                            {console.log(Category, "kategori")}
-                            {console.log(Class, "kelass")}
                         </div>
                     </div>
                 </div>

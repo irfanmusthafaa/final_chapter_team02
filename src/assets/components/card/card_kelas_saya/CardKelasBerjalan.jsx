@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { BarProgres } from '../../barProgres'
+import { Link } from 'react-router-dom';
 // import img from '{imgPath}';
 
 export const CardKelasBerjalan = (props) => {
@@ -9,6 +10,7 @@ export const CardKelasBerjalan = (props) => {
     
   return (
         <div className="flex flex-col bg-white border-2  w-[22rem] rounded-3xl overflow-hidden max-h-64">
+            <Link className="text-xl font-semibold mb-2" to={`/Detail/${props.classCode}`}>
             <img src={Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
             <div className="px-4 mb-3 mt-1">
                 <div className="flex justify-between items-center">
@@ -67,6 +69,7 @@ export const CardKelasBerjalan = (props) => {
                     <BarProgres/>
                 </div>
             </div>
+            </Link>
         </div>
         
     

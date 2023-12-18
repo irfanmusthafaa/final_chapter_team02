@@ -1,17 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { Button, Checkbox } from 'antd';
 
 
 export const FilterKelas = (props) => {
 
-     
-  const [Filter, setFilter]= useState('');
-  const [Kategori, setKategori]= useState('');
-  const [Level, setLevel]= useState('belum di check');
+  const [Kategori, setKategori] = useState(props.kategori);
+  const [Level, setLevel] = useState(props.level);
+  const [Latest, setLatest] = useState(props.latest);
+  const [Popular, setPopular] = useState(props.popular);
+  const [Promo, setPromo] = useState(props.promo);
+
+  useEffect(() => {
+    let formatKategori;
+    let formatLevel;
+   
+    if (Array.isArray(Kategori)) {
+      formatKategori = Kategori.join('-');
+    } else {
+      formatKategori = Kategori;
+    }
+
+    if (Array.isArray(Level)) {
+      formatLevel = Level.join('-');
+    } else {
+      formatLevel = Level;
+    }
+
+    props.setKategori(formatKategori);
+    props.setLevel(formatLevel);
+    props.setLatest(Latest);
+    props.setPopular(Popular);
+    props.setPromo(Promo);
+    
+  }, [Kategori, Level, Latest, Popular, Promo]);
+  
 
   const handleCheckboxKategori = (event) => {
     const value = event.target.value;
+    console.log(Kategori, "ini kategori dari dalam component");
     if (Kategori.includes(value)) {
       setKategori(Kategori.filter((item) => item !== value));
     } else {
@@ -27,13 +54,32 @@ export const FilterKelas = (props) => {
       setLevel([...Level, value]);
     }
   };
+
+  const handleCheckboxLatest = () => {
+    setLatest((prevLatest) => !prevLatest);
+    if (!Latest) {
+      setPopular(null);
+    }
+  };
+
+  const handleCheckboxPopular = () => {
+    setPopular((prevPopular) => !prevPopular);
+    if (!Popular) {
+      setLatest(null);
+    }
+  };
+  const handleCheckboxPromo = () => {
+    setPromo((prevPromo) => (prevPromo ? null : true));
+  };
   
-
-
-// console.log(props.category,"ini categori");
-
-
-
+  const handleResetFilters = () => {
+    setKategori([]);
+    setLevel([]);
+    setLatest(null);
+    setPopular(null);
+    setPromo(null);
+  };
+  
 
   return (
     <div className='w-[17rem] h-[39.5rem] bg-[#ffff] p-5 rounded-lg shadow-sm'>
@@ -42,10 +88,9 @@ export const FilterKelas = (props) => {
             <h4 className="mx-0 my-2 mt-0">Filter</h4>
             <ul className="list-none m-0 p-0">
                 <li>
-                 
                   <Checkbox
-                    onChange={() =>  setFilter('paling_baru')}
-                    checked={Filter === 'paling_baru'}
+                    onChange={handleCheckboxLatest}
+                    checked={Latest}
                   >
                     Paling Baru
                   </Checkbox>
@@ -53,16 +98,16 @@ export const FilterKelas = (props) => {
                 </li>
                 <li>
                     <Checkbox
-                      onChange={() =>  setFilter('paling_popular')}
-                      checked={Filter === 'paling_popular'}
+                      onChange={handleCheckboxPopular}
+                      checked={Popular}
                     >
                     Paling Popular
                     </Checkbox>
                 </li>
                 <li>
                     <Checkbox
-                      onChange={() =>  setFilter('promo')}
-                      checked={Filter === 'promo'}
+                      onChange={handleCheckboxPromo}
+                      checked={Promo}
                     >
                     Promo
                     </Checkbox>
@@ -79,7 +124,6 @@ export const FilterKelas = (props) => {
                     <Checkbox 
                       value={item.id}
                       onChange={handleCheckboxKategori}
-                      //  checked={filter.includes('paling_baru')}
                       checked={Kategori.includes(item.id)}
                     >
                       {item.categoryName}
@@ -89,7 +133,6 @@ export const FilterKelas = (props) => {
               ) : (
                 <p className='text-sm'>loading...</p>
               )}
-              {/* {console.log(Kategori, "ini kategori ")} */}
             </ul>
           </div>
           <div>
@@ -123,12 +166,11 @@ export const FilterKelas = (props) => {
                       checked={Level.includes('AdvancedLevel')}
                     >Advanced Level</Checkbox>
                 </li>
-              {/* {console.log(Level, "ini level ")} */}
             </ul>
 
         </div>
 
-        <Button className='mt-8 text-red-600' type="danger" >
+        <Button className='mt-8 text-red-600' type="danger" onClick={handleResetFilters}>
           Hapus Filter
         </Button>
     </div>
