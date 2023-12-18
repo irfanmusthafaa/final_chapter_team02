@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CookiesKey, CookiesStorage } from "../../utils/cookies";
 import { Disclosure } from "@headlessui/react";
 import {
@@ -12,44 +12,44 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import image from "../img/ppp.png";
 import searchIcon from "../images/icon-search3.png";
 
 const navigation = [
-  { name: "Beranda", href: "/", current: true, logo: <HomeIcon /> },
+  { name: "Beranda", href: "/", current: location.pathname === "/", logo: <HomeIcon /> },
   {
     name: "Kursus",
     href: "/KelasSaya/TopikKelas",
-    current: false,
+    current: location.pathname === "/KelasSaya/TopikKelas",
     logo: <ListBulletIcon />,
   },
   {
     name: "Kelas",
     href: "/KelasSaya/KelasBerjalan",
-    current: false,
+    current: location.pathname === "/KelasSaya/KelasBerjalan",
     logo: <PlayCircleIcon />,
   },
   {
     name: "Notifikasi",
     href: "/notifikasi",
-    current: false,
+    current: location.pathname === "/notifikasi",
     logo: <BellIcon />,
   },
-  { name: "Akun", href: "/profil", current: false, logo: <UserCircleIcon /> },
+  { name: "Akun", href: "/profil", current: location.pathname === "/profil", logo: <UserCircleIcon /> },
 ];
 
 const nav = [
   {
     name: "Daftar",
     href: "/register",
-    current: false,
+    current: location.pathname === "/register",
     logo: <PencilSquareIcon />,
   },
   {
     name: "Masuk",
     href: "/login",
-    current: false,
+    current: location.pathname === "/login",
     logo: <ArrowRightOnRectangleIcon />,
   },
 ];
@@ -63,10 +63,12 @@ export const Navbar = () => {
     CookiesStorage.get(CookiesKey.AuthToken) ? true : false
   );
 
+  const location = useLocation();
+
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
-    navigate(path);
+    window.location.href = path;
   };
 
   const handleRegistPage = () => {
@@ -76,6 +78,20 @@ export const Navbar = () => {
   const handleLoginPage = () => {
     navigate("/login");
   };
+
+  useEffect(() => {
+
+    const updatedNavigation = navigation.map((item) => ({
+      ...item,
+      current: location.pathname === item.href,
+    }));
+
+    const updatedNav = nav.map((item) => ({
+      ...item,
+      current: location.pathname === item.href,
+    }));
+
+  }, [location.pathname, navigation, nav]);
 
   return (
     <>
@@ -142,22 +158,25 @@ export const Navbar = () => {
                       </div>
                     ) : (
                       <div className="flex flex-row gap-2 pt-[1rem] ">
-                        <div
-                          className="hover:bg-purple-900 rounded flex items-center justify-center gap-2 text-white w-20 h-8 text-center px-2"
-                          onClick={handleRegistPage}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <PencilSquareIcon />
-                          Daftar
-                        </div>
-                        <div
-                          className="hover:bg-purple-900 rounded flex items-center justify-center gap-2 text-white w-20 h-8 text-center px-2"
-                          onClick={handleLoginPage}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <ArrowRightOnRectangleIcon />
-                          Masuk
-                        </div>
+                        {nav.map((item) => (
+                    <Disclosure.Button
+                      key={item.name}
+                      as="a"
+                      onClick={() => handleNavigation(item.href)}
+                      className={classNames(
+                        item.current
+                          ? "bg-purple-900 text-white"
+                          : "text-gray-300 hover:bg-purple-900 hover:text-white",
+                        "block rounded-md px-3 py-2 text-base font-medium"
+                      )}
+                      style={{ cursor: "pointer", width: "full" }}
+                    >
+                      <div className="flex flex-row gap-2">
+                        <div className="flex flex-row w-6">{item.logo}</div>
+                        {item.name}
+                      </div>
+                    </Disclosure.Button>
+                  ))}
                       </div>
                     )}
                   </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Nav } from "../assets/components/Nav";
+import { Navbar } from "../assets/components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import iconEdit from "../assets/images/ic-edit.png";
@@ -79,28 +79,28 @@ export const AkunProfil = () => {
   );
   return (
     <>
-      <Nav />
-      <div className="bg-purple-100 h-[150px] flex flex-col justify-between items-center ">
-        <div className="w-[60%] mt-7">
+      <Navbar/>
+      <div className="pt-[6rem] bg-purple-100 h-[150px] flex flex-col justify-between items-center ">
+        <div className="w-[90%] md:w-[60%] mt-7">
           <a href="/" className="text-purple-700 hover:text-purple-900 font-bold no-underline flex gap-3">
-            <FontAwesomeIcon icon={faArrowLeft} />
+            <FontAwesomeIcon icon={faArrowLeft} className="pt-1"/>
             Kembali Ke Beranda
           </a>
         </div>
-        <div style={{ border: "1px solid #7E22CE" }} className="w-[60%] bg-purple-700 rounded-t-2xl">
+        <div style={{ border: "1px solid #7E22CE" }} className="w-[90%] md:w-[60%] bg-purple-700 rounded-t-2xl">
           {" "}
           <h3 className="text-white text-xl py-6 text-center">Akun</h3>
         </div>
       </div>
       {/* card bawah */}
-      <div className="flex justify-center items-center  ">
-        <div style={{ border: "1px solid #7E22CE" }} className="  w-[60%] border-t-0  rounded-b-2xl min-h-[500px]">
+      <div className="flex justify-center items-center mb-5">
+        <div style={{ border: "1px solid #7E22CE" }} className="w-[90%] md:w-[60%] border-t-0 rounded-b-2xl min-h-[500px]">
           <div className="flex">
-            <div className="w-1/2  p-5 box-border">
+            <div className="w-1/2 py-5 px-3 md:p-5 box-border">
               <MenuAkun menus={propsMenu} />
             </div>
             <div className="w-1/2">
-              <div className="flex flex-col w-full px-3 justify-center items-center my-10 gap-3 ">
+              <div className="flex flex-col px-3 justify-center items-center my-10 gap-3 ">
                 <div>
                   <Upload
                     name="avatar"
@@ -124,24 +124,24 @@ export const AkunProfil = () => {
                     )}
                   </Upload>
                 </div>
-                <div className="flex flex-col gap-1 w-3/4  ">
+                <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">Nama</label>
                   <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="Nama" />
                 </div>
-                <div className="flex flex-col gap-1 w-3/4">
+                <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">No Telepon</label>
                   <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="No Telepon" />
                 </div>
-                <div className="flex flex-col gap-1 w-3/4">
+                <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">Negara</label>
                   <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="Negara" />
                 </div>
-                <div className="flex flex-col gap-1 w-3/4">
+                <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">Kota</label>
                   <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="Kota" />
                 </div>
 
-                <button className="w-3/4 py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2">
+                <button className="w-full md:w-3/4 py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2">
                   Simpan Profil Saya
                 </button>
               </div>

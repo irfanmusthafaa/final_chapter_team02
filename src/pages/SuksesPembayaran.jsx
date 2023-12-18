@@ -31,7 +31,8 @@ export const SuksesPembayaran = () => {
             E-receipt telah dikirimkan melalui email.
           </label>
           <button className="w-[15rem] bg-purple-700 text-white font-semibold border-0 h-8 rounded-2xl mt-5">
-            Mulai Belajar
+            Chat Admin 
+            {/* ntar ke wa.me */}
           </button>
           <label
             className="text-[#489CFF] text-xs font-semibold pt-1"
