@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FilterKelas } from '../../assets/components/FilterKelas'
 import searchIcon from "../../assets/images/icon-search2.png";
 import { Nav } from '../../assets/components/Nav';
@@ -37,13 +37,22 @@ export const TopikKelas = () => {
 
     useEffect(()=>{
         setCategory(dataCategory);
-        if (dataClass) {
+        if(dataClass){
             setClass(dataClass.result);
         }
         
-    }, [dataCategory, dataClass])
+        
+    }, [dataCategory, dataClass, Kategori, Level, Latest, Popular, Promo])
 
-   
+    // const dataHasil = useMemo(() => {
+    //     if (dataClass && dataClass.result) {
+
+    //         return dataClass.result;
+    //     } else {
+    //         return null; // atau nilai default yang sesuai
+    //     }
+    // }, [dataClass, Kategori, Level, Latest, Popular, Promo]);
+
 
     //SEMENTARA
     const handleButtonClick = (buttonText) => {
@@ -58,6 +67,7 @@ export const TopikKelas = () => {
         }
 
     };
+    
     
   return (
     <div className='bg-purple-100'>
@@ -121,7 +131,11 @@ export const TopikKelas = () => {
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
                             {/* content */}
-                            {Class.map((item, index) => (
+                            {/* {dataHasil.map((item, index) => (
+                                <CardTopikKelas key={index} class={item} category={Category} free={IsFree}/>
+                            ))} */}
+
+                            {Class?.map((item, index) => (
                                 <CardTopikKelas key={index} class={item} category={Category} free={IsFree}/>
                             ))}
                             

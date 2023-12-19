@@ -4,9 +4,6 @@ import diamondIcon from '../../../images/icon/diamond.svg'
 import { Link } from 'react-router-dom';
 
 export const CardTopikKelas = (props) => {
-
-    const [Class, setClass] = useState(props.class);
-    const [Categori, setCategori] = useState(props.categori);
  
     const cekBayar = () => {
 
@@ -16,24 +13,22 @@ export const CardTopikKelas = (props) => {
 
     if (sudahBayar) {
         alert('ok anda sudah bayar.');
-        // Jika sudah bayar, pindahkan ke halaman detail
-        //   window.location.href = 'KelasSaya/Detail/{id}';
+        
     } else {
       // Jika belum bayar, berikan pesan atau arahkan ke halaman pembayaran
       alert('Anda belum membayar. Silakan lakukan pembayaran.');
-      // Atau bisa diarahkan ke halaman pembayaran seperti berikut:
-      // window.location.href = '/pembayaran';
+      
     }
   };
   
     return (
-        <Link className="no-underline" to={`/Detail/${Class.classCode}`}>
+        <Link className="no-underline" to={`/Detail/${props.class.classCode}`}>
         <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64">
             
-                <img src={Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
+                <img src={props.class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
                 <div className="px-4 mb-3 mt-1">
                     <div className="flex justify-between items-center">
-                        <p className="text-purple-700 font-bold ">{Class.categorys.categoryName}</p>
+                        <p className="text-purple-700 font-bold ">{props.class.categorys.categoryName}</p>
                         <p className="text-xs flex justify-center items-center gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                             <path
@@ -41,11 +36,11 @@ export const CardTopikKelas = (props) => {
                                 fill="#F9CC00"
                             />
                             </svg>
-                            {Class.averageRating}
+                            {props.class.averageRating}
                         </p>
                     </div>
-                    <p className="text-black font-bold mt-1">{Class.className}</p>
-                    <p className="text-black text-sm mt-1">By:{Class.author}</p>
+                    <p className="text-black font-bold mt-1">{props.class.className}</p>
+                    <p className="text-black text-sm mt-1">By:{props.class.author}</p>
                     <div className="flex space-x-3 text-xs mt-1">
                         <div className="flex justify-center items-center gap-1 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -54,7 +49,7 @@ export const CardTopikKelas = (props) => {
                                 fill="#73CA5C"
                             />
                             </svg>
-                            <p className="font-semibold text-purple-900">{Class.levelName}</p>
+                            <p className="font-semibold text-purple-900">{props.class.levelName}</p>
                         </div>
                         <div className="flex justify-center items-center gap-1 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -71,7 +66,7 @@ export const CardTopikKelas = (props) => {
                                 </clipPath>
                             </defs>
                             </svg>
-                            <p className="font-semibold">{Class.module} Modul</p>
+                            <p className="font-semibold">{props.class.module} Modul</p>
                         </div>
                         <div className="flex justify-center items-center gap-1 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -80,13 +75,13 @@ export const CardTopikKelas = (props) => {
                                 fill="#73CA5C"
                             />
                             </svg>
-                            <p className="font-semibold">{Class.totalDuration} Menit</p>
+                            <p className="font-semibold">{props.class.totalDuration} Menit</p>
                         </div>
                     </div>
                     <div>
                         {/* button */}
-                        <CustomButtonSatu button_text={props.free ? 'Mulai Kelas' : 'Premium'} iconPath={props.free ? ' ' : diamondIcon} onClick={cekBayar}/>
-                    
+                        <CustomButtonSatu button_text={props.class.isFree ? 'Mulai Kelas' : 'Premium'} iconPath={props.class.isFree ? null : diamondIcon} onClick={cekBayar}/>
+                        {console.log(props.class.isFree, "ini lohh")}
                     </div>
                 </div>
             
