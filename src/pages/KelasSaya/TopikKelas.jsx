@@ -119,10 +119,6 @@ export const TopikKelas = () => {
                             {console.log(IsFree, "ini is free")}
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
-                            {/* content */}
-                            {/* {dataHasil.map((item, index) => (
-                                <CardTopikKelas key={index} class={item} category={Category} free={IsFree}/>
-                            ))} */}
 
                             {Class?.map((item, index) => (
                                 <CardTopikKelas key={index} class={item} category={Category} free={IsFree}/>
