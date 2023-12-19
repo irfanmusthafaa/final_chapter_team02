@@ -44,17 +44,6 @@ export const TopikKelas = () => {
         
     }, [dataCategory, dataClass, Kategori, Level, Latest, Popular, Promo])
 
-    // const dataHasil = useMemo(() => {
-    //     if (dataClass && dataClass.result) {
-
-    //         return dataClass.result;
-    //     } else {
-    //         return null; // atau nilai default yang sesuai
-    //     }
-    // }, [dataClass, Kategori, Level, Latest, Popular, Promo]);
-
-
-    //SEMENTARA
     const handleButtonClick = (buttonText) => {
         setActiveButton(buttonText);
         setIsFree(buttonText)
