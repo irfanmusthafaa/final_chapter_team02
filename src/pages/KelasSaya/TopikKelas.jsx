@@ -18,10 +18,11 @@ export const TopikKelas = () => {
     const [Promo, setPromo]= useState(null);
     
 
-  const [Category, setCategory] = useState([]);
-  const { data: dataCategory } = useCategoryDataQuery();
+    const [activeButton, setActiveButton] = useState('ALL');
 
- 
+    const [Category, setCategory] = useState([]);
+    const { data: dataCategory } = useCategoryDataQuery();
+
     const [Class, setClass] = useState([]);
     const { data: dataClass } = useClassDataQuery({
         categoryId: Kategori,
@@ -32,6 +33,7 @@ export const TopikKelas = () => {
         promo : Promo
     }); 
 
+    
 
     useEffect(()=>{
         setCategory(dataCategory);
@@ -126,50 +128,8 @@ export const TopikKelas = () => {
                     </div>
                 </div>
             </div>
-            <div className="ms-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Cari Kelas..."
-                  className="bg-purple-100 border-purple-700 focus:bg-white focus:outline-none rounded-full px-4 w-[200px] h-[32px]"
-                />
-                <button className="absolute bg-transparent border-none -ms-[15%] inset-y-0 items-center">
-                  <div className="flex">
-                    <img src={searchIcon} alt="Search Icon" className="h-6 w-6 cursor-pointer" />
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-row h-[100%] gap-10 mt-[2%]">
-            <div>
-              <FilterKelas category={Category} />
-            </div>
-            <div className="">
-              <div className="flex flex-row gap-5">
-                <NavButton 
-                button_text="ALL" 
-                  onClick={() => handleButtonClick("ALL")} 
-                  isActive={activeButton === "ALL"} 
-                />
-                <NavButton
-                  button_text="Kelas Premium"
-                  onClick={() => handleButtonClick("Kelas Premium")}
-                  isActive={activeButton === "Kelas Premium"}
-                />
-                <NavButton button_text="Kelas Gratis" onClick={() => handleButtonClick("Kelas Gratis")} isActive={activeButton === "Kelas Gratis"} />
-              </div>
-              <div className="grid mt-[4%] grid-cols-2 gap-4">
-                {/* content */}
-                {Class.map((item) => (
-                  <CardTopikKelas key={item.id} class={item} category={Category} />
-                ))}
-
-                {console.log(Category, "kategori")}
-                {console.log(Class, "kelass")}
-              </div>
-            </div>
-          </div>
         </div>
-  );
-};
+        
+    </div>
+  )
+}
