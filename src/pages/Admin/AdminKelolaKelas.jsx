@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SideBar } from "../../assets/components/Admin/SideBar";
 import { NavbarAdmin } from "../../assets/components/Admin/NavbarAdmin";
 import { Card } from "../../assets/components/Admin/Card";
@@ -6,14 +6,30 @@ import { Dropdown, Input, Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import iconPrefix from "../../assets/images/icon-prefix2.png";
-import { TableKelas } from "../../assets/components/Admin/TableKelas";
-import { ModalTambahKelas } from "../../assets/components/Admin/ModalTambahKelas";
+import { TableKelas } from "../../assets/components/Admin/class/TableKelas";
+import { ModalTambahKelas } from "../../assets/components/Admin/class/ModalTambahKelas";
 import searchIcon from "../../assets/images/icon-search3.png";
+import { useCategoryDataQuery } from "../../services/category/get-data-category";
+import { useClassDataQuery } from "../../services/class/get-data-class";
 const { TextArea } = Input;
 
 export const AdminKelolaKelas = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [Category, setCategory] = useState([]);
+  const [Class, setClass] = useState([]);
+  const [filterCategory, setFilterCategory] = useState(undefined);
+
+  const { data: dataCategory } = useCategoryDataQuery();
+  const { data: dataClass } = useClassDataQuery({ categoryId: filterCategory });
+
+  useEffect(() => {
+    setCategory(dataCategory);
+    setClass(dataClass?.result);
+  }, [dataCategory, dataClass]);
+
+  console.log(Class, "data class");
+  console.log(filterCategory, "filter cat");
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -23,6 +39,7 @@ export const AdminKelolaKelas = () => {
     { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-transparent" },
     { label: "Kategori", link: "/admin/kategori", bgColor: "bg-transparent" },
     { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-purple-500" },
+    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-transparent" },
   ];
 
   const handleMenuClick = (e) => {
@@ -93,9 +110,9 @@ export const AdminKelolaKelas = () => {
             </div>
           </div>
           {/* Tabel */}
-          <TableKelas searchTerm={searchTerm} />
+          <TableKelas searchTerm={searchTerm} Category={Category} Class={Class} />
           <Modal centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} footer={null} width={700} className="mt-10">
-            <ModalTambahKelas />
+            <ModalTambahKelas Category={Category} />
           </Modal>
         </div>
       </div>

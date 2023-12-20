@@ -5,9 +5,9 @@ import httpAdmin from "../../../utils/httpAdmin";
 const deleteCategory = async (categoryId) => {
   try {
     const response = await httpAdmin.delete(`${API_ENDPOINT.DATA_CATEGORY}/${categoryId}`);
-    return response.data; // Jika API mengembalikan data setelah penghapusan
+    return response.data;
   } catch (error) {
-    console.log(error, "error");
+    return null;
   }
 };
 

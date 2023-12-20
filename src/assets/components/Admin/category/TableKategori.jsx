@@ -1,23 +1,26 @@
 import { Button, Modal, Space, Table } from "antd";
 import { useEffect, useState } from "react";
-import { useClassDataQuery } from "../../../../services/class/get-data-class";
-import { useCategoryDataQuery } from "../../../../services/category/get-data-category";
 import { ModalUpdateKategori } from "./ModalUpdateKategori";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
 import { useDeleteCategory } from "../../../../services/admin/category/delete-category";
 
 export const TableKategori = ({ searchTerm, Category }) => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [record, setRecord] = useState("");
 
-  const [deleteCategoryId, setDeleteCategoryId] = useState(null); // New state to store the ID to be deleted
+  const [deleteCategoryId, setDeleteCategoryId] = useState(null);
 
   const { mutate } = useDeleteCategory();
 
   const handleDelete = () => {
     if (deleteCategoryId) {
       mutate(deleteCategoryId);
-      setDeleteCategoryId(null); // Reset deleteCategoryId after deletion
+      setDeleteCategoryId(null);
+      toast.success("Success Delete Category ");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 
@@ -49,13 +52,13 @@ export const TableKategori = ({ searchTerm, Category }) => {
               setOpenUpdate(true);
               setRecord(record);
             }}
-            className="bg-purple-700 text-white border-none hover:bg-purple-900 hover:text-white hover:border-none rounded-full"
+            className="bg-amber-500 text-white border-none hover:bg-amber-900 hover:border-0 hover:text-white hover:border-none rounded-full"
           >
             <EditOutlined />
             Ubah
           </Button>
           <Button
-            className="bg-red-600 text-white hover:bg-red-900 rounded-full"
+            className="bg-red-600 text-white hover:bg-red-900 hover:border-0 rounded-full"
             onClick={() => {
               setDeleteCategoryId(record.idKategori); // Set the ID to be deleted
             }}
@@ -79,18 +82,7 @@ export const TableKategori = ({ searchTerm, Category }) => {
   return (
     <>
       <Table columns={columns} dataSource={dynamicData} />
-      <Modal
-        centered
-        open={openUpdate}
-        onOk={() => setOpenUpdate(false)}
-        onCancel={() => setOpenUpdate(false)}
-        footer={null}
-        width={700}
-        className="mt-10"
-      >
-        <ModalUpdateKategori record={record} />
-      </Modal>
-      {/* Confirm Delete Modal */}
+      <ModalUpdateKategori openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} />
       <Modal title="Konfirmasi Hapus" open={deleteCategoryId !== null} onOk={handleDelete} onCancel={() => setDeleteCategoryId(null)}>
         <p>Anda yakin ingin menghapus kategori ini?</p>
       </Modal>

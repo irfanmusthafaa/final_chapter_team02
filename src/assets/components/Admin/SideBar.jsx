@@ -1,3 +1,4 @@
+import { LogoutOutlined } from "@ant-design/icons";
 import { CookiesKey, CookiesStorage } from "../../../utils/cookies";
 import logoImage from "../../images/icon-tech-2.png";
 
@@ -8,7 +9,7 @@ export const SideBar = ({ menus }) => {
     window.location.href = "/admin/login";
   };
   return (
-    <div className="bg-purple-700  w-[20%]  ">
+    <div className="bg-purple-700 min-h-screen   w-[20%]  ">
       <div className="flex flex-col pt-[2rem] justify center items-center">
         <img src={logoImage} width={150} placeholder="logo" />
         <div className="w-full flex flex-col justify-center items-center mt-16 overflow-hidden">

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Input, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAddCategory } from "../../../../services/admin/category/post-category";
@@ -27,15 +26,25 @@ export const ModalTambahKategori = () => {
       message.error(error.response.data.message);
     }
     if (isSuccess) {
-      console.log("Tambah data : ", dataCategory);
-      toast.success("Data Kategori Berhasil Ditambah");
-      // window.location.reload();
+      toast.success("Successfully Added Category");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   }, [status]);
 
   const handleAddCategory = async () => {
     if (!CategoryName || !ThumbnailPictureCategory) {
-      message.error("Mohon Lengkapi Data !!");
+      toast.error("Please Complete Data!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       return;
     }
 
@@ -46,12 +55,12 @@ export const ModalTambahKategori = () => {
     try {
       await dataCategory(formData);
     } catch (error) {
-      // Handle error if needed
+      return null;
     }
   };
   return (
     <div className="flex flex-col justify-center items-center w-full ">
-      <div className="w-[60%]  mt-7">
+      <div className="w-[60%]  my-7">
         <h3 className="text-center font-bold text-purple-700 text-lg mb-10">Tambah Kategori</h3>
         <div className="w-full flex flex-col  gap-3">
           <div className="flex flex-col gap-1">

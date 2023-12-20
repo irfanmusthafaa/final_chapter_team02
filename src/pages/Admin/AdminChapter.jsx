@@ -1,52 +1,54 @@
-import { useEffect, useState } from "react";
-import { SideBar } from "../../assets/components/Admin/SideBar";
+import React, { useEffect, useState } from "react";
 import { NavbarAdmin } from "../../assets/components/Admin/NavbarAdmin";
-import { Card } from "../../assets/components/Admin/Card";
-import { Input, Modal } from "antd";
+import { Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import searchIcon from "../../assets/images/icon-search3.png";
+import { useGetChapter } from "../../services/admin/chapter/get-chapter";
+import { TableChapter } from "../../assets/components/Admin/chapter/TableChapter";
+import { ModalTambahChapter } from "../../assets/components/Admin/chapter/ModalTambahChapter";
+import { SideBar } from "../../assets/components/Admin/SideBar";
+import { Card } from "../../assets/components/Admin/Card";
 import { TableKategori } from "../../assets/components/Admin/category/TableKategori";
 import { ModalTambahKategori } from "../../assets/components/Admin/category/ModalTambahKategori";
-import { useCategoryDataQuery } from "../../services/category/get-data-category";
-const { TextArea } = Input;
+import { useClassDataQuery } from "../../services/class/get-data-class";
 
-export const AdminKategori = () => {
+export const AdminChapter = () => {
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [Category, setCategory] = useState([]);
+  const [Chapter, setChapter] = useState([]);
+  const [Class, setClass] = useState([]);
 
-  const { data: dataCategory, isLoading, isError } = useCategoryDataQuery();
+  const menus = [
+    { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-transparent" },
+    { label: "Kategori", link: "/admin/kategori", bgColor: "bg-transparent" },
+    { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-transparent" },
+    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-purple-500" },
+  ];
+
+  const { data: dataChapter, isLoading, isError } = useGetChapter();
+  const { data: dataClass } = useClassDataQuery();
 
   useEffect(() => {
     if (!isLoading && !isError) {
-      setCategory(dataCategory || []); // Use an empty array if dataCategory is falsy
+      setChapter(dataChapter || []); // Use an empty array if dataCategory is falsy
     }
-  }, [dataCategory, isLoading, isError]);
+    setClass(dataClass?.result || []); // Use an empty array if dataCategory is falsy
+  }, [dataChapter, dataClass, isLoading, isError]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const menus = [
-    { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-transparent" },
-    { label: "Kategori", link: "/admin/kategori", bgColor: "bg-purple-500" },
-    { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-transparent" },
-    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-transparent" },
-  ];
-
-  const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e);
-  };
+  console.log(Class, "class");
 
   return (
     <div className="w-full flex">
       <SideBar menus={menus} />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
-        <div className="px-16 my-16">
+        <div className="px-16  my-16">
           <Card />
         </div>
         <div className="px-16 my-16">
@@ -76,10 +78,9 @@ export const AdminKategori = () => {
               </div>
             </div>
           </div>
-          {/* Tabel */}
-          <TableKategori searchTerm={searchTerm} Category={Category} setOpenUpdate={setOpenUpdate} />
+          <TableChapter searchTerm={searchTerm} Chapter={Chapter} setOpenUpdate={setOpenUpdate} Class={Class} />
           <Modal centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} footer={null} width={700} className="mt-10">
-            <ModalTambahKategori />
+            <ModalTambahChapter Class={Class} />
           </Modal>
         </div>
       </div>

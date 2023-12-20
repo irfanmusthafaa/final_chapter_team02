@@ -12,6 +12,7 @@ export const AdminDashboard = () => {
     { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-purple-500" },
     { label: "Kategori", link: "/admin/kategori", bgColor: "bg-transparent" },
     { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-transparent" },
+    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-transparent" },
   ];
 
   const handleMenuClick = (e) => {
