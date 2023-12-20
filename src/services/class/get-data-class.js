@@ -5,10 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 
 
 const fetchDataClass = async ({queryKey}) => {
-
     const [_key, _params] = queryKey;
     const { data } = await http.get(_key, { params: _params })
     .then((result) => {
+        console.log("sini juga oke")
         return result;
     })
     .catch((error) => {
@@ -22,6 +22,8 @@ const fetchDataClass = async ({queryKey}) => {
 }
 
 const useClassDataQuery = (options) =>{
+
+    console.log(options,'masuk ini')
     
     return useQuery([API_ENDPOINT.DATA_CLASS, options], fetchDataClass);
 }

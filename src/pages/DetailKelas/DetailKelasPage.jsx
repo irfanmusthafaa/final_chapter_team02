@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Nav } from '../../assets/components/Nav'
 import { CustomButtonSatu } from '../../assets/components/button/CustomButtonSatu'
 import img from "../../assets/images/kursus.png";
@@ -7,6 +7,8 @@ import { BackLink } from '../../assets/components/link/BackLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay, faLock, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { BarProgres } from '../../assets/components/barProgres';
+import { useParams } from 'react-router-dom';
+import { useClassDataQuery } from '../../services/class/get-data-class';
 
 export const DetailKelasPage = () => {
 
@@ -34,6 +36,22 @@ const materiChapterDua = [
   
   
 ];
+
+const { classCode } = useParams();
+
+const [Class, setClass] = useState([]);
+
+const { data: dataClass } = useClassDataQuery(classCode); 
+
+useEffect(()=>{
+    if(dataClass){
+        setClass(dataClass.result);
+    }
+
+    console.log(classCode);
+          
+}, [dataClass])
+
 
    const Join = () => {
 

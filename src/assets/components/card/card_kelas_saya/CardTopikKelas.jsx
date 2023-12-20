@@ -22,7 +22,7 @@ export const CardTopikKelas = (props) => {
   };
   
     return (
-        <Link className="no-underline" to={`/Detail/${props.class.classCode}`}>
+        <Link className="no-underline" to={`/Detailkelas/${props.class.classCode}`}>
         <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64">
             
                 <img src={props.class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
