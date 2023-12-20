@@ -3,7 +3,6 @@ import { Navbar } from "../assets/components/Navbar";
 import img from "../assets/img/🦆 illustration _Cart shopping list_.png";
 
 export const SuksesPembayaran = () => {
-  const phoneNumber = '6281313436773';
   const whatsappUrl = `https://wa.me/6281313436773`;
   return (
     <div>
