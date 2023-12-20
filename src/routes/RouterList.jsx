@@ -20,6 +20,9 @@ import { Register } from "../pages/Auth/Register";
 import { OTP } from "../pages/Auth/OTP";
 import { NewPass } from "../pages/Auth/NewPass";
 import { PasswordOTP } from "../pages/Auth/PasswordOTP";
+import { AdminKategori } from "../pages/Admin/AdminKategori";
+import { ProtectedAdmin } from "../assets/components/Admin/ProtectedAdmin";
+import { AdminChapter } from "../pages/Admin/AdminChapter";
 
 export const RouterList = () => {
   return (
@@ -34,9 +37,6 @@ export const RouterList = () => {
         <Route path="/profil" element={<AkunProfil />}></Route>
         <Route path="/ubah-password" element={<AkunUbahPassword />}></Route>
         <Route path="/riwayat-pembayaran" element={<AkunRiwayatPembayaran />}></Route>
-        <Route path="/admin/login" element={<AdminLogin />}></Route>
-        <Route path="/admin/dashboard" element={<AdminDashboard />}></Route>
-        <Route path="/admin/kelas" element={<AdminKelolaKelas />}></Route>
         <Route path="/reset-password" element={<ResetPass />}></Route>
         <Route path="/otp" element={<OTP />}></Route>
         <Route path="/KelasSaya/KelasBerjalan" element={<KelasBerjalan />}></Route>
@@ -45,6 +45,40 @@ export const RouterList = () => {
         <Route path="TesModal" element={<App />}></Route>
         <Route path="/new-password" element={<NewPass />}></Route>
         <Route path="/password-otp" element={<PasswordOTP />}></Route>
+
+        <Route path="/admin/login" element={<AdminLogin />}></Route>
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedAdmin>
+              <AdminDashboard />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/kelas"
+          element={
+            <ProtectedAdmin>
+              <AdminKelolaKelas />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/kategori"
+          element={
+            <ProtectedAdmin>
+              <AdminKategori />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/chapter"
+          element={
+            <ProtectedAdmin>
+              <AdminChapter />
+            </ProtectedAdmin>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
