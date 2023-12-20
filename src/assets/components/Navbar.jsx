@@ -17,7 +17,12 @@ import image from "../img/ppp.png";
 import searchIcon from "../images/icon-search3.png";
 
 const navigation = [
-  { name: "Beranda", href: "/", current: location.pathname === "/", logo: <HomeIcon /> },
+  {
+    name: "Beranda",
+    href: "/",
+    current: location.pathname === "/",
+    logo: <HomeIcon />,
+  },
   {
     name: "Kursus",
     href: "/KelasSaya/TopikKelas",
@@ -36,10 +41,21 @@ const navigation = [
     current: location.pathname === "/notifikasi",
     logo: <BellIcon />,
   },
-  { name: "Akun", href: "/profil", current: location.pathname === "/profil", logo: <UserCircleIcon /> },
+  {
+    name: "Akun",
+    href: "/profil",
+    current: location.pathname === "/profil",
+    logo: <UserCircleIcon />,
+  },
 ];
 
 const nav = [
+  {
+    name: "Kursus",
+    href: "/KelasSaya/TopikKelas",
+    current: location.pathname === "/KelasSaya/TopikKelas",
+    logo: <ListBulletIcon />,
+  },
   {
     name: "Daftar",
     href: "/register",
@@ -70,7 +86,6 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-
     const updatedNavigation = navigation.map((item) => ({
       ...item,
       current: location.pathname === item.href,
@@ -80,7 +95,6 @@ export const Navbar = () => {
       ...item,
       current: location.pathname === item.href,
     }));
-
   }, [location.pathname, navigation, nav]);
 
   return (
@@ -101,7 +115,7 @@ export const Navbar = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 justify-between sm:items-stretch gap-4">
-                  <div className="flex flex-shrink-0 items-center gap-1 md:gap-4">
+                  <div className="flex flex-shrink-0 items-center gap-2 md:gap-4">
                     <img
                       className="h-16 w-auto"
                       src={image}
@@ -149,31 +163,33 @@ export const Navbar = () => {
                     ) : (
                       <div className="flex flex-row gap-2 pt-[1rem] ">
                         {nav.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      onClick={() => handleNavigation(item.href)}
-                      className={classNames(
-                        item.current
-                          ? "bg-purple-900 text-white"
-                          : "text-gray-300 hover:bg-purple-900 hover:text-white",
-                        "block rounded-md px-3 py-2 text-base font-medium"
-                      )}
-                      style={{ cursor: "pointer", width: "full" }}
-                    >
-                      <div className="flex flex-row gap-2">
-                        <div className="flex flex-row w-6">{item.logo}</div>
-                        {item.name}
-                      </div>
-                    </Disclosure.Button>
-                  ))}
+                          <Disclosure.Button
+                            key={item.name}
+                            as="a"
+                            onClick={() => handleNavigation(item.href)}
+                            className={classNames(
+                              item.current
+                                ? "bg-purple-900 text-white"
+                                : "text-gray-300 hover:bg-purple-900 hover:text-white",
+                              "block rounded-md px-3 py-2 text-base font-medium"
+                            )}
+                            style={{ cursor: "pointer", width: "full" }}
+                          >
+                            <div className="flex flex-row gap-2">
+                              <div className="flex flex-row w-6">
+                                {item.logo}
+                              </div>
+                              {item.name}
+                            </div>
+                          </Disclosure.Button>
+                        ))}
                       </div>
                     )}
                   </div>
                 </div>
               </div>
             </div>
-            <Disclosure.Panel className="">
+            <Disclosure.Panel className="md:hidden">
               {isLoggedIn ? (
                 <div className="space-y-1 px-2 pb-3 pt-2">
                   {navigation.map((item) => (
