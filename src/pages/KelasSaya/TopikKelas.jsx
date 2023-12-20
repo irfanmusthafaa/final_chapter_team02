@@ -147,7 +147,11 @@ export const TopikKelas = () => {
             </div>
             <div className="">
               <div className="flex flex-row gap-5">
-                <NavButton button_text="ALL" onClick={() => handleButtonClick("ALL")} isActive={activeButton === "ALL"} />
+                <NavButton 
+                button_text="ALL" 
+                  onClick={() => handleButtonClick("ALL")} 
+                  isActive={activeButton === "ALL"} 
+                />
                 <NavButton
                   button_text="Kelas Premium"
                   onClick={() => handleButtonClick("Kelas Premium")}
