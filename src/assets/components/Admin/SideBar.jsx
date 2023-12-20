@@ -1,6 +1,12 @@
+import { CookiesKey, CookiesStorage } from "../../../utils/cookies";
 import logoImage from "../../images/icon-tech-2.png";
 
 export const SideBar = ({ menus }) => {
+  const handleLogout = () => {
+    CookiesStorage.remove(CookiesKey.TokenAdmin);
+    CookiesStorage.remove(CookiesKey.Admin);
+    window.location.href = "/admin/login";
+  };
   return (
     <div className="bg-purple-700  w-[20%]  ">
       <div className="flex flex-col pt-[2rem] justify center items-center">
@@ -11,6 +17,9 @@ export const SideBar = ({ menus }) => {
               {menu.label}
             </a>
           ))}
+          <a onClick={handleLogout} className={`w-full pl-24 py-4 cursor-pointer font-semibold text-white no-underline`}>
+            Keluar
+          </a>
         </div>
       </div>
     </div>

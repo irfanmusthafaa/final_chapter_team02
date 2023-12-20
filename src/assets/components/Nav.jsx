@@ -5,10 +5,11 @@ import logo from "../images/icon-tech.png";
 import searchIcon from "../images/icon-search3.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faList, faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
+import { CookiesKey, CookiesStorage } from "../../utils/cookies";
 
 export const Nav = ({ text }) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
+  const [isLoggedIn, setIsLoggedIn] = useState(CookiesStorage.get(CookiesKey.AuthToken) ? true : false); // Track login state
 
   const location = useLocation(); // Get the current location from React Router
   const activePage = location.pathname.substring(1);
@@ -27,7 +28,6 @@ export const Nav = ({ text }) => {
               </a>
               <div className="lg:flex sm:hidden">
                 <div className="relative">
-                 
                   <input
                     type="text"
                     placeholder="Cari Kelas..."

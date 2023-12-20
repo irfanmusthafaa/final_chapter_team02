@@ -6,14 +6,26 @@ const http = axios.create({
   timeout: 30000,
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/json",
+    // "Content-Type": "application/json",
   },
 });
 
 http.interceptors.request.use((config) => {
+  if (config.data instanceof FormData) {
+    config.headers = {
+      ...config.headers,
+      "Content-Type": "multipart/form-data",
+    };
+  } else {
+    config.headers = {
+      ...config.headers,
+      "Content-Type": "application/json",
+    };
+  }
+
   config.headers = {
     ...config.headers,
-    Authorization: `Bearer ${CookiesStorage.get(CookiesKey.AuthToken) ? CookiesStorage.get(CookiesKey.AuthToken) : ""}`,
+    Authorization: `${CookiesStorage.get(CookiesKey.AuthToken) ? CookiesStorage.get(CookiesKey.AuthToken) : ""}`,
   };
   return config;
 });

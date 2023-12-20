@@ -19,26 +19,34 @@ const beforeUpload = (file) => {
   if (!isJpgOrPng) {
     message.error("You can only upload JPG/PNG file!");
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
+  // Hapus batasan ukuran file
+  return isJpgOrPng;
+  // const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  // if (!isJpgOrPng) {
+  //   message.error("You can only upload JPG/PNG file!");
+  // }
+  // const isLt2M = file.size / 1024 / 1024 < 2;
+  // if (!isLt2M) {
+  //   message.error("Image must smaller than 2MB!");
+  // }
+  // return isJpgOrPng && isLt2M;
 };
 
 export const AkunProfil = () => {
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState("");
+
+  console.log(imageUrl, "image");
 
   //Menu
   const propsMenu = [
     { label: "Profil Saya", link: "/profil", img: iconEdit, textColor: "text-purple-700 font-bold" },
     { label: "Ubah Password", link: "/ubah-password", img: iconSetting, textColor: "text-black " },
     { label: "Riwayat Pembayaran", link: "/riwayat-pembayaran", img: iconCart, textColor: "text-black " },
-    { label: "Keluar", link: "/login", img: iconSignout, textColor: "text-black " },
   ];
 
   const handleChange = (info) => {
+    console.log(info.file, "status");
     if (info.file.status === "uploading") {
       setLoading(true);
       return;
@@ -49,6 +57,12 @@ export const AkunProfil = () => {
         setLoading(false);
         setImageUrl(url);
       });
+      // Get the original file name from the uploaded file
+      // const originalFileName = info.file.originFileObj.name;
+
+      // Set the file name (without the full URL) in state
+      // setLoading(false);
+      // setImageUrl(originalFileName);
     }
   };
   const uploadButton = (
@@ -113,10 +127,6 @@ export const AkunProfil = () => {
                 <div className="flex flex-col gap-1 w-3/4  ">
                   <label className="font-normal text-sm">Nama</label>
                   <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="Nama" />
-                </div>
-                <div className="flex flex-col gap-1 w-3/4">
-                  <label className="font-normal text-sm">Email</label>
-                  <Input className="border rounded-lg hover:border-purple-700" type="email" placeholder="Email" />
                 </div>
                 <div className="flex flex-col gap-1 w-3/4">
                   <label className="font-normal text-sm">No Telepon</label>
