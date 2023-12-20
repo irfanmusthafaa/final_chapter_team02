@@ -14,12 +14,12 @@ import { ResetPass } from "../pages/Auth/ResetPass";
 import { KelasBerjalan } from "../pages/KelasSaya/KelasBerjalan";
 import { TopikKelas } from "../pages/KelasSaya/TopikKelas";
 import { DetailKelasPage } from "../pages/DetailKelas/DetailKelasPage";
-import App from "../assets/components/modal/ModalSatu";
 import { Login } from "../pages/Auth/Login";
 import { Register } from "../pages/Auth/Register";
 import { OTP } from "../pages/Auth/OTP";
 import { NewPass } from "../pages/Auth/NewPass";
 import { PasswordOTP } from "../pages/Auth/PasswordOTP";
+import { ProtectedUser } from "../assets/components/protected/ProtectedUser";
 
 export const RouterList = () => {
   return (
@@ -39,10 +39,18 @@ export const RouterList = () => {
         <Route path="/admin/kelas" element={<AdminKelolaKelas />}></Route>
         <Route path="/reset-password" element={<ResetPass />}></Route>
         <Route path="/otp" element={<OTP />}></Route>
-        <Route path="/KelasSaya/KelasBerjalan" element={<KelasBerjalan />}></Route>
+        <Route path="/KelasSaya/KelasBerjalan" element={
+          <ProtectedUser>
+            <KelasBerjalan />
+          </ProtectedUser>
+        }></Route>
         <Route path="/KelasSaya/TopikKelas" element={<TopikKelas />}></Route>
-        <Route path="/Detailkelas/:classCode" element={<DetailKelasPage />}></Route>
-        <Route path="TesModal" element={<App />}></Route>
+        <Route path="/Detailkelas/:classCode" element={
+          <ProtectedUser>
+            <DetailKelasPage/>
+          </ProtectedUser>
+          
+        }></Route>
         <Route path="/new-password" element={<NewPass />}></Route>
         <Route path="/password-otp" element={<PasswordOTP />}></Route>
       </Routes>

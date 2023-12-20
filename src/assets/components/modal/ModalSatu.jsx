@@ -17,49 +17,39 @@ const ModalSatu = ({ isOpen, onClose, children }) => {
   );
 };
 
-const App = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+// const App = () => {
+//   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+//   const openModal = () => {
+//     setIsModalOpen(true);
+//   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+//   const closeModal = () => {
+//     setIsModalOpen(false);
+//   };
 
-  const contentData = {
-    img: img,
-    title: "UI/UX Design",
-    author: "Angela Doe",
-    deskripsi: "ini mempelajari ui/ux fundamental",
-    rating: "4.5", // Change this to your actual rating
-    level: "Intermediate",
-    modules: 8,
-    durasi: "12",
-  };
 
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <button onClick={openModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Open Modal
-      </button>
+//   return (
+//     <div className="flex items-center justify-center min-h-screen">
+//       <button onClick={openModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+//         Open Modal
+//       </button>
 
-      <ModalSatu isOpen={isModalOpen} onClose={closeModal}>
-        <div className="">
-          <div className="font-bold mb-4 text-center">
-            <p>Selangkah Lagi Menuju</p>
-            <p className="text-purple-900">Menuju Premium</p>
-          </div>
+//       <ModalSatu isOpen={isModalOpen} onClose={closeModal}>
+//         <div className="">
+//           <div className="font-bold mb-4 text-center">
+//             <p>Selangkah Lagi Menuju</p>
+//             <p className="text-purple-900">Menuju Premium</p>
+//           </div>
 
-          <CardModal {...contentData} />
-          <div className="flex items-center justify-center mt-8">
-            <CustomButtonSatu button_text="Beli Sekarang" iconPath={next} onClick={closeModal} />
-          </div>
-        </div>
-      </ModalSatu>
-    </div>
-  );
-};
+//           <CardModal {...contentData} />
+//           <div className="flex items-center justify-center mt-8">
+//             <CustomButtonSatu button_text="Beli Sekarang" iconPath={next} onClick={closeModal} />
+//           </div>
+//         </div>
+//       </ModalSatu>
+//     </div>
+//   );
+// };
 
-export default App;
+// export default App;

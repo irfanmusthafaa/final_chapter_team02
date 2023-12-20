@@ -1,6 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
-export const CustomButtonDua = ({ button_text, iconPath, onClick }) => {
+export const CustomButtonDua = ({ button_text, iconPath, onClick}) => {
   return (
     <button
       size="large"
@@ -8,7 +9,7 @@ export const CustomButtonDua = ({ button_text, iconPath, onClick }) => {
       onClick={onClick}
     >
       {button_text}
-      {iconPath && <img src={iconPath} alt="Icon" className="ms-1 h-4 color-white" />}
+      {iconPath && <img src={iconPath} alt="Icon" className="ms-1 h-5 color-white" />}
     </button>
   )
 }

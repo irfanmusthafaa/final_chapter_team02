@@ -11,6 +11,7 @@ export const API_ENDPOINT = {
   DATA_CATEGORY: "/api/v1/category",
   DATA_CLASS: "/api/v1/class",
   PAYMENT_USER: "/api/v1/payment",
+  DATA_LESSON: "api/v1/lesson",
   ADMIN_LOGIN: "/api/v1/auth/login-admin",
   EDIT_PROFILE_USER: "/api/v1/user",
   GET_NOTIFICATION_ALL: "/api/v1/notifications",

@@ -1,34 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Nav } from '../../assets/components/Nav'
 import { CustomButtonSatu } from '../../assets/components/button/CustomButtonSatu'
-import img from "../../assets/images/kursus.png";
 import chat from '../../assets/images/icon/gridicons_chat.svg'
 import { BackLink } from '../../assets/components/link/BackLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay, faLock, faPlay } from '@fortawesome/free-solid-svg-icons'
-import { BarProgres } from '../../assets/components/barProgres';
 import { useParams } from 'react-router-dom';
 import { useClassDetailQuery } from '../../services/class/get-detail-class';
 import { CustomButtonDua } from '../../assets/components/button/CustomButtonDua';
 import { CardDaftarMateri } from '../../assets/components/card/CardDaftarMateri';
-
+import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
+import next from "../../assets/images/icon/circle-arrow-right-solid.svg";
+import { CardModal } from '../../assets/components/card/CardModal';
 
 export const DetailKelasPage = () => {
 
-  
-  const materiChapterSatu = [
-  { id: 1, name: 'Tujuan Mengikuti kelas design system' },
-  { id: 2, name: 'Pengenalan design system' },
-  
-];
-
-const materiChapterDua = [
-  { id: 1, name: 'Color Pallet' },
-  { id: 2, name: 'Layouting, Typograpi dan Grid' },
-  { id: 3, name: 'Membuat Components' },
-  
-  
-];
 
 const { classCode } = useParams();
 
@@ -36,17 +21,38 @@ const [Class, setClass] = useState([]);
 
 const { data: dataClass } = useClassDetailQuery(classCode); 
 
+const [id, setId] = useState([]);
+
+const [lesson, setLesson] = useState([]);
+
+const { data: dataLesson } = useLessonDetailQuery(id); 
+
 useEffect(() => {
-  if (dataClass) {
-    setClass(dataClass);
-  }
-}, [dataClass]);
+    if (dataClass) {
+        setClass(dataClass);
+    }
+
+    if (dataLesson) {
+        setLesson(dataLesson);
+    }
+}, [dataClass, dataLesson]);
 
 const openTelegramLink = () => {
     window.open(Class.linkSosmed, "_blank");
 };
 
-   
+const VideoUrl = 'https://www.youtube.com/embed/xsqqEGaRyAg?controls=0';
+// const VideoUrl = lesson.linkLearningMaterial;
+
+const semuaChapterIsPreview = Class.chapters?.every((chapter) => chapter.is_preview);
+
+if (semuaChapterIsPreview) {
+  console.log('Oke, semua chapter memiliki is_preview bernilai true.');
+} else {
+  console.log(semuaChapterIsPreview,'Tidak semua chapter memiliki is_preview bernilai true.');
+}
+
+const [isModalOpen, setIsModalOpen] = useState(false);
   
   return (
     <div className='bg-white'>
@@ -122,9 +128,15 @@ const openTelegramLink = () => {
                 </div>
             </div>
 
-            <CardDaftarMateri 
+            <CardDaftarMateri
                 Kelas={Class}
+                setIsModalOpen={setIsModalOpen}
+                Id={id} 
+
+                setId={setId}
             />
+
+            {console.log(lesson, "ini lesson untuk video")}
 
 
             <div className='flex flex-col h-screens items-center justify-center px-[5%]'>
@@ -132,23 +144,20 @@ const openTelegramLink = () => {
                 <div className='flex flex-row px-4'>
                     <div className='flex flex-col bg-white w-[55%] gap-8 '>
                         <div className='flex justify-center items-center bg-current h-[327px] rounded-2xl mt-8'>
-                            <button
-                                className="flex items-center justify-center bg-purple-700 border-none h-[63px] w-[63px] rounded-full p-3 hover:bg-purple-900 hover:border-none focus:outline-none shadow-sm transition-transform transform hover:scale-105"
-                            >
-                                <div className='flex justify-center items-center rounded-md border-white w-10 h-6' style={{ border: "3px solid #ffffff" }}>
-                                    <FontAwesomeIcon icon={faPlay} className="text-white h-5 w-5 ml-1"/>
-                                </div>
-                                
-                            </button>
+
+                            <iframe
+                                className="w-full h-full rounded-2xl"
+                                src={VideoUrl}
+                                title="YouTube Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </div>
                         <div className='mt-0 pt-0'>
                             <h3 className='mb-3'>Tentang kelas</h3>
                             <p className='text-left text-sm'> 
-                            <span className='ml-4'>Design system adalah kumpulan komponen design, code, ataupun dokumentasi yang dapat digunakan sebagai panduan utama yang memunginkan designer serta developer memiliki lebih banyak kontrol atas berbagai platform.</span> 
-                            <br/>
-                            <span className='ml-4'>Dengan hadirnya design system, dapat menjaga konsistensi tampilan user interface dan meningkatkan user experience menjadi lebih baik.</span> Disisi bisnis, design system sangat berguna dalam menghemat waktu dan biaya ketika mengembangkan suatu produk. Bersama mentor XXX, kita akan mempelajari design system dari mulai manfaat, alur kerja pembuatannya, tools yang digunakan, hingga pada akhirnya, kita akan membuat MVP dari design system. 
-                            <br />
-                            <span className='ml-4'>Selain itu, mentor juga akan menjelaskan berbagai resource yang dibutuhkan untuk mencari inspirasi mengenai design system. Kelas ini sesuai untuk Anda yang ingin memahami apa itu design system. Tidak hanya ditujukan untuk UI/UX Designer ataupun Developer, kelas ini sangat sesuai untuk stakeholder lain agar dapat memudahkan tim dalam bekerja sama. Yuk segera daftar dan kami tunggu di kelas ya!</span>
+                                {Class.description}
                             </p>
                         </div>
                         <div className=''>
@@ -172,6 +181,23 @@ const openTelegramLink = () => {
             </div>
 
         </div>
+
+         {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-8 max-w-md w-full rounded-xl">
+                        <div className="font-bold text-xl mb-4 text-center">
+                            <p>Selangkah Lagi Menuju</p>
+                            <p className="text-purple-900">Kelas Premium</p>
+                        </div>
+
+                        <CardModal Class={Class} />
+                        <div className="flex items-center justify-center mt-8">
+                            <CustomButtonDua button_text="&nbsp;&nbsp;&nbsp;&nbsp;Beli Sekarang&nbsp;&nbsp;&nbsp;&nbsp;" iconPath={next} onClick={() => setIsModalOpen(false)} />
+                        </div>
+                    </div>
+                </div>
+            )}
     </div>
   )
 }
