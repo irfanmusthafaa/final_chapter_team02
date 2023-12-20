@@ -78,10 +78,8 @@ export const TopikKelas = () => {
                                     <img src={searchIcon} alt="Search Icon" className="h-6 w-6 cursor-pointer" />
                                 </div>
                             </button>
-                            
                         </div>
-                         
-                      
+              
                     </div>
                     
                 </div>
@@ -104,11 +102,11 @@ export const TopikKelas = () => {
                             // setIsFree={setIsFree}
                         />
 
-                        {console.log(Kategori, "ini Kategori ")}
+                        {/* {console.log(Kategori, "ini Kategori ")}
                         {console.log(Level, "ini Level ")}
                         {console.log(Latest, "ini yang terbaru ")}
                         {console.log(Popular, "ini Popular ")}
-                        {console.log(Promo, "ini Promo ")}
+                        {console.log(Promo, "ini Promo ")} */}
                     </div>
                     <div className=''>
                         
@@ -116,13 +114,13 @@ export const TopikKelas = () => {
                             <NavButton button_text="ALL" onClick={() => handleButtonClick('ALL')} isActive={activeButton === 'ALL'}/>
                             <NavButton button_text="Kelas Premium" onClick={() => handleButtonClick('Kelas Premium')} isActive={activeButton === 'Kelas Premium'}/>
                             <NavButton button_text="Kelas Gratis" onClick={() => handleButtonClick('Kelas Gratis')} isActive={activeButton === 'Kelas Gratis'}/>
-                            {console.log(IsFree, "ini is free")}
+                            {/* {console.log(IsFree, "ini is free")} */}
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
 
-                            {Class?.map((item, index) => (
-                                <CardTopikKelas key={index} class={item} category={Category} free={IsFree}/>
-                            ))}
+                          {Class?.map((item, index) => (
+                            <CardTopikKelas key={index} class={item} category={Category} free={IsFree}/>
+                          ))}
                             
                         </div>
                     </div>

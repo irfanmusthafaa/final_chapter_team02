@@ -149,7 +149,7 @@ export const FilterKelas = (props) => {
                     <Checkbox
                       value='Beginner' 
                       onChange={handleCheckboxLevel}
-                      checked={Level.includes('Beginder')}
+                      checked={Level.includes('Beginner')}
                     >Beginder Level</Checkbox>
                 </li>
                 <li>
