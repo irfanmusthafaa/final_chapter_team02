@@ -8,9 +8,11 @@ import iconPrefix from "../../assets/images/icon-prefix2.png";
 import { TableDashboard } from "../../assets/components/Admin/TableDashboard";
 
 export const AdminDashboard = () => {
-  const dashboardMenus = [
+  const menus = [
     { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-purple-500" },
+    { label: "Kategori", link: "/admin/kategori", bgColor: "bg-transparent" },
     { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-transparent" },
+    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-transparent" },
   ];
 
   const handleMenuClick = (e) => {
@@ -42,7 +44,7 @@ export const AdminDashboard = () => {
 
   return (
     <div className="w-full flex">
-      <SideBar menus={dashboardMenus} />
+      <SideBar menus={menus} />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
         <div className="px-16 my-16">

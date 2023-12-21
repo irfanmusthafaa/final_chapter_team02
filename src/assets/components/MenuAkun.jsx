@@ -16,7 +16,7 @@ export const MenuAkun = ({ menus }) => {
           key={index}
           href={menu.link}
           style={{ borderBottom: "1px solid rgb(209 213 219)" }}
-          className={`py-4 no-underline text-base flex  items-center gap-3 ${menu.textColor}  hover:font-bold`}
+          className={`py-4 no-underline text-base flex  items-center gap-1 md:gap-3 ${menu.textColor} hover:font-bold`}
         >
           <img src={menu.img} alt="ic edit" />
           {menu.label}
