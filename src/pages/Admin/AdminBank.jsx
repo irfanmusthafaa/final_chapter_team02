@@ -1,50 +1,45 @@
-import { useEffect, useState } from "react";
-import { SideBar } from "../../assets/components/Admin/SideBar";
+import React, { useEffect, useState } from "react";
 import { NavbarAdmin } from "../../assets/components/Admin/NavbarAdmin";
-import { Card } from "../../assets/components/Admin/Card";
-import { Input, Modal } from "antd";
+import { Modal } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import searchIcon from "../../assets/images/icon-search3.png";
-import { TableKategori } from "../../assets/components/Admin/category/TableKategori";
-import { ModalTambahKategori } from "../../assets/components/Admin/category/ModalTambahKategori";
-import { useCategoryDataQuery } from "../../services/category/get-data-category";
-const { TextArea } = Input;
+import { SideBar } from "../../assets/components/Admin/SideBar";
+import { Card } from "../../assets/components/Admin/Card";
+import { useGetBank } from "../../services/admin/bank/get-bank";
+import { TableBank } from "../../assets/components/Admin/bank/TableBank";
+import { ModalTambahBank } from "../../assets/components/Admin/bank/ModalTambahBank";
 
-export const AdminKategori = () => {
+export const AdminBank = () => {
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [Category, setCategory] = useState([]);
+  const [Bank, setBank] = useState([]);
 
-  const { data: dataCategory, isLoading, isError } = useCategoryDataQuery();
+  const { data: dataBank, isLoading, isError } = useGetBank();
+
+  console.log(Bank, "banks");
 
   useEffect(() => {
     if (!isLoading && !isError) {
-      setCategory(dataCategory || []); // Use an empty array if dataCategory is falsy
+      setBank(dataBank || []);
     }
-  }, [dataCategory, isLoading, isError]);
+  }, [dataBank, isLoading, isError]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
-
-  const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e);
-  };
-
   return (
     <div className="w-full flex">
       <SideBar />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
-        <div className="px-16 my-16">
+        <div className="px-16  my-16">
           <Card />
         </div>
         <div className="px-16 my-16">
           <div className="flex justify-between mb-5">
-            <h3>Kategori</h3>
+            <h3>Bank</h3>
             <div className="flex justify-between items-center gap-3">
               <button
                 className="flex justify-between gap-2 border-none  text-white bg-purple-700 hover:bg-purple-900 cursor-pointer rounded-full p-3 "
@@ -69,10 +64,9 @@ export const AdminKategori = () => {
               </div>
             </div>
           </div>
-          {/* Tabel */}
-          <TableKategori searchTerm={searchTerm} Category={Category} setOpenUpdate={setOpenUpdate} />
+          <TableBank searchTerm={searchTerm} Bank={Bank} setOpenUpdate={setOpenUpdate} />
           <Modal centered open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} footer={null} width={700} className="mt-10">
-            <ModalTambahKategori />
+            <ModalTambahBank />
           </Modal>
         </div>
       </div>
