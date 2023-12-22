@@ -25,6 +25,10 @@ export const DetailPembayaran = () => {
   const [isCollapse, setCollapse] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const handlePembayaran = () => {
+    setCollapse(!isCollapse);
+  }
+
   const handleBayar = () => {
     window.location.href = "/sukses-pembayaran";
   };
