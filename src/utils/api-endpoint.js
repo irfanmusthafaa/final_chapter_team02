@@ -14,4 +14,5 @@ export const API_ENDPOINT = {
   EDIT_PROFILE_USER: "/api/v1/user",
   GET_NOTIFICATION_ALL: "/api/v1/notifications",
   DATA_CHAPTER: "/api/v1/chapter",
+  PAYMENT_USER: "/api/v1/payment",
 };

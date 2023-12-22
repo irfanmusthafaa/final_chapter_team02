@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const NavButton = ( {button_text, onClick, isActive} ) => {
-  console.log(isActive, "ini activ yang dikirim")
+  // console.log(isActive, "ini activ yang dikirim")
   return (
     <button
       size="large"

@@ -1,28 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BarProgres } from '../../barProgres'
+import { Link } from 'react-router-dom';
 // import img from '{imgPath}';
 
-export const CardKelasBerjalan = ({ img, title, author, rating, deskripsi, level, modules, durasi }) => {
+export const CardKelasBerjalan = (props) => {
+
+    const [Class, setClass] = useState(props.class);
+    const [Categori, setCategori] = useState(props.categori);
     
-    console.log(img, "ini gambar")
   return (
-        <div className="flex flex-col bg-white border-2  rounded-3xl w-full">
-            <img src={img} alt="img" className='object-cover h-auto'/>
-            <div className="px-4 my-4">
+        <div className="flex flex-col bg-white border-2  w-[22rem] rounded-3xl overflow-hidden max-h-64">
+            <Link className="text-xl font-semibold mb-2" to={`/Detail/${props.classCode}`}>
+            <img src={Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
+            <div className="px-4 mb-3 mt-1">
                 <div className="flex justify-between items-center">
-                    <p className="text-purple-700 font-bold ">{title}</p>
+                    <p className="text-purple-700 font-bold ">{Categori} #category</p>
                     <p className="text-xs flex justify-center items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path
                             d="M7.0001 10.0742L9.42094 11.5384C9.86427 11.8067 10.4068 11.41 10.2901 10.9084L9.64844 8.15503L11.7893 6.30003C12.1801 5.96169 11.9701 5.32003 11.4568 5.27919L8.63927 5.04003L7.53677 2.43836C7.33844 1.96586 6.66177 1.96586 6.46344 2.43836L5.36094 5.03419L2.54344 5.27336C2.0301 5.31419 1.8201 5.95586 2.21094 6.29419L4.35177 8.14919L3.7101 10.9025C3.59344 11.4042 4.13594 11.8009 4.57927 11.5325L7.0001 10.0742Z"
                             fill="#F9CC00"
                         />
-                        </svg>{" "}
-                        {rating}
+                        </svg>
+                        {"#rating"}
                     </p>
                 </div>
-                <p className="text-black font-bold mt-1">{deskripsi}</p>
-                <p className="text-black text-sm mt-1">By:{author}</p>
+                <p className="text-black font-bold mt-1">{Class.className}</p>
+                <p className="text-black text-sm mt-1">By:{'#author'}</p>
                 <div className="flex gap-5 text-xs mt-1">
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -31,7 +35,7 @@ export const CardKelasBerjalan = ({ img, title, author, rating, deskripsi, level
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold text-purple-900">{level}</p>
+                        <p className="font-semibold text-purple-900">{Class.levelName}</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -48,7 +52,7 @@ export const CardKelasBerjalan = ({ img, title, author, rating, deskripsi, level
                             </clipPath>
                         </defs>
                         </svg>
-                        <p className="font-semibold">{modules}</p>
+                        <p className="font-semibold">{'#10'}</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -57,14 +61,15 @@ export const CardKelasBerjalan = ({ img, title, author, rating, deskripsi, level
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold">{durasi} Menit</p>
+                        <p className="font-semibold">{'#120'} Menit</p>
                     </div>
                 </div>
-                <div>
+                <div className='mt-1'>
                                         {/* garis persentasase */}
                     <BarProgres/>
                 </div>
             </div>
+            </Link>
         </div>
         
     
