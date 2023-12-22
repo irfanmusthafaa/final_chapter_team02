@@ -31,7 +31,11 @@ export const RouterList = () => {
         <Route path="/" element={<Beranda />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/detail-pembayaran" element={<DetailPembayaran />}></Route>
+        <Route path="/detail-pembayaran/:classCode" element={
+           <ProtectedUser>
+              <DetailPembayaran/>
+            </ProtectedUser>
+        }></Route>
         <Route path="/sukses-pembayaran" element={<SuksesPembayaran />}></Route>
         <Route path="/notifikasi" element={<Notifikasi />}></Route>
         <Route path="/profil" element={<AkunProfil />}></Route>

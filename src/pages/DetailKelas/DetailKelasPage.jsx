@@ -4,7 +4,7 @@ import { CustomButtonSatu } from '../../assets/components/button/CustomButtonSat
 import chat from '../../assets/images/icon/gridicons_chat.svg'
 import { BackLink } from '../../assets/components/link/BackLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useClassDetailQuery } from '../../services/class/get-detail-class';
 import { CustomButtonDua } from '../../assets/components/button/CustomButtonDua';
 import { CardDaftarMateri } from '../../assets/components/card/CardDaftarMateri';
@@ -14,6 +14,8 @@ import { CardModal } from '../../assets/components/card/CardModal';
 
 export const DetailKelasPage = () => {
 
+
+const navigate = useNavigate();
 
 const { classCode } = useParams();
 
@@ -51,6 +53,10 @@ if (semuaChapterIsPreview) {
 } else {
   console.log(semuaChapterIsPreview,'Tidak semua chapter memiliki is_preview bernilai true.');
 }
+
+const handleBeliSekarang = () => {
+    navigate(`/detail-pembayaran/${classCode}`);
+};
 
 const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -185,7 +191,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
          {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <p onClick={() => setIsModalOpen(false)}>tutup</p>
                     <div className="bg-white p-8 max-w-md w-full rounded-xl">
+                        
                         <div className="font-bold text-xl mb-4 text-center">
                             <p>Selangkah Lagi Menuju</p>
                             <p className="text-purple-900">Kelas Premium</p>
@@ -193,7 +201,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
                         <CardModal Class={Class} />
                         <div className="flex items-center justify-center mt-8">
-                            <CustomButtonDua button_text="&nbsp;&nbsp;&nbsp;&nbsp;Beli Sekarang&nbsp;&nbsp;&nbsp;&nbsp;" iconPath={next} onClick={() => setIsModalOpen(false)} />
+                            <CustomButtonDua button_text="&nbsp;&nbsp;&nbsp;&nbsp;Beli Sekarang&nbsp;&nbsp;&nbsp;&nbsp;" iconPath={next} onClick={handleBeliSekarang} />
                         </div>
                     </div>
                 </div>

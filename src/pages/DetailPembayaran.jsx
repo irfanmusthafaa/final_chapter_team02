@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleRight,
@@ -18,11 +18,19 @@ import image8 from "../assets/img/mandiri.png";
 import { Navbar } from "../assets/components/Navbar";
 import img from "../assets/images/kursus.png";
 import { Input, Radio, Select } from "antd";
+import { useBankDataQuery } from "../services/bank/get-data-bank";
 
 export const DetailPembayaran = () => {
   const style = { color: "#ffff" };
 
-  const [isCollapse, setCollapse] = useState(false);
+  const [metode, setMetode] = useState(true);
+  const handleRadioChange = (e) => {
+    const value = e.target.value === 'transfer';
+    setMetode(value);
+  };
+
+  
+
   const [open, setOpen] = useState(false);
 
   const handleBayar = () => {
@@ -30,9 +38,46 @@ export const DetailPembayaran = () => {
   };
 
   const handleSimpan = () => {
+    //untuk post payment
     setOpen(false);
   };
 
+  const { data: dataBank } = useBankDataQuery();
+  const [Bank, setBank] = useState([]);
+
+   
+
+  const [selectedBank, setSelectedBank] = useState(null);
+  const [namaRekening, setNamaRekening] = useState('');
+  const [noRekening, setNoRekening] = useState('');
+  const handleBankChange = (value) => {
+   setSelectedBank(value);
+
+   
+
+    //  if (!dataBank || error) {
+    //   return;
+    // }
+    // Temukan objek bank berdasarkan ID
+  const selectedBankData = Bank.find((bank) => bank.id === parseInt(value, 10));
+  console.log(selectedBankData, "ini valuenya")
+
+  // Jika data bank ditemukan, atur nama rekening sesuai dengan rekeningName
+  if (selectedBankData) {
+    setNamaRekening(selectedBankData.bankName);
+    setNoRekening(selectedBankData.bankNumber);
+  } else {
+    // Jika data bank tidak ditemukan, atur nama rekening menjadi kosong atau nilai default
+    setNamaRekening('');
+  }
+  };
+
+
+  useEffect(()=>{
+        setBank(dataBank);
+        
+        
+    }, [dataBank, namaRekening])
   return (
     <div>
       <Navbar />
@@ -65,30 +110,94 @@ export const DetailPembayaran = () => {
             </h2>
             <div className="w-full flex flex-col  gap-3 ">
               <label className="font-semibold text-sm">
-                Bank Transfer / Credit Card{" "}
+                PIlih Metode Pembayaran
               </label>
-              <Radio.Group
-                // onChange={(e) => setIsFree(e.target.value === "gratis")}
-                defaultValue="gratis"
-              >
-                <Radio
-                  value="gratis"
-                  //   onChange={(e) => setIsFree(e.target.checked)}
-                >
-                  Bank Transfer
-                </Radio>
-                <Radio value="premium">Credit Card</Radio>
+              <Radio.Group onChange={handleRadioChange} defaultValue="transfer">
+                <Radio value="transfer">Bank Transfer</Radio>
+                <Radio value="creditCard">Credit Card</Radio>
               </Radio.Group>
-              <div className="flex flex-col gap-1">
-                <label className="font-semibold text-sm">
-                  Nama Bank / Credit Card
-                </label>
-                <Select
-                  className="border rounded-lg hover:border-purple-700"
-                  placeholder="Nama Bank / Credit Card"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
+
+              {metode ? ( // Jika Metode true, tampilkan ini
+                <>
+                  <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-sm">
+                      Jenis Bank
+                    </label>
+                    <Select
+                      className="border rounded-lg hover:border-purple-700"
+                      placeholder="Pilih Bank"
+                      onChange={handleBankChange}
+                      value={selectedBank}
+                    >
+                      {Bank?.map((bank) => (
+                        <Select.Option key={bank.id} value={bank.id}>
+                          {bank.bankType}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-sm">Nama Rekening</label>
+                    <Input
+                      id="namaRekening"
+                      className="border rounded-lg hover:border-purple-700"
+                      type="text"
+                      placeholder="Jika memilih Bank Transfer diisi (-)"
+                      value={namaRekening}
+                      readOnly
+                    />
+                    {console.log(namaRekening, "ini namaynay")}
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-sm">No Rekening</label>
+                    <Input
+                      id="noRekening"
+                      className="border rounded-lg hover:border-purple-700"
+                      type="text"
+                      placeholder="Jika memilih Bank Transfer diisi (-)"
+                      value={noRekening}
+                      readOnly
+                    />
+                  </div>
+
+                   <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-sm">Nama Rekening Kamu</label>
+                    <Input
+                      id="noRekening"
+                      className="border rounded-lg hover:border-purple-700"
+                      type="text"
+                      placeholder="Masukan nama rekening kamu yang digunakan untuk membayar"
+                    />
+                  </div>
+                </>
+              ) : ( // Jika Metode false, tampilkan ini
+                <>
+                  <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-sm">Nama Kartu Kredit</label>
+                    <Input
+                      id="namaKartuKredit"
+                      className="border rounded-lg hover:border-purple-700"
+                      type="text"
+                      placeholder="Jika memilih Bank Transfer diisi (-)"
+                      value="tes"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="font-semibold text-sm">No Kartu Kredit</label>
+                    <Input
+                      id="noKartuKredit"
+                      className="border rounded-lg hover:border-purple-700"
+                      type="text"
+                      placeholder="Jika memilih Bank Transfer diisi (-)"
+                      value="tes"
+                      readOnly
+                    />
+                  </div>
+                </>
+              )}
+              
+              {/* <div className="flex flex-col gap-1">
                 <label className="font-semibold text-sm">
                   Input Credit Card Number
                 </label>
@@ -98,11 +207,11 @@ export const DetailPembayaran = () => {
                   type="text"
                   placeholder="Jika memilih Bank Transfer diisi (-)"
                 />
-              </div>
+              </div> */}
             </div>
             <div className="flex gap-2 mt-4">
               <button className="w-full py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2" onClick={handleSimpan}>
-                Simpan
+                Bayar Sekarang
               </button>
             </div>
           </div>
@@ -113,7 +222,9 @@ export const DetailPembayaran = () => {
       <div className="md:flex w-full hidden">
         <div className="px-[10rem] py-[1.5rem] flex flex-row justify-center gap-10 w-full">
           {/* card */}
-          {!isCollapse && (
+    
+
+    {/* batas */}
             <div className="flex flex-col w-1/3">
               <button className="border-purple-700 rounded-xl h-fit flex flex-col gap-3 p-3 bg-transparent">
                 <label className="font-bold text-xl">Pembayaran Kelas</label>
@@ -166,143 +277,15 @@ export const DetailPembayaran = () => {
                 </div>
               </button>
             </div>
-          )}
+          
           {/* collapse */}
-          {isCollapse && (
-            <div className="flex flex-col gap-2 w-2/3">
-              <Collapse
-                className="bg-black"
-                size="small"
-                expandIconPosition="end"
-                expandIcon={({ isActive }) =>
-                  isActive ? (
-                    <FontAwesomeIcon style={style} icon={faChevronUp} />
-                  ) : (
-                    <FontAwesomeIcon style={style} icon={faChevronDown} />
-                  )
-                }
-                items={[
-                  {
-                    key: "1",
-                    label: (
-                      <p className="text-white font-semibold">Bank Transfer</p>
-                    ),
-                    children: (
-                      <div>
-                        <div className="flex flex-row justify-center items-center gap-4">
-                          <img
-                            src={image5}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image6}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image7}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image8}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                        </div>
-                        <div className="flex flex-col md:px-[3rem] py-[1.5rem] gap-3">
-                          <label className="font-semibold text-lg">
-                            Account Number
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <label className="font-semibold text-lg">
-                            User Name
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <button
-                            className="bg-[#FF0000] border-0 rounded-xl text-white h-8 text-base mt-5 hover:bg-[#73CA5C]"
-                            onClick={handleBayar}
-                          >
-                            Bayar
-                          </button>
-                        </div>
-                      </div>
-                    ),
-                  },
-                ]}
-              />
-              <Collapse
-                className="bg-purple-700"
-                size="small"
-                expandIconPosition="end"
-                expandIcon={({ isActive }) =>
-                  isActive ? (
-                    <FontAwesomeIcon style={style} icon={faChevronUp} />
-                  ) : (
-                    <FontAwesomeIcon style={style} icon={faChevronDown} />
-                  )
-                }
-                items={[
-                  {
-                    key: "1",
-                    label: (
-                      <p className="text-white font-semibold">Credit Card</p>
-                    ),
-                    children: (
-                      <div>
-                        <div className="flex flex-row justify-center items-center gap-4">
-                          <img
-                            src={image1}
-                            className="w-[2.5rem] h-[2rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image2}
-                            className="w-[3rem] h-[2rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image3}
-                            className="w-[3rem] h-[2rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image4}
-                            className="w-[3rem] h-[1rem]"
-                            alt=""
-                          />
-                        </div>
-                        <div className="flex flex-col md:px-[3rem] py-[1.5rem] gap-3">
-                          <label className="font-semibold text-lg">
-                            Card Number
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <label className="font-semibold text-lg">
-                            Card Name
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <button
-                            className="bg-[#FF0000] border-0 rounded-xl text-white h-8 text-base mt-5 hover:bg-[#73CA5C]"
-                            onClick={handleBayar}
-                          >
-                            Bayar
-                          </button>
-                        </div>
-                      </div>
-                    ),
-                  },
-                ]}
-              />
-            </div>
-          )}
+          
         </div>
       </div>
       {/* mobile */}
       <div className="md:hidden w-full">
         <div className="px-[1.5rem] md:px-[10rem] py-[1.5rem] flex flex-col md:flex-row md:gap-10 gap-2">
           {/* card */}
-          {!isCollapse && (
             <div className="flex flex-col md:w-1/3">
               <button className="border-purple-700 rounded-xl h-fit flex flex-col gap-3 p-3 bg-transparent">
                 <label className="font-bold text-xl">Pembayaran Kelas</label>
@@ -355,136 +338,9 @@ export const DetailPembayaran = () => {
                 </div>
               </button>
             </div>
-          )}
-          {/* collapse */}
-          {isCollapse && (
-            <div className="flex flex-col gap-2 w-full md:w-2/3">
-              <Collapse
-                className="bg-black"
-                size="small"
-                expandIconPosition="end"
-                expandIcon={({ isActive }) =>
-                  isActive ? (
-                    <FontAwesomeIcon style={style} icon={faChevronUp} />
-                  ) : (
-                    <FontAwesomeIcon style={style} icon={faChevronDown} />
-                  )
-                }
-                items={[
-                  {
-                    key: "1",
-                    label: (
-                      <p className="text-white font-semibold">Bank Transfer</p>
-                    ),
-                    children: (
-                      <div>
-                        <div className="flex flex-row justify-center items-center gap-4">
-                          <img
-                            src={image5}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image6}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image7}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image8}
-                            className="w-[3rem] h-[1.3rem]"
-                            alt=""
-                          />
-                        </div>
-                        <div className="flex flex-col md:px-[3rem] py-[1.5rem] gap-3">
-                          <label className="font-semibold text-lg">
-                            Account Number
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <label className="font-semibold text-lg">
-                            User Name
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <button
-                            className="bg-[#FF0000] border-0 rounded-xl text-white h-8 text-base mt-5 hover:bg-[#73CA5C]"
-                            onClick={handleBayar}
-                          >
-                            Bayar
-                          </button>
-                        </div>
-                      </div>
-                    ),
-                  },
-                ]}
-              />
-              <Collapse
-                className="bg-purple-700"
-                size="small"
-                expandIconPosition="end"
-                expandIcon={({ isActive }) =>
-                  isActive ? (
-                    <FontAwesomeIcon style={style} icon={faChevronUp} />
-                  ) : (
-                    <FontAwesomeIcon style={style} icon={faChevronDown} />
-                  )
-                }
-                items={[
-                  {
-                    key: "1",
-                    label: (
-                      <p className="text-white font-semibold">Credit Card</p>
-                    ),
-                    children: (
-                      <div>
-                        <div className="flex flex-row justify-center items-center gap-4">
-                          <img
-                            src={image1}
-                            className="w-[2.5rem] h-[2rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image2}
-                            className="w-[3rem] h-[2rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image3}
-                            className="w-[3rem] h-[2rem]"
-                            alt=""
-                          />
-                          <img
-                            src={image4}
-                            className="w-[3rem] h-[1rem]"
-                            alt=""
-                          />
-                        </div>
-                        <div className="flex flex-col md:px-[3rem] py-[1.5rem] gap-3">
-                          <label className="font-semibold text-lg">
-                            Card Number
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <label className="font-semibold text-lg">
-                            Card Name
-                          </label>
-                          <input className="border-b-1 border-t-0 border-l-0 border-r-0 border-[#D0D0D0]"></input>
-                          <button
-                            className="bg-[#FF0000] border-0 rounded-xl text-white h-8 text-base mt-5 hover:bg-[#73CA5C]"
-                            onClick={handleBayar}
-                          >
-                            Bayar
-                          </button>
-                        </div>
-                      </div>
-                    ),
-                  },
-                ]}
-              />
-            </div>
-          )}
+              
+              {/* collapse */}
+          
         </div>
       </div>
     </div>
