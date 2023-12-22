@@ -7,7 +7,7 @@ export const MenuAkun = ({ menus }) => {
   const handleLogout = () => {
     CookiesStorage.remove(CookiesKey.AuthToken);
     CookiesStorage.remove(CookiesKey.User);
-    window.location.href = "/login";
+    window.location.href = "/";
   };
   return (
     <div className="flex flex-col ">

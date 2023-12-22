@@ -84,10 +84,10 @@ export const KursusPopuler = () => {
         </div>
         {/* filter mobile */}
         <div className="flex flex-wrap gap-1 justify-center w-full md:hidden">
-          <div className="slider-container pl-3">
+          <div className="flex slider-container pl-3">
             <div
               className="slider"
-              style={{ transform: `translateX(-${currentCategory * 100}%)` }}
+              style={{ transform: `translateX(-${currentCategory * 50}%)` }}
             >
               <button
                 onClick={() => setFilterCategory("")}
