@@ -35,13 +35,6 @@ export const AdminKelolaKelas = () => {
     setSearchTerm(e.target.value);
   };
 
-  const kelasMenus = [
-    { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-transparent" },
-    { label: "Kategori", link: "/admin/kategori", bgColor: "bg-transparent" },
-    { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-purple-500" },
-    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-transparent" },
-  ];
-
   const handleMenuClick = (e) => {
     message.info("Click on menu item.");
     console.log("click", e);
@@ -71,7 +64,7 @@ export const AdminKelolaKelas = () => {
 
   return (
     <div className="w-full flex">
-      <SideBar menus={kelasMenus} />
+      <SideBar />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
         <div className="px-16 my-16">

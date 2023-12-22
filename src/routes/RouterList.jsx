@@ -23,6 +23,8 @@ import { PasswordOTP } from "../pages/Auth/PasswordOTP";
 import { AdminKategori } from "../pages/Admin/AdminKategori";
 import { ProtectedAdmin } from "../assets/components/Admin/ProtectedAdmin";
 import { AdminChapter } from "../pages/Admin/AdminChapter";
+import { AdminLesson } from "../pages/Admin/AdminLesson";
+import { AdminBank } from "../pages/Admin/AdminBank";
 
 export const RouterList = () => {
   return (
@@ -76,6 +78,22 @@ export const RouterList = () => {
           element={
             <ProtectedAdmin>
               <AdminChapter />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/lesson"
+          element={
+            <ProtectedAdmin>
+              <AdminLesson />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/bank"
+          element={
+            <ProtectedAdmin>
+              <AdminBank />
             </ProtectedAdmin>
           }
         ></Route>
