@@ -11,6 +11,8 @@ import { CardDaftarMateri } from '../../assets/components/card/CardDaftarMateri'
 import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
 import next from "../../assets/images/icon/circle-arrow-right-solid.svg";
 import { CardModal } from '../../assets/components/card/CardModal';
+import { joinMyClass, useJoinClassQuery } from '../../services/class/join-my-class';
+import { useMutation } from '@tanstack/react-query';
 
 export const DetailKelasPage = () => {
 
@@ -21,11 +23,17 @@ const [Class, setClass] = useState([]);
 
 const { data: dataClass } = useClassDetailQuery(classCode); 
 
-const [id, setId] = useState([]);
+const [selectedLesson, setSelectedLesson] = useState(
+  Class.chapters?.Lessons?.[0]?.id
+);
+
+
 
 const [lesson, setLesson] = useState([]);
 
-const { data: dataLesson } = useLessonDetailQuery(id); 
+const { data: dataLesson } = useLessonDetailQuery(selectedLesson); 
+
+
 
 useEffect(() => {
     if (dataClass) {
@@ -37,12 +45,47 @@ useEffect(() => {
     }
 }, [dataClass, dataLesson]);
 
+
 const openTelegramLink = () => {
     window.open(Class.linkSosmed, "_blank");
 };
 
-const VideoUrl = 'https://www.youtube.com/embed/xsqqEGaRyAg?controls=0';
-// const VideoUrl = lesson.linkLearningMaterial;
+// const { mutate, data, isLoading, error } = useJoinClassQuery(classCode);
+const joinClass = useMutation(() => joinMyClass(classCode));
+
+const AddClass = async () => {
+    try {
+        joinClass.mutate();
+    } catch (error) {
+      console.error('Error joining class:', error);
+    }
+};
+const VideoUrl = lesson.linkLearningMaterial;
+
+const [embedUrl, setEmbedUrl] = useState('');
+
+  useEffect(() => {
+    const getVideoId = (url) => {
+        try {
+            const videoId = url.split('v=')[1];
+            return videoId;
+        } catch (error) {
+            console.error('Invalid URL or unable to extract video ID:', error.message);
+            return null;
+        }
+    };
+   
+    const convertToEmbedUrl = (videoId) => {
+      return `https://www.youtube.com/embed/${videoId}`;
+    };
+
+    if (VideoUrl) {
+        const videoId = getVideoId(VideoUrl);
+        videoId && setEmbedUrl(convertToEmbedUrl(videoId));
+    }
+  }, [VideoUrl]);
+
+
 
 const semuaChapterIsPreview = Class.chapters?.every((chapter) => chapter.is_preview);
 
@@ -58,7 +101,6 @@ const [isModalOpen, setIsModalOpen] = useState(false);
     <div className='bg-white'>
         {/* navabar */}
         <Nav/>
-        { console.log(Class, "ini data kelas yang akan dibawa")}
         
         <div className='flex flex-col h-screens items-center'>
             <div className='bg-purple-100 w-full'>
@@ -80,7 +122,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                                     </p>
                                 </div>
                                 <p className="text-black font-bold mt-1">{Class.className}</p>
-                                <p className="text-black text-sm mt-1">By:{Class.author}</p>
+                                <p className="text-black text-sm mt-1">By : {Class.author}</p>
                                 <div className="flex gap-5 text-xs mt-1">
                                     <div className="flex justify-center items-center gap-1 ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -119,8 +161,14 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                                     </div>
                                 </div>
                                 <div>
+
+                                <div className="flex justify-between items-center">
+                                    <CustomButtonDua button_text="Join Grup Telegram" iconPath={chat} onClick={openTelegramLink}/>
+                                    <CustomButtonDua button_text="Tamabah Kelas Saya" iconPath={null} onClick={AddClass}/>
+                                </div>
+                                
                         
-                                <CustomButtonDua button_text="Join Grup Telegram" iconPath={chat} onClick={openTelegramLink}/>
+                                
                             </div>
                         </div>
                             
@@ -131,12 +179,10 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             <CardDaftarMateri
                 Kelas={Class}
                 setIsModalOpen={setIsModalOpen}
-                Id={id} 
+                Id={selectedLesson} 
 
-                setId={setId}
+                setId={setSelectedLesson}
             />
-
-            {console.log(lesson, "ini lesson untuk video")}
 
 
             <div className='flex flex-col h-screens items-center justify-center px-[5%]'>
@@ -144,10 +190,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                 <div className='flex flex-row px-4'>
                     <div className='flex flex-col bg-white w-[55%] gap-8 '>
                         <div className='flex justify-center items-center bg-current h-[327px] rounded-2xl mt-8'>
-
                             <iframe
                                 className="w-full h-full rounded-2xl"
-                                src={VideoUrl}
+                                src={embedUrl}
                                 title="YouTube Video"
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
