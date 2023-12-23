@@ -30,7 +30,6 @@ export const DetailPembayaran = () => {
   };
 
   
-
   const [open, setOpen] = useState(false);
 
   const handleBayar = () => {
@@ -53,12 +52,6 @@ export const DetailPembayaran = () => {
   const handleBankChange = (value) => {
    setSelectedBank(value);
 
-   
-
-    //  if (!dataBank || error) {
-    //   return;
-    // }
-    // Temukan objek bank berdasarkan ID
   const selectedBankData = Bank.find((bank) => bank.id === parseInt(value, 10));
   console.log(selectedBankData, "ini valuenya")
 
@@ -69,7 +62,54 @@ export const DetailPembayaran = () => {
   } else {
     // Jika data bank tidak ditemukan, atur nama rekening menjadi kosong atau nilai default
     setNamaRekening('');
+    setNoRekening('');
   }
+  };
+
+  const [paymentMethod, setMetodePembayaran] = useState('');
+  const [bankId, setIdBank] = useState();
+  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+
+  const { mutate: dataPayment, status, isSuccess, isError, error } = useAddPayment();
+
+  useEffect(() => {
+    if (isError) {
+      message.error(error.response.data.message);
+    }
+    if (isSuccess) {
+      toast.success("Successfully Added Category");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  }, [status]);
+
+
+  const handleAddCategory = async () => {
+    if (!paymentMethod || !cardName) {
+      toast.error("Tolong lengkapiform pembayaran Data!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("categoryName", CategoryName);
+    formData.append("thumbnailPictureCategory", ThumbnailPictureCategory);
+
+    try {
+      await dataCategory(formData);
+    } catch (error) {
+      return null;
+    }
   };
 
 
