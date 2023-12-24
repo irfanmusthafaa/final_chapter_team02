@@ -57,13 +57,13 @@ import { useMutation } from "@tanstack/react-query";
 
 
 
-const AddCategory = async (classCode, input) => {
-  return await http.post((`${API_ENDPOINT.PAYMENT_USER}/${classCode}`), input);
+const paymentClass = async (classCode, input) => {
+  return await http.post(`${API_ENDPOINT.PAYMENT_USER}/${classCode}`, input);
 };
 
-const useAddCategory = () => {
-  return useMutation(AddCategory);
+const usePaymentClassQuery = () => {
+  return useMutation(paymentClass);
 };
 
-export { AddCategory, useAddCategory };
+export { paymentClass, usePaymentClassQuery };
 

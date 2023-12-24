@@ -3,22 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleRight,
   faArrowLeft,
-  faChevronDown,
-  faChevronUp,
+
 } from "@fortawesome/free-solid-svg-icons";
-import { Collapse, Modal } from "antd";
-import image1 from "../assets/img/ccmc.png";
-import image2 from "../assets/img/visa.png";
-import image3 from "../assets/img/ae.png";
-import image4 from "../assets/img/pp.png";
-import image5 from "../assets/img/bca.png";
-import image6 from "../assets/img/bni.png";
-import image7 from "../assets/img/bri.png";
-import image8 from "../assets/img/mandiri.png";
+import { Modal } from "antd";
+
 import { Navbar } from "../assets/components/Navbar";
 import img from "../assets/images/kursus.png";
 import { Input, Radio, Select } from "antd";
 import { useBankDataQuery } from "../services/bank/get-data-bank";
+import { usePaymentClassQuery } from "../services/payment/post-payment-user";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const DetailPembayaran = () => {
   const style = { color: "#ffff" };
@@ -27,6 +22,9 @@ export const DetailPembayaran = () => {
   const handleRadioChange = (e) => {
     const value = e.target.value === 'transfer';
     setMetode(value);
+
+    setPaymentMethod(value ? 'Transfer' : 'Credit Card');
+    
   };
 
   
@@ -43,22 +41,23 @@ export const DetailPembayaran = () => {
 
   const { data: dataBank } = useBankDataQuery();
   const [Bank, setBank] = useState([]);
-
+  const { classCode } = useParams();
    
 
   const [selectedBank, setSelectedBank] = useState(null);
   const [namaRekening, setNamaRekening] = useState('');
   const [noRekening, setNoRekening] = useState('');
   const handleBankChange = (value) => {
-   setSelectedBank(value);
+    setSelectedBank(value);
 
-  const selectedBankData = Bank.find((bank) => bank.id === parseInt(value, 10));
-  console.log(selectedBankData, "ini valuenya")
+    const selectedBankData = Bank.find((bank) => bank.id === parseInt(value, 10));
+    console.log(selectedBankData, "ini valuenya")
 
   // Jika data bank ditemukan, atur nama rekening sesuai dengan rekeningName
   if (selectedBankData) {
     setNamaRekening(selectedBankData.bankName);
     setNoRekening(selectedBankData.bankNumber);
+    setBankId(selectedBankData.id)
   } else {
     // Jika data bank tidak ditemukan, atur nama rekening menjadi kosong atau nilai default
     setNamaRekening('');
@@ -66,29 +65,40 @@ export const DetailPembayaran = () => {
   }
   };
 
-  const [paymentMethod, setMetodePembayaran] = useState('');
-  const [bankId, setIdBank] = useState();
-  const [cardName, setCardName] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('Transfer');
+  const [bankId, setBankId] = useState();
+  const [cardName, setCardName] = useState();
   const [cardNumber, setCardNumber] = useState('');
 
-  const { mutate: dataPayment, status, isSuccess, isError, error } = useAddPayment();
+  const { mutate: dataPayment, status, isSuccess, isError, error } = usePaymentClassQuery();
+
+  const handleInput = (e) => {
+    if (e) {
+      
+      if (e.target.id === "cardName") {
+        setCardName(e.target.value);
+      }
+    }
+  };
 
   useEffect(() => {
+    // handlePaymentClass(classCode);
     if (isError) {
       message.error(error.response.data.message);
     }
     if (isSuccess) {
-      toast.success("Successfully Added Category");
+      toast.success("Anda Berhasil Melakukan Pembelian kelas");
       setTimeout(() => {
-        window.location.reload();
+        window.location.href = '/sukses-pembayaran';
       }, 1000);
     }
   }, [status]);
 
 
-  const handleAddCategory = async () => {
-    if (!paymentMethod || !cardName) {
-      toast.error("Tolong lengkapiform pembayaran Data!", {
+  const handlePaymentClass = async () => {
+    console.log(classCode, "ini kode nya")
+    if (!paymentMethod && !cardName && (!bankId || !cardNumber)) {
+      toast.error("Tolong lengkapi form pembayaran!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -102,11 +112,13 @@ export const DetailPembayaran = () => {
     }
 
     const formData = new FormData();
-    formData.append("categoryName", CategoryName);
-    formData.append("thumbnailPictureCategory", ThumbnailPictureCategory);
+
+    formData.append("paymentMethod", paymentMethod);
+    formData.append("bankId", cardName);
+    formData.append("cardName", cardName);
 
     try {
-      await dataCategory(formData);
+      dataPayment(classCode, formData);
     } catch (error) {
       return null;
     }
@@ -116,7 +128,8 @@ export const DetailPembayaran = () => {
   useEffect(()=>{
         setBank(dataBank);
         
-        
+          {console.log("ini yang di ambil : ", paymentMethod)}
+          
     }, [dataBank, namaRekening])
   return (
     <div>
@@ -164,6 +177,7 @@ export const DetailPembayaran = () => {
                       Jenis Bank
                     </label>
                     <Select
+                      id="idPembayaran"
                       className="border rounded-lg hover:border-purple-700"
                       placeholder="Pilih Bank"
                       onChange={handleBankChange}
@@ -176,17 +190,17 @@ export const DetailPembayaran = () => {
                       ))}
                     </Select>
                   </div>
+  
                   <div className="flex flex-col gap-1">
                     <label className="font-semibold text-sm">Nama Rekening</label>
                     <Input
                       id="namaRekening"
                       className="border rounded-lg hover:border-purple-700"
                       type="text"
-                      placeholder="Jika memilih Bank Transfer diisi (-)"
+                      placeholder="Akan diisi otomatis"
                       value={namaRekening}
                       readOnly
                     />
-                    {console.log(namaRekening, "ini namaynay")}
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="font-semibold text-sm">No Rekening</label>
@@ -194,16 +208,16 @@ export const DetailPembayaran = () => {
                       id="noRekening"
                       className="border rounded-lg hover:border-purple-700"
                       type="text"
-                      placeholder="Jika memilih Bank Transfer diisi (-)"
+                      placeholder="Akan diisi otomatis"
                       value={noRekening}
                       readOnly
                     />
                   </div>
-
                    <div className="flex flex-col gap-1">
                     <label className="font-semibold text-sm">Nama Rekening Kamu</label>
                     <Input
-                      id="noRekening"
+                      id="cardName"
+                      onChange={handleInput}
                       className="border rounded-lg hover:border-purple-700"
                       type="text"
                       placeholder="Masukan nama rekening kamu yang digunakan untuk membayar"
@@ -236,21 +250,11 @@ export const DetailPembayaran = () => {
                   </div>
                 </>
               )}
-              
-              {/* <div className="flex flex-col gap-1">
-                <label className="font-semibold text-sm">
-                  Input Credit Card Number
-                </label>
-                <Input
-                  id="chapterName"
-                  className="border rounded-lg hover:border-purple-700"
-                  type="text"
-                  placeholder="Jika memilih Bank Transfer diisi (-)"
-                />
-              </div> */}
+            {console.log("ini yang di ambil : ", paymentMethod, cardName, bankId)}
             </div>
+          
             <div className="flex gap-2 mt-4">
-              <button className="w-full py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2" onClick={handleSimpan}>
+              <button className="w-full py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2" onClick={handlePaymentClass}>
                 Bayar Sekarang
               </button>
             </div>
