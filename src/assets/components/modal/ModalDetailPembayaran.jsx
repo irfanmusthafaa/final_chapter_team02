@@ -2,7 +2,7 @@ import { Input, Modal, Radio, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useBankDataQuery } from '../../../services/bank/get-data-bank';
 import { useParams } from 'react-router-dom';
-import { usePaymentClassQuery } from '../../../services/payment/post-payment-user';
+import { paymentClass } from '../../../services/payment/post-payment-user';
 import { toast } from 'react-toastify';
 
 export const ModalDetailPembayaran = (props) => {
@@ -24,7 +24,7 @@ export const ModalDetailPembayaran = (props) => {
     const [cardName, setCardName] = useState("inin lahh");
     const [cardNumber, setCardNumber] = useState(null);
 
-    const { mutate: dataPayment, status, isSuccess, isError, error } = usePaymentClassQuery();
+    // const { mutate: dataPayment, status, isSuccess, isError, error } = usePaymentClassQuery();
 
     const handleInput = (e) => {
         if (e) {
@@ -36,16 +36,16 @@ export const ModalDetailPembayaran = (props) => {
 
     useEffect(() => {
         // handlePaymentClass(classCode);
-        if (isError) {
-            message.error(error.response.data.message);
-        }
-        if (isSuccess) {
-            toast.success("Anda Berhasil Melakukan Pembelian kelas");
-            // setTimeout(() => {
-            //   window.location.href = '/sukses-pembayaran';
-            // }, 1000);
-        }
-    }, [status]);
+        // if (isError) {
+        //     message.error(error.response.data.message);
+        // }
+        // if (isSuccess) {
+        //     toast.success("Anda Berhasil Melakukan Pembelian kelas");
+        //     // setTimeout(() => {
+        //     //   window.location.href = '/sukses-pembayaran';
+        //     // }, 1000);
+        // }
+    }, []);
 
     
     const [selectedBank, setSelectedBank] = useState(null);
@@ -88,13 +88,21 @@ export const ModalDetailPembayaran = (props) => {
             return;
         }
 
-        const formData = new FormData();
-        formData.append("paymentMethod", paymentMethod);
-        formData.append("bankId", bankId);
-        formData.append("cardName", cardName);
+        // const formData = new FormData();
+        // formData.append("paymentMethod", paymentMethod);
+        // formData.append("bankId", bankId);
+        // formData.append("cardName", cardName);
 
         try {
-            await dataPayment({input:formData, classCode});
+            await paymentClass({
+              paymentMethod:paymentMethod,
+              bankId:bankId,
+              cardName:cardName
+            }, classCode);
+            toast.success("Anda Berhasil Melakukan Pembelian kelas");
+            setTimeout(() => {
+              window.location.href = '/sukses-pembayaran';
+            }, 1000);
         } catch (error) {
             console.error(error);
             return null;
