@@ -238,7 +238,15 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
                         <CardModal Class={Class} />
                         <div className="flex items-center justify-center mt-8">
-                            <CustomButtonDua button_text="&nbsp;&nbsp;&nbsp;&nbsp;Beli Sekarang&nbsp;&nbsp;&nbsp;&nbsp;" iconPath={next} onClick={() => setIsModalOpen(false)} />
+                            {/* <CustomButtonDua button_text="                              Beli Sekarang" iconPath={next} onClick={() => setIsModalOpen(false)} /> */}
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                size="large"
+                                className={`flex items-center justify-center bg-purple-400 px-4 py-1 mt-2 cursor-pointer text-white text-sm font-bold rounded-full h-[2.5rem] w-full hover:bg-purple-900 hover:text-white border-0 shadow-sm transition-transform transform hover:scale-105 focus:outline-none `}
+                            >
+                                Beli Sekarang
+                                <img src={next} alt="Icon" className="ms-2 h-4 color-white" />
+                            </button>
                         </div>
                     </div>
                 </div>
