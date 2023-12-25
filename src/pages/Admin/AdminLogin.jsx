@@ -2,10 +2,10 @@ import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useLoginAdmin } from "../../services/admin/login-admin";
 import { toast } from "react-toastify";
 import image from "../../assets/img/logo.png";
 import image2 from "../../assets/img/up logo.png";
+import { useLoginAdmin } from "../../services/admin/login-admin";
 
 export const AdminLogin = () => {
   const [Email, setEmail] = useState("");
@@ -78,7 +78,7 @@ export const AdminLogin = () => {
           <div>
             <button
               onClick={() => {
-                handleLogin;
+                handleLogin();
               }}
               className="w-full py-3 bg-purple-700 text-white font-medium border-0 rounded-lg mt-2 hover:bg-purple-900 cursor-pointer"
             >

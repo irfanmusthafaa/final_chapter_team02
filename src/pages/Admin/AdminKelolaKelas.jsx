@@ -71,7 +71,7 @@ export const AdminKelolaKelas = () => {
           <Card />
         </div>
         <div className="px-16 my-16">
-          <div className="flex justify-between mb-5">
+          <div className="flex justify-between items-center  mb-5">
             <h3>Kelola Kelas</h3>
             <div className="flex justify-between items-center gap-3">
               <button
@@ -87,11 +87,11 @@ export const AdminKelolaKelas = () => {
                   Filter
                 </button>
               </Dropdown>
-              <FontAwesomeIcon icon={faSearch} className="text-purple-700" />
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Cari"
+                  placeholder="Cari kelas..."
+                  style={{ border: ".2px solid grey" }}
                   className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
                   value={searchTerm}
                   onChange={handleSearch}

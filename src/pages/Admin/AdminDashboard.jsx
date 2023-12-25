@@ -43,21 +43,7 @@ export const AdminDashboard = () => {
         <div className="px-16 my-16">
           <Card />
         </div>
-        {/* <div className="px-16 my-16">
-          <div className="flex justify-between mb-5">
-            <h3>Status Pembayaran</h3>
-            <div className="flex justify-between items-center gap-3">
-              <Dropdown menu={menuProps}>
-                <button className="flex justify-center gap-2 items-center text-sm  border-purple-700 bg-white text-purple-700 font-bold border-1 rounded-full p-2">
-                  <img src={iconPrefix} alt="prefix" />
-                  Filter
-                </button>
-              </Dropdown>
-              <FontAwesomeIcon icon={faSearch} className="text-purple-700" />
-            </div>
-          </div>
-          <TableDashboard />
-        </div> */}
+      
       </div>
     </div>
   );

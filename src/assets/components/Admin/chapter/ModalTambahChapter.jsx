@@ -7,7 +7,6 @@ export const ModalTambahChapter = ({ Class }) => {
   const [ChapterName, setChapterName] = useState("");
   const [ClassCode, setClassCode] = useState("");
   const [IsFree, setIsFree] = useState(true);
-  const navigate = useNavigate()
 
   const { mutate: dataChapter, status, isSuccess, isError, error } = useAddChapter();
 

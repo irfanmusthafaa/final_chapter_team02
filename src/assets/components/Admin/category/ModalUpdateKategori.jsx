@@ -19,6 +19,7 @@ export const ModalUpdateKategori = ({ record, openUpdate, setOpenUpdate }) => {
       toast.error("Mohon Lengkapi Data !!");
       return;
     }
+
     const id = record.idKategori;
     if (id) {
       UpdateCategory(id, { categoryName: CategoryName });

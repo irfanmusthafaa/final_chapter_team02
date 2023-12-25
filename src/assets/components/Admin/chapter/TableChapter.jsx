@@ -82,7 +82,7 @@ export const TableChapter = ({ searchTerm, Chapter, Class }) => {
   ];
 
   const dynamicData =
-    Chapter?.filter((item) => item.chapterName.toLowerCase().includes(searchTerm.toLowerCase())).map((item) => ({
+    Chapter?.filter((item) => item.classCode.toLowerCase().includes(searchTerm.toLowerCase())).map((item) => ({
       key: item.id,
       id: item.id,
       chapterName: item.chapterName,

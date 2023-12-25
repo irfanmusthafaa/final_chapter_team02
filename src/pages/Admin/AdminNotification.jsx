@@ -37,7 +37,7 @@ export const AdminNotification = () => {
           <Card />
         </div>
         <div className="px-16 my-16">
-          <div className="flex justify-between mb-5">
+          <div className="flex justify-between items-center  mb-5">
             <h3>Notifikasi</h3>
             <div className="flex justify-between items-center gap-3">
               <button

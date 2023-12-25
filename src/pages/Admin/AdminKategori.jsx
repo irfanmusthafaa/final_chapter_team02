@@ -43,7 +43,7 @@ export const AdminKategori = () => {
           <Card />
         </div>
         <div className="px-16 my-16">
-          <div className="flex justify-between mb-5">
+          <div className="flex justify-between items-center  mb-5">
             <h3>Kategori</h3>
             <div className="flex justify-between items-center gap-3">
               <button
@@ -58,7 +58,8 @@ export const AdminKategori = () => {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Cari"
+                  placeholder="Cari kategori..."
+                  style={{ border: ".2px solid grey" }}
                   className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
                   value={searchTerm}
                   onChange={handleSearch}

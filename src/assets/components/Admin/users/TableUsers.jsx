@@ -44,24 +44,24 @@ export const TableUsers = ({ searchTerm, Users }) => {
       dataIndex: "profilePicture",
       key: "profilePicture",
     },
-    {
-      title: "Aksi",
-      key: "aksi",
-      render: (_, record) => (
-        <Space size="middle">
-          <Button
-            onClick={() => {
-              setOpenUpdate(true);
-              setRecord(record);
-            }}
-            className="bg-amber-500 text-white border-none hover:bg-amber-900 hover:border-0 hover:text-white hover:border-none rounded-full"
-          >
-            <EditOutlined />
-            Ubah
-          </Button>
-        </Space>
-      ),
-    },
+    // {
+    //   title: "Aksi",
+    //   key: "aksi",
+    //   render: (_, record) => (
+    //     <Space size="middle">
+    //       <Button
+    //         onClick={() => {
+    //           setOpenUpdate(true);
+    //           setRecord(record);
+    //         }}
+    //         className="bg-amber-500 text-white border-none hover:bg-amber-900 hover:border-0 hover:text-white hover:border-none rounded-full"
+    //       >
+    //         <EditOutlined />
+    //         Ubah
+    //       </Button>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   const dynamicData =
@@ -79,7 +79,6 @@ export const TableUsers = ({ searchTerm, Users }) => {
   return (
     <>
       <Table columns={columns} dataSource={dynamicData} />
-      {/* <ModalUpdateBank openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} /> */}
     </>
   );
 };

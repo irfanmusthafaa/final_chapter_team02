@@ -9,8 +9,6 @@ import { TableChapter } from "../../assets/components/Admin/chapter/TableChapter
 import { ModalTambahChapter } from "../../assets/components/Admin/chapter/ModalTambahChapter";
 import { SideBar } from "../../assets/components/Admin/SideBar";
 import { Card } from "../../assets/components/Admin/Card";
-import { TableKategori } from "../../assets/components/Admin/category/TableKategori";
-import { ModalTambahKategori } from "../../assets/components/Admin/category/ModalTambahKategori";
 import { useClassDataQuery } from "../../services/class/get-data-class";
 
 export const AdminChapter = () => {
@@ -45,7 +43,7 @@ export const AdminChapter = () => {
           <Card />
         </div>
         <div className="px-16 my-16">
-          <div className="flex justify-between mb-5">
+          <div className="flex justify-between items-center  mb-5">
             <h3>Chapter</h3>
             <div className="flex justify-between items-center gap-3">
               <button
@@ -56,11 +54,11 @@ export const AdminChapter = () => {
                 Tambah
               </button>
 
-              <FontAwesomeIcon icon={faSearch} className="text-purple-700" />
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Cari"
+                  placeholder="Cari berdasarkan kode kelas"
+                  style={{ border: ".2px solid grey" }}
                   className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
                   value={searchTerm}
                   onChange={handleSearch}

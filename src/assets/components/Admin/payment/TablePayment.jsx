@@ -50,34 +50,45 @@ export const TablePayment = ({ searchTerm, Payment }) => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status) => <p className={`${status ? "text-green-500" : "text-red-500"}  font-bold`}>{status ? "SUKSES" : "PENDING"}</p>,
+      render: (status) => <p className={`${status ? "text-green-500" : "text-red-500"}  font-bold`}>{status ? "SUDAH BAYAR" : "BELUM BAYAR"}</p>,
     },
     {
       title: "Aksi",
       key: "aksi",
       render: (_, record) => (
         <Space size="middle">
-          <Button
-            onClick={() => {
-              handleUpdatePayment();
-              setOpenUpdate(true);
-              setRecord(record);
-            }}
-            className="bg-blue-500 text-white border-none hover:bg-blue-700  hover:border-0 hover:text-white hover:border-none rounded-full"
-          >
-            <CheckCircleOutlined />
-            Konfirmasi Pembayaran
-          </Button>
+          <div className="w-full">
+            {record.status ? (
+              <Button disabled className="bg-gray-500 w-[12rem] text-white border-none rounded-full">
+                <CheckOutlined />
+                Pembayaran Sukses
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  handleUpdatePayment();
+                  setOpenUpdate(true);
+                  setRecord(record);
+                }}
+                className="bg-blue-500 w-[12rem] text-white border-none hover:bg-blue-700 hover:text-white hover:border-none rounded-full"
+              >
+                <CheckCircleOutlined />
+                Konfirmasi Pembayaran
+              </Button>
+            )}
+          </div>
         </Space>
       ),
     },
   ];
 
   const dynamicData =
-    Payment?.filter((item) => item.paymentMethod.toLowerCase().includes(searchTerm.toLowerCase())).map((item) => ({
+    // Payment?.filter((item) => item.paymentMethod.toLowerCase().includes(searchTerm.toLowerCase())).map((item) => ({
+    Payment?.filter((item) => item.users.fullName.toLowerCase().includes(searchTerm.toLowerCase())).map((item) => ({
+      // Payment?.map((item) => ({
       key: item.id,
       id: item.id,
-      //   categoryName: item.fullName,
+      categoryName: item.class?.categorys?.categoryName,
       class: item.class?.className,
       idUser: item.users.id,
       fullName: item.users.fullName,
@@ -97,8 +108,6 @@ export const TablePayment = ({ searchTerm, Payment }) => {
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-    } else {
-      toast.error("Data Tidak Berhasil di Update");
     }
   };
 

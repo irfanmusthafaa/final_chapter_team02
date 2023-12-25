@@ -25,8 +25,8 @@ export const SideBar = () => {
     { label: "Dashboard", link: "/admin/dashboard", active: "admin/dashboard", icon: faHome },
     { label: "Transaksi", link: "/admin/transaksi", active: "admin/transaksi", icon: faFileInvoice },
     { label: "Kategori", link: "/admin/kategori", active: "admin/kategori", icon: faLayerGroup },
-    { label: "Kelas", link: "/admin/kelas", active: "admin/kelas", icon: faList },
-    { label: "Chapter", link: "/admin/chapter", active: "admin/chapter", icon: faRectangleList },
+    { label: "Kelas", link: "/admin/kelas", active: "admin/kelas", icon: faRectangleList },
+    { label: "Chapter", link: "/admin/chapter", active: "admin/chapter", icon: faList },
     { label: "Lesson", link: "/admin/lesson", active: "admin/lesson", icon: faVideo },
     { label: "Notifikasi", link: "/admin/notifikasi", active: "admin/notifikasi", icon: faBell },
     { label: "User", link: "/admin/user", active: "admin/user", icon: faUsers },
@@ -54,10 +54,6 @@ export const SideBar = () => {
               <FontAwesomeIcon icon={menu.icon} className="w-[30%]" /> <p>{menu.label}</p>
             </Link>
           ))}
-
-          <a onClick={handleLogout} className={`w-full flex gap-1 items-center text-sm   py-4 cursor-pointer font-semibold text-white no-underline`}>
-            <FontAwesomeIcon icon={faSignOut} className="w-[30%]" /> <p>Keluar</p>
-          </a>
         </div>
       </div>
     </div>
