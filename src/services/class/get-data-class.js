@@ -8,7 +8,6 @@ const fetchDataClass = async ({queryKey}) => {
     const [_key, _params] = queryKey;
     const { data } = await http.get(_key, { params: _params })
     .then((result) => {
-        console.log("sini juga oke")
         return result;
     })
     .catch((error) => {

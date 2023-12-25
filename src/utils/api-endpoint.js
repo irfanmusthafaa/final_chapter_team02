@@ -13,6 +13,8 @@ export const API_ENDPOINT = {
   PAYMENT_USER: "/api/v1/payment",
   DATA_LESSON: "api/v1/lesson",
   JOIN_MY_CLASS: "api/v1/class/joinclass",
+  DATA_LEARNING: "api/v1/learning/all",
+  ADD_RATING:"api/v1/rating",
   ADMIN_LOGIN: "/api/v1/auth/login-admin",
   EDIT_PROFILE_USER: "/api/v1/user",
   GET_NOTIFICATION_ALL: "/api/v1/notifications",

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Nav } from '../../assets/components/Nav'
-import { CustomButtonSatu } from '../../assets/components/button/CustomButtonSatu'
 import chat from '../../assets/images/icon/gridicons_chat.svg'
 import { BackLink } from '../../assets/components/link/BackLink';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
 import { useClassDetailQuery } from '../../services/class/get-detail-class';
 import { CustomButtonDua } from '../../assets/components/button/CustomButtonDua';
 import { CardDaftarMateri } from '../../assets/components/card/CardDaftarMateri';
 import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
-import { joinMyClass, useJoinClassQuery } from '../../services/class/join-my-class';
+import { joinMyClass} from '../../services/class/join-my-class';
 import { useMutation } from '@tanstack/react-query';
 import { ModalBeliKelas } from '../../assets/components/modal/ModalBeliKelas';
+import { toast } from 'react-toastify';
+import { useLearningDataQuery } from '../../services/learning/get-data-learning';
 
 export const DetailKelasPage = () => {
 
@@ -32,6 +32,9 @@ const [lesson, setLesson] = useState([]);
 
 const { data: dataLesson } = useLessonDetailQuery(selectedLesson); 
 
+const [learning, setLearning] = useState([])
+const { data: dataLearning } = useLearningDataQuery(); 
+
 
 
 useEffect(() => {
@@ -42,10 +45,15 @@ useEffect(() => {
     if (dataLesson) {
         setLesson(dataLesson);
     }
-}, [dataClass, dataLesson]);
+
+    if (dataLearning) {
+        setLearning(dataLearning);
+    }
+}, [dataClass, dataLesson, dataLearning]);
 
 
 const openTelegramLink = () => {
+
     window.open(Class.linkSosmed, "_blank");
 };
 
@@ -53,18 +61,23 @@ const openTelegramLink = () => {
 const joinClass = useMutation(() => joinMyClass(classCode));
 
 const AddClass = async () => {
-    try {
+    //periksa dulu apa sudah ada 
+
+    const isClassCodeExists = learning.some((learning) => learning.classCode === classCode);
+
+    if (isClassCodeExists) {
+        toast.warning("Anda sudah menambahkan kelas ini");
+    } else {
         joinClass.mutate();
-        
-    } catch (error) {
-      console.error('Error joining class:', error);
+        toast.success("Anda Berhasil Menambahkan Kelas ke dalam Kelas Saya");
     }
+
 };
 const VideoUrl = lesson.linkLearningMaterial;
 
 const [embedUrl, setEmbedUrl] = useState('');
 
-  useEffect(() => {
+useEffect(() => {
     const getVideoId = (url) => {
         try {
             const videoId = url.split('v=')[1];
@@ -83,7 +96,7 @@ const [embedUrl, setEmbedUrl] = useState('');
         const videoId = getVideoId(VideoUrl);
         videoId && setEmbedUrl(convertToEmbedUrl(videoId));
     }
-  }, [VideoUrl]);
+}, [VideoUrl]);
 
 
 
@@ -91,9 +104,22 @@ const semuaChapterIsPreview = Class.chapters?.every((chapter) => chapter.is_prev
 
 if (semuaChapterIsPreview) {
   console.log('Oke, semua chapter memiliki is_preview bernilai true.');
+  //bisa tampilin bintang
 } else {
   console.log(semuaChapterIsPreview,'Tidak semua chapter memiliki is_preview bernilai true.');
 }
+
+// const [showPreview, setShowPreview] = useState(true);
+// const handlePlayClick = () => {
+//     setShowPreview(false);
+// };
+
+const [rating, setRating] = useState(0);
+
+const handleRatingClick = (value) => {
+    setRating(value);
+};
+
 
 const [open, setOpen] = useState(false);
   
@@ -101,7 +127,7 @@ const [open, setOpen] = useState(false);
     <div className='bg-white'>
         {/* navabar */}
         <Nav/>
-        
+        {console.log(learning, "ini learning yang ada")}
         <div className='flex flex-col h-screens items-center'>
             <div className='bg-purple-100 w-full'>
                 <div className='flex flex-row px-[5%]'>
@@ -182,6 +208,7 @@ const [open, setOpen] = useState(false);
                 Id={selectedLesson} 
                 setId={setSelectedLesson}
             />
+            
 
 
             <div className='flex flex-col h-screens items-center justify-center px-[5%]'>
@@ -198,6 +225,24 @@ const [open, setOpen] = useState(false);
                                 allowFullScreen
                             ></iframe>
                         </div>
+
+                        <span>
+                            {/* <p>Rating: {rating}</p> */}
+                            {[1, 2, 3, 4, 5].map((starValue) => (
+                                <span
+                                    key={starValue}
+                                    onClick={() => handleRatingClick(starValue)}
+                                    style={{
+                                        cursor: 'pointer',
+                                        color: starValue <= rating ? 'gold' : 'gray',
+                                        fontSize: '24px',
+                                    }}
+                                >
+                                ★
+                                </span>
+                            ))}
+                        </span>
+
                         <div className='mt-0 pt-0'>
                             <h3 className='mb-3'>Tentang kelas</h3>
                             <p className='text-left text-sm'> 
@@ -233,9 +278,6 @@ const [open, setOpen] = useState(false);
             Class={Class}
          />
           
-                
-                    
-                
             
     </div>
   )
