@@ -43,25 +43,8 @@ export const TableUsers = ({ searchTerm, Users }) => {
       title: "Foto",
       dataIndex: "profilePicture",
       key: "profilePicture",
+      render: (text) => <img src={text} alt="img" className="w-[80px] h-[80px] object-cover" />,
     },
-    // {
-    //   title: "Aksi",
-    //   key: "aksi",
-    //   render: (_, record) => (
-    //     <Space size="middle">
-    //       <Button
-    //         onClick={() => {
-    //           setOpenUpdate(true);
-    //           setRecord(record);
-    //         }}
-    //         className="bg-amber-500 text-white border-none hover:bg-amber-900 hover:border-0 hover:text-white hover:border-none rounded-full"
-    //       >
-    //         <EditOutlined />
-    //         Ubah
-    //       </Button>
-    //     </Space>
-    //   ),
-    // },
   ];
 
   const dynamicData =

@@ -12,8 +12,6 @@ export const NavbarAdmin = () => {
 
   const { data: dataProfile, isLoading, isError } = useGetProfileAdmin();
 
-  console.log(Profile, "profile");
-
   useEffect(() => {
     if (!isLoading && !isError) {
       setProfile(dataProfile || {});

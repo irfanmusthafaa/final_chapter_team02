@@ -9,6 +9,12 @@ export const ModalUpdateBank = ({ record, openUpdate, setOpenUpdate }) => {
   const [BankName, setBankName] = useState("");
   const [BankNumber, setBankNumber] = useState(0);
 
+  useEffect(() => {
+    setBankType(record.bankType);
+    setBankName(record.bankName);
+    setBankNumber(record.bankNumber);
+  }, [record.bankType, record.bankName, record.bankNumber]);
+
   const handleInput = (e) => {
     if (e) {
       if (e.target.id === "bankType") {
@@ -22,10 +28,6 @@ export const ModalUpdateBank = ({ record, openUpdate, setOpenUpdate }) => {
       }
     }
   };
-
-  console.log(BankType, "BankType");
-  console.log(BankName, "BankName");
-  console.log(BankNumber, "BankNumber");
 
   const handleUpdateBank = () => {
     if (!BankType || !BankName || !BankNumber) {
@@ -65,11 +67,25 @@ export const ModalUpdateBank = ({ record, openUpdate, setOpenUpdate }) => {
           <div className="w-full flex flex-col  gap-3">
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Bank</label>
-              <Input onChange={handleInput} id="bankType" className="border rounded-lg hover:border-purple-700" type="text" placeholder="Bank" />
+              <Input
+                onChange={handleInput}
+                id="bankType"
+                className="border rounded-lg hover:border-purple-700"
+                type="text"
+                placeholder="Bank"
+                value={BankType}
+              />
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Atas Nama</label>
-              <Input onChange={handleInput} id="bankName" className="border rounded-lg hover:border-purple-700" type="text" placeholder="Atas Nama" />
+              <Input
+                onChange={handleInput}
+                id="bankName"
+                className="border rounded-lg hover:border-purple-700"
+                type="text"
+                placeholder="Atas Nama"
+                value={BankName}
+              />
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Nomor Rekening</label>
@@ -79,6 +95,7 @@ export const ModalUpdateBank = ({ record, openUpdate, setOpenUpdate }) => {
                 className="border rounded-lg hover:border-purple-700"
                 type="number"
                 placeholder="Nomor Rekening"
+                value={BankNumber}
               />
             </div>
           </div>

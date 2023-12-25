@@ -1,7 +1,8 @@
 import { Input, Modal, Radio, Select } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UpdateClass } from "../../../../services/admin/class/put-class";
 import { toast } from "react-toastify";
+const { TextArea } = Input;
 
 export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }) => {
   const [ClassName, setClassName] = useState("");
@@ -13,6 +14,28 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
   const [CategoryId, setCategoryId] = useState("");
   const [LinkSosmed, setLinkSosmed] = useState("");
   const [Author, setAuthor] = useState("");
+
+  useEffect(() => {
+    setClassName(record.className);
+    setDescription(record.description);
+    setPrice(record.price);
+    setPromo(record.promo);
+    setLevelName(record.levelName);
+    setIsFree(record.isFree);
+    setCategoryId(record.categoryId);
+    setLinkSosmed(record.linkSosmed);
+    setAuthor(record.author);
+  }, [
+    record.className,
+    record.description,
+    record.price,
+    record.promo,
+    record.levelName,
+    record.isFree,
+    record.categoryId,
+    record.linkSosmed,
+    record.author,
+  ]);
 
   const handleInput = (e) => {
     if (e) {
@@ -86,7 +109,7 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
       });
       return;
     }
-    const id = record.kodeKelas;
+    const id = record.classCode;
     if (id) {
       UpdateClass(id, {
         className: ClassName,
@@ -104,9 +127,10 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-    } else {
-      toast.error("Data Tidak Berhasil di Update");
     }
+    // else {
+    //   toast.error("Data Tidak Berhasil di Update");
+    // }
   };
 
   return (
@@ -131,16 +155,19 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
                 className="border rounded-lg hover:border-purple-700"
                 type="text"
                 placeholder="Nama Kelas"
+                value={ClassName}
               />
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Deskripsi</label>
-              <Input
+              <TextArea
+                rows={5}
                 onChange={handleInput}
                 id="description"
                 className="border rounded-lg hover:border-purple-700"
                 type="text"
                 placeholder="Deskripsi"
+                value={Description}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -151,6 +178,7 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
                 className="border rounded-lg hover:border-purple-700"
                 type="number"
                 placeholder="Harga Kelas"
+                value={Price}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -161,6 +189,7 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
                 className="border rounded-lg hover:border-purple-700"
                 type="number"
                 placeholder="Harga Promo"
+                value={Promo}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -170,6 +199,7 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
                 className="border rounded-lg hover:border-purple-700"
                 placeholder="Level"
                 options={levelOptions}
+                value={LevelName}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -198,11 +228,19 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
                 className="border rounded-lg hover:border-purple-700"
                 type="text"
                 placeholder="Link Grup Kelas"
+                value={LinkSosmed}
               />
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Author</label>
-              <Input onChange={handleInput} id="author" className="border rounded-lg hover:border-purple-700" type="text" placeholder="Author" />
+              <Input
+                onChange={handleInput}
+                id="author"
+                className="border rounded-lg hover:border-purple-700"
+                type="text"
+                placeholder="Author"
+                value={Author}
+              />
             </div>
           </div>
           <div className="flex gap-2 mt-4">

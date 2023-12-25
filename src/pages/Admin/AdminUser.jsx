@@ -19,8 +19,6 @@ export const AdminUser = () => {
 
   const { data: dataUsers, isLoading, isError } = useGetAllUsers();
 
-  console.log(Users, "users");
-
   useEffect(() => {
     if (!isLoading && !isError) {
       setUsers(dataUsers?.users || []);

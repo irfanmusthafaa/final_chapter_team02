@@ -11,6 +11,14 @@ export const ModalUpdateLesson = ({ record, openUpdate, setOpenUpdate, Chapter }
   const [ChapterId, setChapterId] = useState(null);
   const [Duration, setDuration] = useState(0);
 
+  useEffect(() => {
+    setTitle(record.title);
+    setLearningMaterial(record.learningMaterial);
+    setLinkLearningMaterial(record.linkLearningMaterial);
+    setChapterId(record.chapterId);
+    setDuration(record.duration);
+  }, [record.title, record.learningMaterial, record.linkLearningMaterial, record.chapterId, record.duration]);
+
   const handleInput = (e) => {
     if (e) {
       if (e.target.id === "title") {
@@ -74,7 +82,14 @@ export const ModalUpdateLesson = ({ record, openUpdate, setOpenUpdate, Chapter }
           <div className="w-full flex flex-col  gap-3">
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Judul Lesson</label>
-              <Input onChange={handleInput} id="title" className="border rounded-lg hover:border-purple-700" type="text" placeholder="Nama Chapter" />
+              <Input
+                onChange={handleInput}
+                id="title"
+                className="border rounded-lg hover:border-purple-700"
+                type="text"
+                placeholder="Nama Chapter"
+                value={Title}
+              />
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Learning Material</label>
@@ -84,6 +99,7 @@ export const ModalUpdateLesson = ({ record, openUpdate, setOpenUpdate, Chapter }
                 className="border rounded-lg hover:border-purple-700"
                 type="text"
                 placeholder="Learning Material"
+                value={LearningMaterial}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -94,6 +110,7 @@ export const ModalUpdateLesson = ({ record, openUpdate, setOpenUpdate, Chapter }
                 className="border rounded-lg hover:border-purple-700"
                 type="text"
                 placeholder="Link Learning Material"
+                value={LinkLearningMaterial}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -103,11 +120,19 @@ export const ModalUpdateLesson = ({ record, openUpdate, setOpenUpdate, Chapter }
                 className="border rounded-lg hover:border-purple-700"
                 placeholder="Id Chapter"
                 options={chapterOptions}
+                value={ChapterId}
               />
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Durasi</label>
-              <Input onChange={handleInput} id="duration" className="border rounded-lg hover:border-purple-700" type="number" placeholder="Durasi" />
+              <Input
+                onChange={handleInput}
+                id="duration"
+                className="border rounded-lg hover:border-purple-700"
+                type="number"
+                placeholder="Durasi"
+                value={Duration}
+              />
             </div>
           </div>
           <div className="flex gap-2 mt-4">

@@ -8,6 +8,12 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
   const [ClassCode, setClassCode] = useState("");
   const [IsFree, setIsFree] = useState(true);
 
+  useEffect(() => {
+    setChapterName(record.chapterName);
+    setClassCode(record.classCode);
+    setIsFree(record.isFree);
+  }, [record.chapterName, record.classCode, record.isFree]);
+
   const handleInput = (e) => {
     if (e) {
       if (e.target.id === "chapterName") {
@@ -16,16 +22,11 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
     }
   };
 
-  console.log(record, "record");
   const classOptions =
     Class?.map((item) => ({
       value: item.classCode,
       label: `${item.classCode} - ${item.className}`,
     })) || [];
-
-  console.log(ChapterName, "ChapterName");
-  console.log(ClassCode, "ClassCode");
-  console.log(IsFree, "IsFree");
 
   const handleUpdateChapter = () => {
     if (!ChapterName || !ClassCode) {
@@ -71,6 +72,7 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
                 className="border rounded-lg hover:border-purple-700"
                 type="text"
                 placeholder="Nama Chapter"
+                value={ChapterName}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -80,11 +82,12 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
                 className="border rounded-lg hover:border-purple-700"
                 placeholder="Kode Kelas"
                 options={classOptions}
+                value={ClassCode}
               />
             </div>
             <div className="flex flex-col gap-1">
               <label className="font-semibold text-sm">Tipe Kelas </label>
-              <Radio.Group onChange={(e) => setIsFree(e.target.value === "gratis")} defaultValue="gratis">
+              <Radio.Group onChange={(e) => setIsFree(e.target.value === "gratis")} value={IsFree ? "gratis" : "premium"}>
                 <Radio value="gratis" onChange={(e) => setIsFree(e.target.checked)}>
                   Gratis
                 </Radio>
