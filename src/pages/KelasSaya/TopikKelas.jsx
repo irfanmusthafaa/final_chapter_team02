@@ -232,5 +232,5 @@ export const TopikKelas = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

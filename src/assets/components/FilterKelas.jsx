@@ -107,14 +107,8 @@ export const FilterKelas = (props) => {
           {Array.isArray(props.category) ? (
             props.category.map((item) => (
               <li key={item.id}>
-                <Checkbox
-                  value={item.id}
-                  onChange={handleCheckboxKategori}
-                  checked={Kategori.includes(item.id)}
-                >
-                  <label className="text-lg font-semibold">
-                    {item.categoryName}
-                  </label>
+                <Checkbox value={item.id} onChange={handleCheckboxKategori} checked={Kategori.includes(item.id)}>
+                  <label className="text-lg font-semibold">{item.categoryName}</label>
                 </Checkbox>
               </li>
             ))
@@ -128,50 +122,28 @@ export const FilterKelas = (props) => {
         <h3 className="mx-0 my-2 hidden md:flex">Level Kesulitan</h3>
         <ul className="list-none m-0 p-0">
           <li>
-            <Checkbox
-              value=""
-              onChange={() => setLevel("")}
-              checked={Level === ""}
-            >
+            <Checkbox value="" onChange={() => setLevel("")} checked={Level === ""}>
               <label className="text-lg font-semibold">Semua Level</label>
             </Checkbox>
           </li>
           <li>
-            <Checkbox
-              value="Beginner"
-              onChange={handleCheckboxLevel}
-              checked={Level.includes("Beginner")}
-            >
+            <Checkbox value="Beginner" onChange={handleCheckboxLevel} checked={Level.includes("Beginner")}>
               <label className="text-lg font-semibold">Beginner Level</label>
             </Checkbox>
           </li>
           <li>
-            <Checkbox
-              value="Intermediate"
-              onChange={handleCheckboxLevel}
-              checked={Level.includes("Intermediate")}
-            >
-              <label className="text-lg font-semibold">
-                Intermediate Level
-              </label>
+            <Checkbox value="Intermediate" onChange={handleCheckboxLevel} checked={Level.includes("Intermediate")}>
+              <label className="text-lg font-semibold">Intermediate Level</label>
             </Checkbox>
           </li>
           <li>
-            <Checkbox
-              value="Advanced"
-              onChange={handleCheckboxLevel}
-              checked={Level.includes("Advanced")}
-            >
+            <Checkbox value="Advanced" onChange={handleCheckboxLevel} checked={Level.includes("Advanced")}>
               <label className="text-lg font-semibold">Advanced Level</label>
             </Checkbox>
           </li>
         </ul>
       </div>
-      <Button
-        className="mt-3 bg-purple-700 text-white font-bold text-xl h-fit hover:bg-red-600"
-        type="danger"
-        onClick={handleResetFilters}
-      >
+      <Button className="mt-3 bg-purple-700 text-white font-bold text-xl h-fit hover:bg-red-600" type="danger" onClick={handleResetFilters}>
         Hapus Filter
       </Button>
     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { CustomButtonSatu } from '../button/CustomButtonSatu'
 import diamondIcon from '../../images/icon/diamond.svg'
 
-export const CardModal = ({ img, title, author, rating, deskripsi, level, modules, durasi }) => {
+export const CardModal = (props) => {
  
     const cekBayar = () => {
 
@@ -23,11 +23,11 @@ export const CardModal = ({ img, title, author, rating, deskripsi, level, module
   };
   
     return (
-        <div className="flex flex-col bg-white border-2 rounded-3xl w-full" style={{ border: "1px solid #4B0082" }}>
-            <img src={img} alt="img" className='object-cover h-auto'/>
-            <div className="px-4 my-4">
+        <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-54" style={{ border: "1px solid #4B0082" }}>
+            <img src={props.Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
+            <div className="px-4 mb-3 mt-1">
                 <div className="flex justify-between items-center">
-                    <p className="text-purple-700 font-bold ">{title}</p>
+                    <p className="text-purple-700 font-bold">{props.Class.categorys.categoryName}</p>
                     <p className="text-xs flex justify-center items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path
@@ -35,12 +35,12 @@ export const CardModal = ({ img, title, author, rating, deskripsi, level, module
                             fill="#F9CC00"
                         />
                         </svg>{" "}
-                        {rating}
+                        {props.Class.averageRating}
                     </p>
                 </div>
-                <p className="text-black font-bold mt-1">{deskripsi}</p>
-                <p className="text-black text-sm mt-1">By:{author}</p>
-                <div className="flex gap-5 text-xs mt-1">
+                <p className="text-black font-bold">{props.Class.className}</p>
+                <p className="text-black text-sm">By:{props.Class.author}</p>
+                <div className="flex gap-5 text-xs">
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                         <path
@@ -48,7 +48,7 @@ export const CardModal = ({ img, title, author, rating, deskripsi, level, module
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold text-purple-900">{level}</p>
+                        <p className="font-semibold text-purple-900">{props.Class.levelName}</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -65,7 +65,7 @@ export const CardModal = ({ img, title, author, rating, deskripsi, level, module
                             </clipPath>
                         </defs>
                         </svg>
-                        <p className="font-semibold">{modules} Modul</p>
+                        <p className="font-semibold">{props.Class.module} Modul</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -74,17 +74,17 @@ export const CardModal = ({ img, title, author, rating, deskripsi, level, module
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold">{durasi} Menit</p>
+                        <p className="font-semibold">{props.Class.totalDuration} Menit</p>
                     </div>
                 </div>
                 <div>
                     {/* button */}
-                    <CustomButtonSatu button_text="Beli  Rp.300.000" iconPath="" onClick={cekBayar}/>
+                    <CustomButtonSatu button_text={`Beli Rp. ${props.Class.price}`} iconPath="" onClick={cekBayar}/>
                    
                 </div>
             </div>
         </div>
         
     
-  )
+    )
 }

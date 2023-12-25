@@ -1,61 +1,80 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Nav } from '../../assets/components/Nav'
 import { CustomButtonSatu } from '../../assets/components/button/CustomButtonSatu'
-import img from "../../assets/images/kursus.png";
 import chat from '../../assets/images/icon/gridicons_chat.svg'
 import { BackLink } from '../../assets/components/link/BackLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay, faLock, faPlay } from '@fortawesome/free-solid-svg-icons'
-import { BarProgres } from '../../assets/components/barProgres';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useClassDetailQuery } from '../../services/class/get-detail-class';
+import { CustomButtonDua } from '../../assets/components/button/CustomButtonDua';
+import { CardDaftarMateri } from '../../assets/components/card/CardDaftarMateri';
+import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
+import next from "../../assets/images/icon/circle-arrow-right-solid.svg";
+import { CardModal } from '../../assets/components/card/CardModal';
 
 export const DetailKelasPage = () => {
 
-    const contentData = {
-    img: img,
-    title: 'UI/UX Design',
-    author: 'Angela Doe',
-    deskripsi: 'ini mempelajari ui/ux fundamental',
-    rating: '4.5', // Change this to your actual rating
-    level: 'Intermediate',
-    modules: 8,
-    durasi: '12',
-  };
-  
-  const materiChapterSatu = [
-  { id: 1, name: 'Tujuan Mengikuti kelas design system' },
-  { id: 2, name: 'Pengenalan design system' },
-  
-];
 
-const materiChapterDua = [
-  { id: 1, name: 'Color Pallet' },
-  { id: 2, name: 'Layouting, Typograpi dan Grid' },
-  { id: 3, name: 'Membuat Components' },
-  
-  
-];
+const navigate = useNavigate();
 
-   const Join = () => {
+const { classCode } = useParams();
 
-    alert("dilempar ke grup telegram")
-  };
+const [Class, setClass] = useState([]);
 
+const { data: dataClass } = useClassDetailQuery(classCode); 
+
+const [id, setId] = useState([]);
+
+const [lesson, setLesson] = useState([]);
+
+const { data: dataLesson } = useLessonDetailQuery(id); 
+
+useEffect(() => {
+    if (dataClass) {
+        setClass(dataClass);
+    }
+
+    if (dataLesson) {
+        setLesson(dataLesson);
+    }
+}, [dataClass, dataLesson]);
+
+const openTelegramLink = () => {
+    window.open(Class.linkSosmed, "_blank");
+};
+
+const VideoUrl = 'https://www.youtube.com/embed/xsqqEGaRyAg?controls=0';
+// const VideoUrl = lesson.linkLearningMaterial;
+
+const semuaChapterIsPreview = Class.chapters?.every((chapter) => chapter.is_preview);
+
+if (semuaChapterIsPreview) {
+  console.log('Oke, semua chapter memiliki is_preview bernilai true.');
+} else {
+  console.log(semuaChapterIsPreview,'Tidak semua chapter memiliki is_preview bernilai true.');
+}
+
+const handleBeliSekarang = () => {
+    navigate(`/detail-pembayaran/${classCode}`);
+};
+
+const [isModalOpen, setIsModalOpen] = useState(false);
   
   return (
     <div className='bg-white'>
         {/* navabar */}
         <Nav/>
+        { console.log(Class, "ini data kelas yang akan dibawa")}
         
         <div className='flex flex-col h-screens items-center'>
             <div className='bg-purple-100 w-full'>
-                
-                    <div className='flex flex-row px-[5%]'>
+                <div className='flex flex-row px-[5%]'>
                         <div className='w-[55%] mt-[3%]'>
                             <BackLink/>
                             <div className="px-4 my-4">
                                 
                                 <div className="flex justify-between items-center">
-                                    <p className="text-purple-700 font-bold ">{contentData.title}</p>
+                                    <p className="text-purple-700 font-bold ">{Class.categorys?.categoryName}</p>
                                     <p className="text-xs flex justify-center items-center gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                                         <path
@@ -63,11 +82,11 @@ const materiChapterDua = [
                                             fill="#F9CC00"
                                         />
                                         </svg>{" "}
-                                        {contentData.rating}
+                                        {Class.averageRating}
                                     </p>
                                 </div>
-                                <p className="text-black font-bold mt-1">{contentData.deskripsi}</p>
-                                <p className="text-black text-sm mt-1">By:{contentData.author}</p>
+                                <p className="text-black font-bold mt-1">{Class.className}</p>
+                                <p className="text-black text-sm mt-1">By:{Class.author}</p>
                                 <div className="flex gap-5 text-xs mt-1">
                                     <div className="flex justify-center items-center gap-1 ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -76,7 +95,7 @@ const materiChapterDua = [
                                             fill="#73CA5C"
                                         />
                                         </svg>
-                                        <p className="font-semibold text-purple-900">{contentData.level}</p>
+                                        <p className="font-semibold text-purple-900">{Class.levelName}</p>
                                     </div>
                                     <div className="flex justify-center items-center gap-1 ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -93,7 +112,7 @@ const materiChapterDua = [
                                             </clipPath>
                                         </defs>
                                         </svg>
-                                        <p className="font-semibold">{contentData.modules} Modul</p>
+                                        <p className="font-semibold">{Class.module} Modul</p>
                                     </div>
                                     <div className="flex justify-center items-center gap-1 ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -102,89 +121,49 @@ const materiChapterDua = [
                                             fill="#73CA5C"
                                         />
                                         </svg>
-                                        <p className="font-semibold">{contentData.durasi} Menit</p>
+                                        <p className="font-semibold">{Class.totalDuration} Menit</p>
                                     </div>
                                 </div>
                                 <div>
                         
-                                    <CustomButtonSatu button_text="Join Grup Telegram" iconPath={chat} onClick={Join}/>
-                                </div>
+                                <CustomButtonDua button_text="Join Grup Telegram" iconPath={chat} onClick={openTelegramLink}/>
                             </div>
-                            
                         </div>
+                            
                     </div>
+                </div>
             </div>
 
-            <div className='absolute right-0 mr-[10%] mt-[5%] w-[400px] bg-white shadow-xl rounded-2xl'>
-                <div className='flex flex-col p-4 mb-2 gap-2'>
-                    <div className='flex flex-row justify-center items-center'>
-                        <h2 className='w-full'>Materi Belajar</h2>
-                        <BarProgres/>
-                    </div>
-                    <div className='flex justify-between'>
-                        <h5>Chapter 1 Pendahuluan</h5>
-                        <p className='text-sm pr-8'>60 menit</p>
-                    </div>
-                    {materiChapterSatu.map((item, index) => (
-                        <div key={item.id} className="flex items-center gap-3 transition-transform transform hover:scale-105 cursor-pointer" style={{ borderBottom: "1px solid #B19CD9", boxShadow: "0px 4px 6px -2px rgba(0, 0, 0, 0.08)" }}>
-                            {/* Nomor */}
-                            <div className="flex-shrink-0 w-8 h-8 bg-purple-200 font-semibold text-sm flex items-center justify-center rounded-full mb-1">
-                                {index + 1}
-                            </div>
+            <CardDaftarMateri
+                Kelas={Class}
+                setIsModalOpen={setIsModalOpen}
+                Id={id} 
 
-                            {/* Nama */}
-                            <p className="hover:underline text-sm">{item.name}</p>
+                setId={setId}
+            />
 
-                            {/* Logo (gantilah dengan logo yang sesuai) */}
-                            <FontAwesomeIcon icon={faCirclePlay} className='absolute right-0 mr-8 h-5 w-5 transition-transform transform hover:scale-105' style={{ color: "#73CA5C" }} />
-                        </div>
-                    ))}
+            {console.log(lesson, "ini lesson untuk video")}
 
-                    <div className='flex justify-between mt-3'>
-                        <h5>Chapter 2 Memulai Design</h5>
-                        <p className='text-sm pr-8'>120 menit</p>
-                    </div>
-                    {materiChapterDua.map((item, index) => (
-                        <div key={item.id} className="flex items-center gap-3 transition-transform transform hover:scale-105 cursor-pointer" style={{ borderBottom: "1px solid #B19CD9", boxShadow: "0px 4px 6px -2px rgba(0, 0, 0, 0.08)" }}>
-                            {/* Nomor */}
-                            <div className="flex-shrink-0 w-8 h-8 bg-purple-200 font-semibold text-sm flex items-center justify-center rounded-full mb-1">
-                                {index + 1}
-                            </div>
-
-                            {/* Nama */}
-                            <p className="hover:underline text-sm">{item.name}</p>
-
-                            {/* Logo (gantilah dengan logo yang sesuai) */}
-                            
-                            <FontAwesomeIcon icon={faLock} className='absolute right-0 mr-8 h-5 w-5 transition-transform transform hover:scale-105' style={{ color: "#808080" }} />
-                        </div>
-                    ))}
-                </div>
-
-            </div>            
 
             <div className='flex flex-col h-screens items-center justify-center px-[5%]'>
                 
                 <div className='flex flex-row px-4'>
                     <div className='flex flex-col bg-white w-[55%] gap-8 '>
                         <div className='flex justify-center items-center bg-current h-[327px] rounded-2xl mt-8'>
-                            <button
-                                className="flex items-center justify-center bg-purple-700 border-none h-[63px] w-[63px] rounded-full p-3 hover:bg-purple-900 hover:border-none focus:outline-none shadow-sm transition-transform transform hover:scale-105"
-                            >
-                                <div className='flex justify-center items-center rounded-md border-white w-10 h-6' style={{ border: "3px solid #ffffff" }}>
-                                    <FontAwesomeIcon icon={faPlay} className="text-white h-5 w-5 ml-1"/>
-                                </div>
-                                
-                            </button>
+
+                            <iframe
+                                className="w-full h-full rounded-2xl"
+                                src={VideoUrl}
+                                title="YouTube Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </div>
                         <div className='mt-0 pt-0'>
                             <h3 className='mb-3'>Tentang kelas</h3>
                             <p className='text-left text-sm'> 
-                            <span className='ml-4'>Design system adalah kumpulan komponen design, code, ataupun dokumentasi yang dapat digunakan sebagai panduan utama yang memunginkan designer serta developer memiliki lebih banyak kontrol atas berbagai platform.</span> 
-                            <br/>
-                            <span className='ml-4'>Dengan hadirnya design system, dapat menjaga konsistensi tampilan user interface dan meningkatkan user experience menjadi lebih baik.</span> Disisi bisnis, design system sangat berguna dalam menghemat waktu dan biaya ketika mengembangkan suatu produk. Bersama mentor XXX, kita akan mempelajari design system dari mulai manfaat, alur kerja pembuatannya, tools yang digunakan, hingga pada akhirnya, kita akan membuat MVP dari design system. 
-                            <br />
-                            <span className='ml-4'>Selain itu, mentor juga akan menjelaskan berbagai resource yang dibutuhkan untuk mencari inspirasi mengenai design system. Kelas ini sesuai untuk Anda yang ingin memahami apa itu design system. Tidak hanya ditujukan untuk UI/UX Designer ataupun Developer, kelas ini sangat sesuai untuk stakeholder lain agar dapat memudahkan tim dalam bekerja sama. Yuk segera daftar dan kami tunggu di kelas ya!</span>
+                                {Class.description}
                             </p>
                         </div>
                         <div className=''>
@@ -208,6 +187,25 @@ const materiChapterDua = [
             </div>
 
         </div>
+
+         {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <p onClick={() => setIsModalOpen(false)}>tutup</p>
+                    <div className="bg-white p-8 max-w-md w-full rounded-xl">
+                        
+                        <div className="font-bold text-xl mb-4 text-center">
+                            <p>Selangkah Lagi Menuju</p>
+                            <p className="text-purple-900">Kelas Premium</p>
+                        </div>
+
+                        <CardModal Class={Class} />
+                        <div className="flex items-center justify-center mt-8">
+                            <CustomButtonDua button_text="&nbsp;&nbsp;&nbsp;&nbsp;Beli Sekarang&nbsp;&nbsp;&nbsp;&nbsp;" iconPath={next} onClick={handleBeliSekarang} />
+                        </div>
+                    </div>
+                </div>
+            )}
     </div>
   )
 }
