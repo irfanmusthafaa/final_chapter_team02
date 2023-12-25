@@ -230,7 +230,8 @@ const [open, setOpen] = useState(false);
 
          {/* Modal */}
          <ModalBeliKelas
-         
+            open={open}
+            setOpen={setOpen}
             Class={Class}
          />
           
