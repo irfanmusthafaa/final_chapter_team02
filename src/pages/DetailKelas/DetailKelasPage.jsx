@@ -12,6 +12,7 @@ import { useMutation } from '@tanstack/react-query';
 import { ModalBeliKelas } from '../../assets/components/modal/ModalBeliKelas';
 import { toast } from 'react-toastify';
 import { useLearningDataQuery } from '../../services/learning/get-data-learning';
+import { addRating } from '../../services/rating/add-rating';
 
 export const DetailKelasPage = () => {
 
@@ -29,8 +30,7 @@ const [selectedLesson, setSelectedLesson] = useState(
 
 
 const [lesson, setLesson] = useState([]);
-
-const { data: dataLesson } = useLessonDetailQuery(selectedLesson); 
+const { data: dataLesson } = useLessonDetailQuery(classCode, selectedLesson); 
 
 const [learning, setLearning] = useState([])
 const { data: dataLearning } = useLearningDataQuery(); 
@@ -62,7 +62,6 @@ const joinClass = useMutation(() => joinMyClass(classCode));
 
 const AddClass = async () => {
     //periksa dulu apa sudah ada 
-
     const isClassCodeExists = learning.some((learning) => learning.classCode === classCode);
 
     if (isClassCodeExists) {
@@ -73,7 +72,7 @@ const AddClass = async () => {
     }
 
 };
-const VideoUrl = lesson.linkLearningMaterial;
+const VideoUrl = lesson.lesson?.linkLearningMaterial;
 
 const [embedUrl, setEmbedUrl] = useState('');
 
@@ -102,22 +101,19 @@ useEffect(() => {
 
 const semuaChapterIsPreview = Class.chapters?.every((chapter) => chapter.is_preview);
 
-if (semuaChapterIsPreview) {
-  console.log('Oke, semua chapter memiliki is_preview bernilai true.');
-  //bisa tampilin bintang
-} else {
-  console.log(semuaChapterIsPreview,'Tidak semua chapter memiliki is_preview bernilai true.');
-}
-
-// const [showPreview, setShowPreview] = useState(true);
-// const handlePlayClick = () => {
-//     setShowPreview(false);
-// };
-
 const [rating, setRating] = useState(0);
 
-const handleRatingClick = (value) => {
+const handleRatingClick = async (value) => {
     setRating(value);
+    try {
+        await addRating({
+            value:value
+        }, classCode);
+        toast.success("Berhasil menambah rating");
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 };
 
 
@@ -127,7 +123,8 @@ const [open, setOpen] = useState(false);
     <div className='bg-white'>
         {/* navabar */}
         <Nav/>
-        {console.log(learning, "ini learning yang ada")}
+        {/* {console.log(learning, "ini learning yang ada")} */}
+        {/* {console.log(lesson.lesson?.linkLearningMaterial, "ini leson yang ada")} */}
         <div className='flex flex-col h-screens items-center'>
             <div className='bg-purple-100 w-full'>
                 <div className='flex flex-row px-[5%]'>
@@ -226,22 +223,23 @@ const [open, setOpen] = useState(false);
                             ></iframe>
                         </div>
 
+                        {semuaChapterIsPreview && (
                         <span>
-                            {/* <p>Rating: {rating}</p> */}
                             {[1, 2, 3, 4, 5].map((starValue) => (
                                 <span
-                                    key={starValue}
-                                    onClick={() => handleRatingClick(starValue)}
-                                    style={{
-                                        cursor: 'pointer',
-                                        color: starValue <= rating ? 'gold' : 'gray',
-                                        fontSize: '24px',
-                                    }}
+                                key={starValue}
+                                onClick={() => handleRatingClick(starValue)}
+                                style={{
+                                    cursor: 'pointer',
+                                    color: starValue <= rating ? 'gold' : 'gray',
+                                    fontSize: '24px',
+                                }}
                                 >
                                 ★
                                 </span>
                             ))}
                         </span>
+                        )}
 
                         <div className='mt-0 pt-0'>
                             <h3 className='mb-3'>Tentang kelas</h3>

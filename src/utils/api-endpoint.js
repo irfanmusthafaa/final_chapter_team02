@@ -11,7 +11,7 @@ export const API_ENDPOINT = {
   DATA_CATEGORY: "/api/v1/category",
   DATA_CLASS: "/api/v1/class",
   PAYMENT_USER: "/api/v1/payment",
-  DATA_LESSON: "api/v1/lesson",
+  DATA_LESSON: "api/v1/lesson/presentase",
   JOIN_MY_CLASS: "api/v1/class/joinclass",
   DATA_LEARNING: "api/v1/learning/all",
   ADD_RATING:"api/v1/rating",
