@@ -2,6 +2,7 @@ import React from 'react'
 import { CustomButtonSatu } from '../button/CustomButtonSatu'
 import { Modal } from 'antd'
 import { CardModal } from '../card/CardModal'
+import next from "../../images/icon/circle-arrow-right-solid.svg";
 
 export const ModalBeliKelas = (props) => {
 
@@ -13,10 +14,11 @@ export const ModalBeliKelas = (props) => {
       onOk={() => props.setOpen(false)}
       onCancel={() => props.setOpen(false)}
       footer={null}
-      width={700}
-      className="mt-10"
+      // width={700}
+     
+      // className='flex justify-center content-center items-center text-center'
     >
-      <div className="bg-white p-8 max-w-md w-full rounded-xl">
+      <div className="bg-white p-8 max-w-md w-full rounded-xl ps-3">
         <div className="font-bold text-xl mb-4 text-center">
           <p>Selangkah Lagi Menuju</p>
           <p className="text-purple-900">Kelas Premium</p>

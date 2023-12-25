@@ -9,11 +9,8 @@ import { useClassDetailQuery } from '../../services/class/get-detail-class';
 import { CustomButtonDua } from '../../assets/components/button/CustomButtonDua';
 import { CardDaftarMateri } from '../../assets/components/card/CardDaftarMateri';
 import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
-import next from "../../assets/images/icon/circle-arrow-right-solid.svg";
-import { CardModal } from '../../assets/components/card/CardModal';
 import { joinMyClass, useJoinClassQuery } from '../../services/class/join-my-class';
 import { useMutation } from '@tanstack/react-query';
-import { Modal } from 'antd';
 import { ModalBeliKelas } from '../../assets/components/modal/ModalBeliKelas';
 
 export const DetailKelasPage = () => {

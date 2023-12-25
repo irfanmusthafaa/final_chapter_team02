@@ -11,7 +11,7 @@ export const CardModal = (props) => {
     const sudahBayar = true; // Misalnya, menggantinya dengan logika pengecekan pembayaran
 
     if (sudahBayar) {
-        alert('ok anda sudah bayar.');
+        alert('Silahkan tekan tombol beli sekarang.');
         // Jika sudah bayar, pindahkan ke halaman detail
         //   window.location.href = 'KelasSaya/Detail/{id}';
     } else {
@@ -39,7 +39,7 @@ export const CardModal = (props) => {
                     </p>
                 </div>
                 <p className="text-black font-bold">{props.Class.className}</p>
-                <p className="text-black text-sm">By:{props.Class.author}</p>
+                <p className="text-black text-sm">By : {props.Class.author}</p>
                 <div className="flex gap-5 text-xs">
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
