@@ -45,7 +45,7 @@ export const TableChapter = ({ searchTerm, Chapter, Class }) => {
       title: "Status",
       dataIndex: "is_preview",
       key: "is_preview",
-      render: (is_preview) => <p className={`${is_preview ? "text-green-500" : "text-blue-500"}  font-bold`}>{is_preview ? "TRUE" : "FALSE"}</p>,
+      render: (is_preview) => <p className={`${is_preview ? "text-green-500" : "text-blue-500"}  font-bold`}>{is_preview ? "GRATIS" : "PREMIUM"}</p>,
     },
     {
       title: "Total Durasi",

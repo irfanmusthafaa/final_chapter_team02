@@ -42,20 +42,20 @@ export const SideBar = () => {
     <div className="bg-purple-700 min-h-screen   w-[20%]  ">
       <div className="flex flex-col pt-[2rem] justify center items-center">
         <img src={logoImage} width={150} placeholder="logo" />
-        <div className="w-full flex flex-col justify-center items-center mt-16 overflow-hidden">
+        <div className="w-full flex flex-col justify-center items-center mt-10 overflow-hidden">
           {menus.map((menu, index) => (
             <Link
               key={index}
               to={menu.link}
               className={`${
                 activePage === menu.active ? "bg-purple-500" : "bg-purple-700"
-              } w-full flex gap-1 items-center text-xs   py-4  font-semibold text-white no-underline`}
+              } w-full flex gap-1 items-center text-sm   py-4  font-semibold text-white no-underline`}
             >
               <FontAwesomeIcon icon={menu.icon} className="w-[30%]" /> <p>{menu.label}</p>
             </Link>
           ))}
 
-          <a onClick={handleLogout} className={`w-full flex gap-1 items-center text-xs   py-4 cursor-pointer font-semibold text-white no-underline`}>
+          <a onClick={handleLogout} className={`w-full flex gap-1 items-center text-sm   py-4 cursor-pointer font-semibold text-white no-underline`}>
             <FontAwesomeIcon icon={faSignOut} className="w-[30%]" /> <p>Keluar</p>
           </a>
         </div>

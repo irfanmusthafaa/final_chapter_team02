@@ -18,4 +18,6 @@ export const API_ENDPOINT = {
   DATA_BANK: "/api/v1/bank",
   ADMIN_PAYMENT: "/api/v1/admin/payment",
   POST_NOTIFICATION_ALL: "/api/v1/notifications/all",
+  DATA_ALL_USERS: "/api/v1/admin/user",
+  GET_PROFILE: "/api/v1/user",
 };

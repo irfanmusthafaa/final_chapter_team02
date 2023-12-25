@@ -69,7 +69,7 @@ export const ModalTambahLesson = ({ Chapter }) => {
         <div className="w-full flex flex-col  gap-3 ">
           <div className="flex flex-col gap-1">
             <label className="font-semibold text-sm">Judul Lesson</label>
-            <Input onChange={handleInput} id="title" className="border rounded-lg hover:border-purple-700" type="text" placeholder="Nama Chapter" />
+            <Input onChange={handleInput} id="title" className="border rounded-lg hover:border-purple-700" type="text" placeholder="Judul Lesson" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-semibold text-sm">Learning Material</label>

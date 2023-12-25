@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { API_ENDPOINT } from "../../../utils/api-endpoint";
 import httpAdmin from "../../../utils/httpAdmin";
 
-const GetLesson = async ({ queryKey }) => {
+const GetAllUsers = async ({ queryKey }) => {
   const [_key] = queryKey;
   const { data } = await httpAdmin
     .get(_key)
@@ -16,8 +16,8 @@ const GetLesson = async ({ queryKey }) => {
   return data.data;
 };
 
-const useGetLesson = (options) => {
-  return useQuery([API_ENDPOINT.DATA_LESSON, options], GetLesson);
+const useGetAllUsers = (options) => {
+  return useQuery([API_ENDPOINT.DATA_ALL_USERS, options], GetAllUsers);
 };
 
-export { GetLesson, useGetLesson };
+export { GetAllUsers, useGetAllUsers };

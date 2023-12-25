@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_ENDPOINT } from "../../../utils/api-endpoint";
 import httpAdmin from "../../../utils/httpAdmin";
+import { API_ENDPOINT } from "../../../utils/api-endpoint";
 
-const GetLesson = async ({ queryKey }) => {
+const GetNotificationAdmin = async ({ queryKey }) => {
   const [_key] = queryKey;
   const { data } = await httpAdmin
     .get(_key)
@@ -16,8 +16,8 @@ const GetLesson = async ({ queryKey }) => {
   return data.data;
 };
 
-const useGetLesson = (options) => {
-  return useQuery([API_ENDPOINT.DATA_LESSON, options], GetLesson);
+const useGetNotificationAdmin = (options) => {
+  return useQuery([API_ENDPOINT.GET_NOTIFICATION_ALL, options], GetNotificationAdmin);
 };
 
-export { GetLesson, useGetLesson };
+export { GetNotificationAdmin, useGetNotificationAdmin };
