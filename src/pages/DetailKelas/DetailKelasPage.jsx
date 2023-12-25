@@ -13,6 +13,8 @@ import next from "../../assets/images/icon/circle-arrow-right-solid.svg";
 import { CardModal } from '../../assets/components/card/CardModal';
 import { joinMyClass, useJoinClassQuery } from '../../services/class/join-my-class';
 import { useMutation } from '@tanstack/react-query';
+import { Modal } from 'antd';
+import { ModalBeliKelas } from '../../assets/components/modal/ModalBeliKelas';
 
 export const DetailKelasPage = () => {
 
@@ -95,7 +97,7 @@ if (semuaChapterIsPreview) {
   console.log(semuaChapterIsPreview,'Tidak semua chapter memiliki is_preview bernilai true.');
 }
 
-const [isModalOpen, setIsModalOpen] = useState(false);
+const [open, setOpen] = useState(false);
   
   return (
     <div className='bg-white'>
@@ -178,9 +180,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
             <CardDaftarMateri
                 Kelas={Class}
-                setIsModalOpen={setIsModalOpen}
+                setIsModalOpen={setOpen}
                 Id={selectedLesson} 
-
                 setId={setSelectedLesson}
             />
 
@@ -228,29 +229,15 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         </div>
 
          {/* Modal */}
-            {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-8 max-w-md w-full rounded-xl">
-                        <div className="font-bold text-xl mb-4 text-center">
-                            <p>Selangkah Lagi Menuju</p>
-                            <p className="text-purple-900">Kelas Premium</p>
-                        </div>
-
-                        <CardModal Class={Class} />
-                        <div className="flex items-center justify-center mt-8">
-                            {/* <CustomButtonDua button_text="                              Beli Sekarang" iconPath={next} onClick={() => setIsModalOpen(false)} /> */}
-                            <button
-                                onClick={() => setIsModalOpen(false)}
-                                size="large"
-                                className={`flex items-center justify-center bg-purple-400 px-4 py-1 mt-2 cursor-pointer text-white text-sm font-bold rounded-full h-[2.5rem] w-full hover:bg-purple-900 hover:text-white border-0 shadow-sm transition-transform transform hover:scale-105 focus:outline-none `}
-                            >
-                                Beli Sekarang
-                                <img src={next} alt="Icon" className="ms-2 h-4 color-white" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+         <ModalBeliKelas
+         
+            Class={Class}
+         />
+          
+                
+                    
+                
+            
     </div>
   )
 }

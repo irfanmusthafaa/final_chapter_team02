@@ -27,7 +27,7 @@ export const CardModal = (props) => {
             <img src={props.Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
             <div className="px-4 mb-3 mt-1">
                 <div className="flex justify-between items-center">
-                    <p className="text-purple-700 font-bold">{props.Class.categorys.categoryName}</p>
+                    <p className="text-purple-700 font-bold">{props.Class.categorys?.categoryName}</p>
                     <p className="text-xs flex justify-center items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path
