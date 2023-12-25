@@ -3,134 +3,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleRight,
   faArrowLeft,
-
 } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "antd";
-
 import { Navbar } from "../assets/components/Navbar";
 import img from "../assets/images/kursus.png";
-import { Input, Radio, Select } from "antd";
-import { useBankDataQuery } from "../services/bank/get-data-bank";
-import { usePaymentClassQuery } from "../services/payment/post-payment-user";
+import { ModalDetailPembayaran } from "../assets/components/modal/ModalDetailPembayaran";
+import { useClassDetailQuery } from "../services/class/get-detail-class";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+
 
 export const DetailPembayaran = () => {
-  const style = { color: "#ffff" };
-
-  const [metode, setMetode] = useState(true);
-  const handleRadioChange = (e) => {
-    const value = e.target.value === 'transfer';
-    setMetode(value);
-
-    setPaymentMethod(value ? 'Transfer' : 'Credit Card');
-    
-  };
-
-  
+  const style = { color: "#ffff" };  
   const [open, setOpen] = useState(false);
 
-  const handleBayar = () => {
-    window.location.href = "/sukses-pembayaran";
-  };
-
-  const handleSimpan = () => {
-    //untuk post payment
-    setOpen(false);
-  };
-
-  const { data: dataBank } = useBankDataQuery();
-  const [Bank, setBank] = useState([]);
   const { classCode } = useParams();
-   
 
-  const [selectedBank, setSelectedBank] = useState(null);
-  const [namaRekening, setNamaRekening] = useState('');
-  const [noRekening, setNoRekening] = useState('');
-  const handleBankChange = (value) => {
-    setSelectedBank(value);
+  const [Class, setClass] = useState([]);
 
-    const selectedBankData = Bank.find((bank) => bank.id === parseInt(value, 10));
-    console.log(selectedBankData, "ini valuenya")
-
-  // Jika data bank ditemukan, atur nama rekening sesuai dengan rekeningName
-  if (selectedBankData) {
-    setNamaRekening(selectedBankData.bankName);
-    setNoRekening(selectedBankData.bankNumber);
-    setBankId(selectedBankData.id)
-  } else {
-    // Jika data bank tidak ditemukan, atur nama rekening menjadi kosong atau nilai default
-    setNamaRekening('');
-    setNoRekening('');
-  }
-  };
-
-  const [paymentMethod, setPaymentMethod] = useState('Transfer');
-  const [bankId, setBankId] = useState();
-  const [cardName, setCardName] = useState();
-  const [cardNumber, setCardNumber] = useState('');
-
-  const { mutate: dataPayment, status, isSuccess, isError, error } = usePaymentClassQuery();
-
-  const handleInput = (e) => {
-    if (e) {
-      
-      if (e.target.id === "cardName") {
-        setCardName(e.target.value);
-      }
-    }
-  };
+  const { data: dataClass } = useClassDetailQuery(classCode); 
 
   useEffect(() => {
-    // handlePaymentClass(classCode);
-    if (isError) {
-      message.error(error.response.data.message);
+    if (dataClass) {
+        setClass(dataClass);
     }
-    if (isSuccess) {
-      toast.success("Anda Berhasil Melakukan Pembelian kelas");
-      setTimeout(() => {
-        window.location.href = '/sukses-pembayaran';
-      }, 1000);
-    }
-  }, [status]);
+  }, [dataClass]);
+ 
+  
 
-
-  const handlePaymentClass = async () => {
-    console.log(classCode, "ini kode nya")
-    if (!paymentMethod && !cardName && (!bankId || !cardNumber)) {
-      toast.error("Tolong lengkapi form pembayaran!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-      return;
-    }
-
-    const formData = new FormData();
-
-    formData.append("paymentMethod", paymentMethod);
-    formData.append("bankId", cardName);
-    formData.append("cardName", cardName);
-
-    try {
-      dataPayment(classCode, formData);
-    } catch (error) {
-      return null;
-    }
-  };
-
-
-  useEffect(()=>{
-        setBank(dataBank);
-        
-          {console.log("ini yang di ambil : ", paymentMethod)}
-          
-    }, [dataBank, namaRekening])
   return (
     <div>
       <Navbar />
@@ -146,121 +44,13 @@ export const DetailPembayaran = () => {
           </a>
         </div>
       </div>
+      
       {/* Modals */}
-      <Modal
-        centered
+      <ModalDetailPembayaran 
         open={open}
-        onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
-        footer={null}
-        width={700}
-        className="mt-10"
-      >
-        <div className="flex flex-col justify-center items-center w-full ">
-          <div className="md:w-[60%]  mt-7">
-            <h2 className="text-center font-bold text-purple-700 text-lg mb-6">
-              Detail Pembayaran
-            </h2>
-            <div className="w-full flex flex-col  gap-3 ">
-              <label className="font-semibold text-sm">
-                PIlih Metode Pembayaran
-              </label>
-              <Radio.Group onChange={handleRadioChange} defaultValue="transfer">
-                <Radio value="transfer">Bank Transfer</Radio>
-                <Radio value="creditCard">Credit Card</Radio>
-              </Radio.Group>
-
-              {metode ? ( // Jika Metode true, tampilkan ini
-                <>
-                  <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-sm">
-                      Jenis Bank
-                    </label>
-                    <Select
-                      id="idPembayaran"
-                      className="border rounded-lg hover:border-purple-700"
-                      placeholder="Pilih Bank"
-                      onChange={handleBankChange}
-                      value={selectedBank}
-                    >
-                      {Bank?.map((bank) => (
-                        <Select.Option key={bank.id} value={bank.id}>
-                          {bank.bankType}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </div>
-  
-                  <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-sm">Nama Rekening</label>
-                    <Input
-                      id="namaRekening"
-                      className="border rounded-lg hover:border-purple-700"
-                      type="text"
-                      placeholder="Akan diisi otomatis"
-                      value={namaRekening}
-                      readOnly
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-sm">No Rekening</label>
-                    <Input
-                      id="noRekening"
-                      className="border rounded-lg hover:border-purple-700"
-                      type="text"
-                      placeholder="Akan diisi otomatis"
-                      value={noRekening}
-                      readOnly
-                    />
-                  </div>
-                   <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-sm">Nama Rekening Kamu</label>
-                    <Input
-                      id="cardName"
-                      onChange={handleInput}
-                      className="border rounded-lg hover:border-purple-700"
-                      type="text"
-                      placeholder="Masukan nama rekening kamu yang digunakan untuk membayar"
-                    />
-                  </div>
-                </>
-              ) : ( // Jika Metode false, tampilkan ini
-                <>
-                  <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-sm">Nama Kartu Kredit</label>
-                    <Input
-                      id="namaKartuKredit"
-                      className="border rounded-lg hover:border-purple-700"
-                      type="text"
-                      placeholder="Jika memilih Bank Transfer diisi (-)"
-                      value="tes"
-                      readOnly
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <label className="font-semibold text-sm">No Kartu Kredit</label>
-                    <Input
-                      id="noKartuKredit"
-                      className="border rounded-lg hover:border-purple-700"
-                      type="text"
-                      placeholder="Jika memilih Bank Transfer diisi (-)"
-                      value="tes"
-                      readOnly
-                    />
-                  </div>
-                </>
-              )}
-            {console.log("ini yang di ambil : ", paymentMethod, cardName, bankId)}
-            </div>
-          
-            <div className="flex gap-2 mt-4">
-              <button className="w-full py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2" onClick={handlePaymentClass}>
-                Bayar Sekarang
-              </button>
-            </div>
-          </div>
-        </div>
-      </Modal>
+        setOpen={setOpen}
+      />
+      
       {/* bagian bawah */}
       {/* desktop */}
       <div className="md:flex w-full hidden">
@@ -269,15 +59,15 @@ export const DetailPembayaran = () => {
     
 
     {/* batas */}
-            <div className="flex flex-col w-1/3">
-              <button className="border-purple-700 rounded-xl h-fit flex flex-col gap-3 p-3 bg-transparent">
-                <label className="font-bold text-xl">Pembayaran Kelas</label>
-                <div className="flex flex-col bg-white border-2 rounded-3xl w-full shadow-lg">
-                  <img src={img} placeholder="img" />
-                  <div className="px-2 mt-2">
+          <div className="flex flex-col w-1/3">
+            <button className="rounded-xl h-fit flex flex-col gap-3 p-3 bg-transparent" style={{ border: "1px solid #4B0082" }}>
+              <label className="font-bold text-xl">Pembayaran Kelas</label>
+              <div className="flex flex-col bg-white border-2 rounded-3xl w-full shadow-lg overflow-hidden max-h-54">
+                <img src={Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]' />
+                <div className="px-2 mt-2">
                     <div className="flex justify-between items-center">
                       <p className="text-purple-700 font-bold mb-2">
-                        UI/UX Design
+                        {Class.categorys?.categoryName}
                       </p>
                       <p className="text-xs flex justify-center items-center gap-1">
                         <svg
@@ -292,38 +82,37 @@ export const DetailPembayaran = () => {
                             fill="#F9CC00"
                           />
                         </svg>{" "}
-                        4.7
+                        {Class.averageRating}
                       </p>
                     </div>
                     <div className="flex flex-col justify-start items-start gap-1">
                       <label className="text-black font-bold">
-                        Belajar Web Designer dengan figma
+                        {Class.className}
                       </label>
                       <label className="text-black text-sm font-medium mb-2">
-                        by Simon Doe
+                        By : {Class.author}
                       </label>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-row">
-                  <div className="flex flex-col"></div>
-                  <div className="flex flex-col"></div>
-                  <div className="flex flex-col"></div>
-                </div>
-                <div className="w-full flex justify-center items-center">
+              <div className="flex flex-row">
+                <div className="flex flex-col"></div>
+                <div className="flex flex-col"></div>
+                <div className="flex flex-col"></div>
+              </div>
+              <div className="w-full flex justify-center items-center">
                   <div
-                    className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2.5rem] hover:bg-[#73CA5C]"
+                    className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2rem] hover:bg-[#73CA5C]"
                     onClick={() => setOpen(true)}
                   >
                     Bayar dan Ikuti Kelas{" "}
-                    <FontAwesomeIcon style={style} icon={faArrowCircleRight} />
+                  <FontAwesomeIcon style={style} icon={faArrowCircleRight} />
                   </div>
-                </div>
-              </button>
-            </div>
-          
+              </div>
+            </button>
+          </div>
           {/* collapse */}
-          
+    
         </div>
       </div>
       {/* mobile */}
@@ -331,14 +120,14 @@ export const DetailPembayaran = () => {
         <div className="px-[1.5rem] md:px-[10rem] py-[1.5rem] flex flex-col md:flex-row md:gap-10 gap-2">
           {/* card */}
             <div className="flex flex-col md:w-1/3">
-              <button className="border-purple-700 rounded-xl h-fit flex flex-col gap-3 p-3 bg-transparent">
+              <button className="rounded-xl h-fit flex flex-col gap-3 p-3 bg-transparent" style={{ border: "1px solid #4B0082" }}>
                 <label className="font-bold text-xl">Pembayaran Kelas</label>
-                <div className="flex flex-col bg-white border-2 rounded-3xl w-full shadow-lg">
-                  <img src={img} placeholder="img" />
+                <div className="flex flex-col bg-white border-2 rounded-3xl w-full shadow-lg overflow-hidden max-h-54">
+                  <img src={Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]' />
                   <div className="px-2 mt-2">
                     <div className="flex justify-between items-center">
                       <p className="text-purple-700 font-bold mb-2">
-                        UI/UX Design
+                        {Class.categorys?.categoryName}
                       </p>
                       <p className="text-xs flex justify-center items-center gap-1">
                         <svg
@@ -353,15 +142,15 @@ export const DetailPembayaran = () => {
                             fill="#F9CC00"
                           />
                         </svg>{" "}
-                        4.7
+                        {Class.averageRating}
                       </p>
                     </div>
                     <div className="flex flex-col justify-start items-start gap-1">
                       <label className="text-black font-bold">
-                        Belajar Web Designer dengan figma
+                        {Class.className}
                       </label>
                       <label className="text-black text-sm font-medium mb-2">
-                        by Simon Doe
+                        By : {Class.author}
                       </label>
                     </div>
                   </div>
@@ -373,7 +162,7 @@ export const DetailPembayaran = () => {
                 </div>
                 <div className="w-full flex justify-center items-center">
                   <div
-                    className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2.5rem] hover:bg-[#73CA5C]"
+                    className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2rem] hover:bg-[#73CA5C]"
                     onClick={() => setOpen(true)}
                   >
                     Bayar dan Ikuti Kelas{" "}
