@@ -55,6 +55,7 @@ const joinClass = useMutation(() => joinMyClass(classCode));
 const AddClass = async () => {
     try {
         joinClass.mutate();
+        
     } catch (error) {
       console.error('Error joining class:', error);
     }
