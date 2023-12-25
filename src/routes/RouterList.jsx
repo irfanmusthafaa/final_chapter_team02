@@ -46,7 +46,7 @@ export const RouterList = () => {
         <Route path="/otp" element={<OTP />}></Route>
         <Route path="/KelasSaya/KelasBerjalan" element={<KelasBerjalan />}></Route>
         <Route path="/KelasSaya/TopikKelas" element={<TopikKelas />}></Route>
-        <Route path="/Detailkelas" element={<DetailKelasPage />}></Route>
+        <Route path="/Detailkelas/:classCode" element={<DetailKelasPage />}></Route>
         <Route path="TesModal" element={<App />}></Route>
         <Route path="/new-password" element={<NewPass />}></Route>
         <Route path="/password-otp" element={<PasswordOTP />}></Route>

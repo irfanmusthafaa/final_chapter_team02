@@ -11,15 +11,16 @@ const http = axios.create({
 });
 
 http.interceptors.request.use((config) => {
-  // Dapatkan tipe konten dari konfigurasi permintaan
-  const contentType = config.headers["Content-Type"];
-
-  // Jika tipe konten adalah "multipart/form-data", biarkan seperti itu
-  if (contentType && contentType.includes("multipart/form-data")) {
-    // Tidak perlu menambahkan "Content-Type" di sini
+  if (config.data instanceof FormData) {
+    config.headers = {
+      ...config.headers,
+      "Content-Type": "multipart/form-data",
+    };
   } else {
-    // Jika bukan "multipart/form-data", atur "Content-Type" menjadi "application/json"
-    config.headers["Content-Type"] = "application/json";
+    config.headers = {
+      ...config.headers,
+      "Content-Type": "application/json",
+    };
   }
 
   config.headers = {

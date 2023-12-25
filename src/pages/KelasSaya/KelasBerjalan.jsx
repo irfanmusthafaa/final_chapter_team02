@@ -1,51 +1,54 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FilterKelas } from '../../assets/components/FilterKelas'
 import searchIcon from "../../assets/images/icon-search2.png";
-import { Button } from 'antd'
 import { Nav } from '../../assets/components/Nav';
 import { NavButton } from '../../assets/components/button/buttton_navigasi/ButtonNav';
-import img from '../../assets/images/kursus.png'
 import { CardKelasBerjalan } from '../../assets/components/card/card_kelas_saya/CardKelasBerjalan';
+import { useCategoryDataQuery } from '../../services/category/get-data-category';
+import { useClassDataQuery } from '../../services/class/get-data-class';
 
 export const KelasBerjalan= () => {
 
-     const [activeButton, setActiveButton] = useState('ALL');
+    const [Filter, setFilter]= useState('');
+    const [Kategori, setKategori]= useState('');
+    const [Level, setLevel]= useState('');
+    const [IsFree, setIsFree]= useState(null);
+    
 
-    // const [PilihKelas, setPilihKelas] = useState(null);
+    const [activeButton, setActiveButton] = useState('ALL');
 
-    //SEMENTARA
+    const [Category, setCategory] = useState([]);
+    const { data: dataCategory } = useCategoryDataQuery();
+
+    const [Class, setClass] = useState([]);
+    const [tes, setTes] = useState(1);
+    const [tes1, setTes1] = useState('IntermediateLevel');
+    const { data: dataClass } = useClassDataQuery({
+        categoryId: Kategori ? Kategori : '',
+        levelName: Level ? Level : '',
+        isFree: IsFree
+    }); 
+
+    useEffect(()=>{
+        setCategory(dataCategory);
+        if (dataClass) {
+            setClass(dataClass.result);
+        }
+        
+    }, [dataCategory, dataClass, tes, Kategori])
+    
     const handleButtonClick = (buttonText) => {
         setActiveButton(buttonText);
-        console.log('Tombol diklik!');
+        setIsFree(buttonText)
+        if (buttonText === 'ALL') {
+            // setIsFree(null);
+        } else if (buttonText === 'In Progress') {
+            // setIsFree(false);
+        } else if (buttonText === 'Selesai') {
+            // setIsFree(true);
+        }
 
     };
-//DATA SEMENTARA
-const contentData = {
-    img: img,
-    title: 'UI/UX Design',
-    author: 'Angela Doe',
-    deskripsi: 'ini mempelajari ui/ux fundamental',
-    rating: '4.5', // Change this to your actual rating
-    level: 'Intermediate',
-    modules: 8,
-    durasi: '12',
-  };
-
-
-    // INI UNTUK NANTI API
-//    const handleButtonClick = (kelas) => {
-//     // ini akan menerima parameter
-
-//     // Contoh api requestnya
-//     Axios.get(`https://ContohApi/api/data?category=${kelas}`)
-//         .then(response => {
-//             // Lakukan sesuatu dengan data yang diterima dari API
-//             console.log('Data from API:', response.data);
-//         })
-//         .catch(error => {
-//             console.error('Error fetching data:', error);
-//         });
-//     };
 
   return (
     <div className='bg-purple-100'>
@@ -76,7 +79,7 @@ const contentData = {
                 </div>
                 <div className='flex flex-row h-[100%] gap-10 mt-[2%]'>
                     <div>
-                        <FilterKelas/>
+                        <FilterKelas category={Category}/>
                     </div>
                     <div className=''>
                         
@@ -88,11 +91,11 @@ const contentData = {
                         </div>
                         <div className='grid mt-[4%] grid-cols-2 gap-4'>
                             {/* content */}
-                            <CardKelasBerjalan {...contentData}/>
+                            {/* <CardKelasBerjalan {...contentData}/> */}
                             
-                            <CardKelasBerjalan {...contentData}/>
-                            
-                            <CardKelasBerjalan {...contentData}/>
+                            {Class.map((item) => (
+                                <CardKelasBerjalan key={item.id} class={item} category={Category} free={IsFree}/>
+                            ))}
                         </div>
                     </div>
                 </div>

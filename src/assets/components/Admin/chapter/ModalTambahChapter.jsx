@@ -7,6 +7,7 @@ export const ModalTambahChapter = ({ Class }) => {
   const [ChapterName, setChapterName] = useState("");
   const [ClassCode, setClassCode] = useState("");
   const [IsFree, setIsFree] = useState(true);
+  const navigate = useNavigate()
 
   const { mutate: dataChapter, status, isSuccess, isError, error } = useAddChapter();
 
@@ -50,7 +51,7 @@ export const ModalTambahChapter = ({ Class }) => {
 
   return (
     <div className="flex flex-col justify-center items-center w-full ">
-      <div className="w-[60%]  my-7">
+      <div className="w-[60%] my-7">
         <h3 className="text-center font-bold text-purple-700 text-lg mb-10">Tambah Chapter</h3>
         <div className="w-full flex flex-col  gap-3 ">
           <div className="flex flex-col gap-1">
@@ -82,7 +83,6 @@ export const ModalTambahChapter = ({ Class }) => {
             </Radio.Group>
           </div>
         </div>
-
         <div className="flex gap-2 mt-4">
           <button
             className="w-full py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2"
