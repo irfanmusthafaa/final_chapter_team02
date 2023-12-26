@@ -1,42 +1,116 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../assets/components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import iconEdit from "../assets/images/ic-edit.png";
 import iconSetting from "../assets/images/ic_settings.png";
 import iconCart from "../assets/images/ic_cart-outline.png";
-import iconSignout from "../assets/images/ic_log-out.png";
-import { Input, message, Upload } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 import { MenuAkun } from "../assets/components/MenuAkun";
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  // Hapus batasan ukuran file
-  return isJpgOrPng;
-  // const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  // if (!isJpgOrPng) {
-  //   message.error("You can only upload JPG/PNG file!");
-  // }
-  // const isLt2M = file.size / 1024 / 1024 < 2;
-  // if (!isLt2M) {
-  //   message.error("Image must smaller than 2MB!");
-  // }
-  // return isJpgOrPng && isLt2M;
-};
+import { toast } from "react-toastify";
+import { UpdateProfile } from "../services/profile/edit-profile";
+import { useGetProfileUser } from "../services/profile/get-profil-user";
 
 export const AkunProfil = () => {
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [FullName, setFullName] = useState("");
+  const [City, setCity] = useState("");
+  const [Country, setCountry] = useState("");
+  const [NoTelp, setNoTelp] = useState("");
+  const [avatar, setAvatar] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [Profile, setProfile] = useState({});
 
-  console.log(imageUrl, "image");
+  const { data: dataProfile, isLoading, isError } = useGetProfileUser();
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setProfile(dataProfile || {});
+    }
+  }, [dataProfile, isLoading, isError]);
+
+  useEffect(() => {
+    setFullName(Profile?.fullName);
+    setCity(Profile?.city);
+    setCountry(Profile?.country);
+    setNoTelp(Profile?.noTelp);
+    // setAvatar(Profile?.profilePicture);
+  }, [Profile?.fullName, Profile?.city, Profile?.country, Profile?.noTelp, Profile?.profilePicture]);
+
+  const handleInput = (e) => {
+    if (e) {
+      if (e.target.id === "fullName") {
+        setFullName(e.target.value);
+      }
+      if (e.target.id === "city") {
+        setCity(e.target.value);
+      }
+      if (e.target.id === "country") {
+        setCountry(e.target.value);
+      }
+      if (e.target.id === "noTelp") {
+        const numericValue = e.target.value.replace(/\D/g, "");
+
+        // Memastikan panjang karakter tidak lebih dari 13
+        if (numericValue.length <= 13) {
+          setNoTelp(numericValue);
+        }
+        // setNoTelp(e.target.value);
+      }
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      // Validasi tipe file (opsional)
+      const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (!allowedTypes.includes(file.type)) {
+        toast.warning("Tipe file tidak didukung. Pilih file gambar (jpeg, png, gif).");
+        return;
+      }
+
+      // Validasi ukuran file (opsional)
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+      if (file.size > maxSizeInBytes) {
+        toast.error("Ukuran file terlalu besar. Pilih file yang lebih kecil.");
+        return;
+      }
+
+      // Menampilkan gambar yang dipilih
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+        setAvatarFile(file); // Menyimpan objek File
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  // End Avatar
+
+  const handleUpdateProfile = async () => {
+    const formData = new FormData();
+    formData.append("fullName", FullName);
+    formData.append("city", City);
+    formData.append("country", Country);
+    formData.append("noTelp", NoTelp);
+    if (avatarFile) {
+      formData.append("profilePicture", avatarFile);
+    } else if (Profile?.profilePicture) {
+      // Jika avatarFile null, ambil dari nilai avatar yang sudah ada
+      formData.append("profilePicture", Profile?.profilePicture);
+    }
+
+    try {
+      await UpdateProfile(formData);
+      toast.success("Update Profile Success");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      toast.error("Failed Update Profile");
+    }
+  };
 
   //Menu
   const propsMenu = [
@@ -45,45 +119,13 @@ export const AkunProfil = () => {
     { label: "Riwayat Pembayaran", link: "/riwayat-pembayaran", img: iconCart, textColor: "text-black " },
   ];
 
-  const handleChange = (info) => {
-    console.log(info.file, "status");
-    if (info.file.status === "uploading") {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-      // Get the original file name from the uploaded file
-      // const originalFileName = info.file.originFileObj.name;
-
-      // Set the file name (without the full URL) in state
-      // setLoading(false);
-      // setImageUrl(originalFileName);
-    }
-  };
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </div>
-  );
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="pt-[6rem] bg-purple-100 h-[150px] flex flex-col justify-between items-center ">
         <div className="w-[90%] md:w-[60%] mt-7">
           <a href="/" className="text-purple-700 hover:text-purple-900 font-bold no-underline flex gap-3">
-            <FontAwesomeIcon icon={faArrowLeft} className="pt-1"/>
+            <FontAwesomeIcon icon={faArrowLeft} className="pt-1" />
             Kembali Ke Beranda
           </a>
         </div>
@@ -102,46 +144,84 @@ export const AkunProfil = () => {
             <div className="w-1/2">
               <div className="flex flex-col px-3 justify-center items-center my-10 gap-3 ">
                 <div>
-                  <Upload
-                    name="avatar"
-                    listType="picture-circle"
-                    className="avatar-uploader"
-                    showUploadList={false}
-                    action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                    beforeUpload={beforeUpload}
-                    onChange={handleChange}
-                  >
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt="avatar"
-                        style={{
-                          width: "100%",
-                        }}
-                      />
-                    ) : (
-                      uploadButton
-                    )}
-                  </Upload>
+                  <div>
+                    <label htmlFor="avatarInput" className="cursor-pointer">
+                      {avatar || Profile?.profilePicture ? (
+                        <img
+                          src={avatar || Profile?.profilePicture}
+                          alt="Avatar Preview"
+                          style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            backgroundColor: "#f0f0f0",
+                            borderRadius: "50%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <span className="text-xs">Upload Image</span>
+                        </div>
+                      )}
+                    </label>
+                    <input type="file" id="avatarInput" accept="image/*" style={{ display: "none" }} onChange={handleImageChange} />
+                  </div>
                 </div>
+
                 <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">Nama</label>
-                  <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="Nama" />
+                  <Input
+                    id="fullName"
+                    onChange={handleInput}
+                    className="border rounded-lg hover:border-purple-700"
+                    type="text"
+                    placeholder="Nama"
+                    value={FullName}
+                  />
                 </div>
                 <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">No Telepon</label>
-                  <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="No Telepon" />
+                  <Input
+                    id="noTelp"
+                    onChange={handleInput}
+                    className="border rounded-lg hover:border-purple-700"
+                    type="number"
+                    placeholder="No Telepon"
+                    value={NoTelp}
+                    maxLength={13}
+                  />
                 </div>
                 <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">Negara</label>
-                  <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="Negara" />
+                  <Input
+                    id="country"
+                    onChange={handleInput}
+                    className="border rounded-lg hover:border-purple-700"
+                    type="text"
+                    placeholder="Negara"
+                    value={Country}
+                  />
                 </div>
                 <div className="flex flex-col gap-1 md:w-3/4">
                   <label className="font-normal text-sm">Kota</label>
-                  <Input className="border rounded-lg hover:border-purple-700" type="text" placeholder="Kota" />
+                  <Input
+                    id="city"
+                    onChange={handleInput}
+                    className="border rounded-lg hover:border-purple-700"
+                    type="text"
+                    placeholder="Kota"
+                    value={City}
+                  />
                 </div>
 
-                <button className="w-full md:w-3/4 py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2">
+                <button
+                  onClick={() => handleUpdateProfile()}
+                  className="w-full md:w-3/4 py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2"
+                >
                   Simpan Profil Saya
                 </button>
               </div>
