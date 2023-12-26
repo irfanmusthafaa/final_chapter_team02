@@ -6,13 +6,15 @@ import { useParams } from 'react-router-dom';
 import { useClassDetailQuery } from '../../services/class/get-detail-class';
 import { CustomButtonDua } from '../../assets/components/button/CustomButtonDua';
 import { CardDaftarMateri } from '../../assets/components/card/CardDaftarMateri';
-import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
+// import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
 import { joinMyClass} from '../../services/class/join-my-class';
 import { useMutation } from '@tanstack/react-query';
 import { ModalBeliKelas } from '../../assets/components/modal/ModalBeliKelas';
 import { toast } from 'react-toastify';
 import { useLearningDataQuery } from '../../services/learning/get-data-learning';
 import { AddRating } from '../../assets/components/AddRating';
+import { useLessonDetailQuery } from '../../services/lesson/get-detail-lesson';
+import { usePresentaseLessonQuery } from '../../services/lesson/get-presentase-lesson';
 
 export const DetailKelasPage = () => {
 
@@ -24,13 +26,14 @@ const [Class, setClass] = useState([]);
 const { data: dataClass } = useClassDetailQuery(classCode); 
 
 const [selectedLesson, setSelectedLesson] = useState(
-  Class.chapters?.Lessons?.[0]?.id
+  Class.chapters?.Lessons?.id
 );
 
 
 
 const [lesson, setLesson] = useState([]);
-const { data: dataLesson } = useLessonDetailQuery(classCode, selectedLesson); 
+const { data: dataLesson } = useLessonDetailQuery(selectedLesson); 
+const { data: hitLessonPresentase } = usePresentaseLessonQuery(classCode, selectedLesson); 
 
 const [learning, setLearning] = useState([])
 const { data: dataLearning } = useLearningDataQuery(); 
@@ -49,7 +52,7 @@ useEffect(() => {
     if (dataLearning) {
         setLearning(dataLearning);
     }
-}, [dataClass, dataLesson, dataLearning]);
+}, [dataClass, dataLesson, hitLessonPresentase, dataLearning]);
 
 
 const openTelegramLink = () => {
@@ -73,7 +76,7 @@ const AddClass = async () => {
 
 };
 
-const VideoUrl = lesson.lesson?.linkLearningMaterial;
+const VideoUrl = lesson?.linkLearningMaterial;
 
 const [embedUrl, setEmbedUrl] = useState('');
 
@@ -97,11 +100,6 @@ useEffect(() => {
         videoId && setEmbedUrl(convertToEmbedUrl(videoId));
     }
 }, [VideoUrl]);
-
-
-
-
-
 
 
 const [open, setOpen] = useState(false);
