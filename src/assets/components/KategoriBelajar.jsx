@@ -25,7 +25,7 @@ export const KategoriBelajar = () => {
             Lihat Semua
           </a>
         </div>
-        <div className="flex flex-wrap justify-between w-4/5">
+        <div className="flex flex-wrap justify-start gap-10 w-4/5">
           {Category?.map((data) => (
             <>
               <div key={data.id} className="flex flex-col justify-center items-center gap-1">
