@@ -27,34 +27,42 @@ export const AdminTransaksi = () => {
     setSearchTerm(e.target.value);
   };
   return (
-    <div className="w-full flex">
-      <SideBar />
-      <div className="bg-white w-[80%]">
+    <div className="min-h-screen flex flex-col bg-green-500">
+      <div className="flex flex-row">
+        <SideBar className="" />
         <NavbarAdmin />
-        <div className="px-16  my-16">
-          <Card />
-        </div>
-        <div className="px-16 my-16">
-          <div className="flex justify-between items-center mb-5">
-            <h3>Transaksi</h3>
-            <div className="flex justify-between items-center gap-3">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Cari nama user..."
-                  style={{ border: ".2px solid grey" }}
-                  className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
-                  value={searchTerm}
-                  onChange={handleSearch}
+      </div>
+      <div className="">
+        <Card />
+      </div>
+      <div>
+        <div className="flex justify-between items-center md:ml-[16.5rem] mt-2 pr-3">
+          <h3>Transaksi</h3>
+          <div className="flex justify-between items-center">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Cari nama user..."
+                style={{ border: ".2px solid grey" }}
+                className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+              <button className="absolute bg-transparent border-none inset-y-0 -ml-10 ">
+                <img
+                  src={searchIcon}
+                  alt="Search Icon"
+                  className="h-6 w-6 cursor-pointer"
                 />
-                <button className="absolute bg-transparent border-none inset-y-0 -ml-10 ">
-                  <img src={searchIcon} alt="Search Icon" className="h-6 w-6 cursor-pointer" />
-                </button>
-              </div>
+              </button>
             </div>
           </div>
-          <TablePayment searchTerm={searchTerm} Payment={Payment} setOpenUpdate={setOpenUpdate} />
         </div>
+        <TablePayment
+          searchTerm={searchTerm}
+          Payment={Payment}
+          setOpenUpdate={setOpenUpdate}
+        />
       </div>
     </div>
   );

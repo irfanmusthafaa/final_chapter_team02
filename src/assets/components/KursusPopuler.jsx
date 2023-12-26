@@ -111,7 +111,7 @@ export const KursusPopuler = () => {
         <div className="md:flex flex-col justify-between w-4/5 hidden">
           <div className="flex justify-center md:justify-between items-center w-full">
             <div className="slider-container">
-              <div className="slider" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+              <div className="slider" style={{ transform: `translateX(-${currentSlide * 50}%)` }}>
                 {Class?.map((data) => (
                   <div
                     key={data.classCode}

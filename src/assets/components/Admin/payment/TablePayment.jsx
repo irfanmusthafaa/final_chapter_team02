@@ -113,7 +113,7 @@ export const TablePayment = ({ searchTerm, Payment }) => {
 
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData}  className="md:ml-[16rem] p-3 bg-red-500" />
       {/* <ModalUpdateBank openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} /> */}
     </>
   );
