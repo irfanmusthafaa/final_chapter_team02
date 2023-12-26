@@ -30,7 +30,9 @@ export const CardDaftarMateri = (props) => {
             <div className='flex flex-col p-4 mb-2 gap-2'>
                 <div className='flex flex-row justify-center items-center'>
                     <h2 className='w-full'>Materi Belajar</h2>
-                    <BarProgres/>
+                    <BarProgres
+                        presentase={props.Kelas.presentase}
+                    />
                 </div>
 
                 {props.Kelas.chapters?.sort((a, b) => a.id - b.id).map((chapter, chapterIndex) => (

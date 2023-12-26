@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const BarProgres = () => {
-    const presentase = 5;
+export const BarProgres = (props) => {
+    // const presentase = 5;
 
   const style = {
-    width: `${presentase}%`,
+    width: `${props.presentase}%`,
     transition: 'width 300ms ease-in-out',
   };
 
@@ -17,7 +17,7 @@ export const BarProgres = () => {
       >  
     </div>
       <span className="absolute mt-[2px] text-xs text-white pl-2">
-            {presentase}% complete
+            {props.presentase}% complete
       </span>
     </div>
   );

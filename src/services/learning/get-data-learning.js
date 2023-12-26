@@ -14,11 +14,8 @@ const fetchDataLearning = async ({queryKey}) => {
         console.error("Error fetching data:", error);
         return null; 
     });
-  
-    
-        // console.log(data., "tes result")
-    return data.data.allLearning;
 
+    return data.data.allLearning;
 
 }
 

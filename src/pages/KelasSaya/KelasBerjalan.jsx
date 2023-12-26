@@ -6,13 +6,17 @@ import { NavButton } from '../../assets/components/button/buttton_navigasi/Butto
 import { CardKelasBerjalan } from '../../assets/components/card/card_kelas_saya/CardKelasBerjalan';
 import { useCategoryDataQuery } from '../../services/category/get-data-category';
 import { useClassDataQuery } from '../../services/class/get-data-class';
+import { useLearningDataQuery } from '../../services/learning/get-data-learning';
 
 export const KelasBerjalan= () => {
 
-    const [Filter, setFilter]= useState('');
-    const [Kategori, setKategori]= useState('');
-    const [Level, setLevel]= useState('');
-    const [IsFree, setIsFree]= useState(null);
+    const [Kategori, setKategori] = useState("");
+    const [Level, setLevel] = useState("");
+    const [IsFree, setIsFree] = useState(null);
+    const [Latest, setLatest] = useState(null);
+    const [Popular, setPopular] = useState(null);
+    const [Promo, setPromo] = useState(null);
+    const [filterOpen, setFilterOpen] = useState(false);
     
 
     const [activeButton, setActiveButton] = useState('ALL');
@@ -21,39 +25,39 @@ export const KelasBerjalan= () => {
     const { data: dataCategory } = useCategoryDataQuery();
 
     const [Class, setClass] = useState([]);
-    const [tes, setTes] = useState(1);
-    const [tes1, setTes1] = useState('IntermediateLevel');
-    const { data: dataClass } = useClassDataQuery({
-        categoryId: Kategori ? Kategori : '',
-        levelName: Level ? Level : '',
-        isFree: IsFree
+    const { data: dataLearning } = useLearningDataQuery({
+        categoryId: Kategori,
+        levelName: Level,
+        // isFree: IsFree,
+        latest: Latest,
+        popular: Popular,
+        promo: Promo,
     }); 
 
-    useEffect(()=>{
+    useEffect(() => {
         setCategory(dataCategory);
-        if (dataClass) {
-            setClass(dataClass.result);
+        if (dataLearning) {
+            setClass(dataLearning);
         }
-        
-    }, [dataCategory, dataClass, tes, Kategori])
+    }, [dataCategory, dataLearning, Kategori, Level, Latest, Popular, Promo]);
     
     const handleButtonClick = (buttonText) => {
         setActiveButton(buttonText);
-        setIsFree(buttonText)
-        if (buttonText === 'ALL') {
-            // setIsFree(null);
-        } else if (buttonText === 'In Progress') {
-            // setIsFree(false);
-        } else if (buttonText === 'Selesai') {
-            // setIsFree(true);
+        setIsFree(buttonText);
+        if (buttonText === "ALL") {
+            IsFree(null);
+        } else if (buttonText === "Kelas Premium") {
+            setIsFree(false);
+        } else if (buttonText === "Kelas Gratis") {
+            setIsFree(true);
         }
-
     };
 
   return (
     <div className='bg-purple-100'>
         <Nav />
         {/* content */}
+        {console.log(Class, "ini sata learning")}
         <div className='flex flex-col h-screens items-center'>
             <div className='flex flex-col h-screens mt-[4%]'>
                 <div className='flex items-center h-full'>
@@ -79,22 +83,49 @@ export const KelasBerjalan= () => {
                 </div>
                 <div className='flex flex-row h-[100%] gap-10 mt-[2%]'>
                     <div>
-                        <FilterKelas category={Category}/>
+                        <FilterKelas
+                            category={Category}
+                            kategori={Kategori}
+                            level={Level}
+                            latest={Latest}
+                            popular={Popular}
+                            promo={Promo}
+                            setKategori={setKategori}
+                            setLevel={setLevel}
+                            setLatest={setLatest}
+                            setPopular={setPopular}
+                            setPromo={setPromo}
+                            // setIsFree={setIsFree}
+                        />
                     </div>
-                    <div className=''>
-                        
-                        <div className='flex flex-row gap-5'>
-                            <NavButton button_text="ALL"  onClick={() => handleButtonClick('ALL')} isActive={activeButton === 'ALL'}/>
-                            <NavButton button_text="In Progress" onClick={() => handleButtonClick('In Progress')} isActive={activeButton === 'In Progress'}/>
-                            <NavButton button_text="Selesai" onClick={() => handleButtonClick('Selesai')} isActive={activeButton === 'Selesai'}/>
-                        
+                   
+                    <div className="">
+                        <div className="flex flex-row gap-5">
+                            <NavButton
+                            button_text="ALL"
+                            onClick={() => handleButtonClick("ALL")}
+                            isActive={activeButton === "ALL"}
+                            />
+                            <NavButton
+                            button_text="In Progress"
+                            onClick={() => handleButtonClick("Kelas Premium")}
+                            isActive={activeButton === "Kelas Premium"}
+                            />
+                            <NavButton
+                            button_text="Selesai"
+                            onClick={() => handleButtonClick("Kelas Gratis")}
+                            isActive={activeButton === "Kelas Gratis"}
+                            />
+                            {console.log(IsFree, "ini is free")}
                         </div>
-                        <div className='grid mt-[4%] grid-cols-2 gap-4'>
-                            {/* content */}
-                            {/* <CardKelasBerjalan {...contentData}/> */}
-                            
-                            {Class.map((item) => (
-                                <CardKelasBerjalan key={item.id} class={item} category={Category} free={IsFree}/>
+                        <div className="grid mt-[4%] grid-cols-2 gap-4">
+                            {Class?.map((item, index) => (
+                            <CardKelasBerjalan
+                                key={index}
+                                class={item}
+                                category={Category}
+                                free={IsFree}
+                            />
                             ))}
                         </div>
                     </div>
