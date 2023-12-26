@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../assets/components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -13,8 +13,21 @@ import iconTime from "../assets/images/ic-time.png";
 import iconPremium from "../assets/images/ic-premium.png";
 import { MenuAkun } from "../assets/components/MenuAkun";
 import img from "../assets/images/kursus.png";
+import { useGetPaymentUser } from "../services/payment/get-payment";
 
 export const AkunRiwayatPembayaran = () => {
+  const [Payment, setPayment] = useState([]);
+
+  const { data: dataPayment, isLoading, isError } = useGetPaymentUser();
+
+  console.log(Payment, "payment");
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setPayment(dataPayment || []);
+    }
+  }, [dataPayment, isLoading, isError]);
+
   //Menu
   const propsMenu = [
     { label: "Profil Saya", link: "/profil", img: iconEdit, textColor: "text-black" },
@@ -48,44 +61,38 @@ export const AkunRiwayatPembayaran = () => {
               <div className="flex flex-col md:w-full px-2 justify-center items-center my-6 md:my-10 gap-3 ">
                 <h3 className="md:mb-5 text-center md:text-left">Riwayat Pembayaran</h3>
                 <div className="flex flex-col gap-5 w-[98%] md:w-[80%]">
-                <div className="flex flex-col bg-white border-2 rounded-xl w-full" style={{ border: "1px solid #7E22CE" }} >
-                    <img src={img} placeholder="img" className="h-[4rem] md:hidden"/>
-                    <img src={img} placeholder="img" className="hidden md:flex"/>
-                    <div className="px-2 mt-2">
-                      <div className="flex justify-between items-center">
-                        <p className="text-purple-700 font-bold ">UI/UX Design</p>
-                      </div>
-                      <p className="text-black font-bold mt-1">Belajar Web Designer dengan figma</p>
-                      <p className="text-black text-sm mt-1">By Angela Doe</p>
-                      <div>
-                        <button className=" my-2 py-2 flex justify-between items-center rounded-full px-3 border-0 cursor-pointer  bg-red-600 font-semibold text-xs text-white hover:bg-purple-900 ">
-                          <div className="flex justify-center items-center gap-1">
-                            <img src={iconPremium} placeholder="img" />
-                            Wait for Paid
+                  {Payment?.map((item) => (
+                    <React.Fragment key={item.id}>
+                      <div key={item.id} className="flex flex-col bg-white border-2 rounded-xl w-full" style={{ border: "1px solid #7E22CE" }}>
+                        <img src={item.class.thumbnailPicture} placeholder="img" className="h-[4rem] md:hidden rounded-t-xl" />
+                        <img src={item.class.thumbnailPicture} placeholder="img" className="hidden md:flex rounded-t-xl" />
+                        <div className="px-2 mt-2">
+                          <div className="flex justify-between items-center">
+                            <p className="text-purple-700 font-bold ">UI/UX Design</p>
                           </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col bg-white border-2 rounded-xl w-full" style={{ border: "1px solid #7E22CE" }} >
-                    <img src={img} placeholder="img" className="h-[4rem] md:hidden"/>
-                    <img src={img} placeholder="img" className="hidden md:flex"/>
-                    <div className="px-2 mt-2">
-                      <div className="flex justify-between items-center">
-                        <p className="text-purple-700 font-bold ">UI/UX Design</p>
-                      </div>
-                      <p className="text-black font-bold mt-1">Belajar Web Designer dengan figma</p>
-                      <p className="text-black text-sm mt-1">By Angela Doe</p>
-                      <div>
-                        <button className=" my-2 py-2 flex justify-between items-center rounded-full px-3 border-0 cursor-pointer  bg-green-600 font-semibold text-xs text-white hover:bg-purple-900 ">
-                          <div className="flex justify-center items-center gap-1">
-                            <img src={iconPremium} placeholder="img" />
-                            Paid
+                          <p className="text-black font-bold mt-1">{item.class.className}</p>
+                          <p className="text-black text-sm mt-1">{item.class.author}</p>
+                          <div>
+                            <button
+                              className={` my-2 py-2  flex justify-between items-center rounded-full px-3 border-0 cursor-pointer font-semibold text-xs text-white ${
+                                item.status ? "bg-green-600 hover:bg-green-900" : "bg-red-600 hover:bg-purple-900"
+                              }`}
+                              onClick={() => {
+                                if (!item.status) {
+                                  window.open("https://wa.me/6289657136350", "_blank");
+                                }
+                              }}
+                            >
+                              <div className="flex justify-center items-center  gap-1">
+                                <img src={iconPremium} alt="img" />
+                                <p className="text-center">{item.status ? "Success" : "Need Confirmation"}</p>
+                              </div>
+                            </button>
                           </div>
-                        </button>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
             </div>
