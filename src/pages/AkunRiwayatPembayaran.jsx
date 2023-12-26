@@ -68,7 +68,7 @@ export const AkunRiwayatPembayaran = () => {
                         <img src={item.class.thumbnailPicture} placeholder="img" className="hidden md:flex rounded-t-xl" />
                         <div className="px-2 mt-2">
                           <div className="flex justify-between items-center">
-                            <p className="text-purple-700 font-bold ">UI/UX Design</p>
+                            <p className="text-purple-700 font-bold ">{item.class.categorys.categoryName}</p>
                           </div>
                           <p className="text-black font-bold mt-1">{item.class.className}</p>
                           <p className="text-black text-sm mt-1">{item.class.author}</p>
