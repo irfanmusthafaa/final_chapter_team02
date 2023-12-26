@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BarProgres } from '../barProgres'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay, faLock } from '@fortawesome/free-solid-svg-icons'
-import { useParams } from 'react-router-dom'
-import { useClassDetailQuery } from '../../../services/class/get-detail-class'
-import { useLessonDetailQuery } from '../../../services/lesson/get-detail-lesson'
-import { CardModal } from './CardModal'
-import { CustomButtonSatu } from '../button/CustomButtonSatu'
+
 
 
 export const CardDaftarMateri = (props) => {
@@ -34,7 +30,9 @@ export const CardDaftarMateri = (props) => {
             <div className='flex flex-col p-4 mb-2 gap-2'>
                 <div className='flex flex-row justify-center items-center'>
                     <h2 className='w-full'>Materi Belajar</h2>
-                    <BarProgres/>
+                    <BarProgres
+                        presentase={props.Kelas.presentase}
+                    />
                 </div>
 
                 {props.Kelas.chapters?.sort((a, b) => a.id - b.id).map((chapter, chapterIndex) => (
@@ -67,21 +65,6 @@ export const CardDaftarMateri = (props) => {
             </div>
 
            
-
-            {/* <ModalSatu isOpen={isModalOpen} onClose={closeModal}>
-                <div className="">
-                    <div className="font-bold mb-4 text-center">
-                        <p>Selangkah Lagi Menuju</p>
-                        <p className="text-purple-900">Menuju Premium</p>
-                    </div>
-
-          <CardModal {...contentData} />
-                    <div className="flex items-center justify-center mt-8">
-                        <CustomButtonSatu button_text="Beli Sekarang" iconPath={next} onClick={closeModal} />
-                    </div>
-                </div>
-            </ModalSatu> */}
-
         </div>
         
         

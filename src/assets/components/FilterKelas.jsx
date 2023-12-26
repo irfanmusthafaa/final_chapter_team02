@@ -137,7 +137,7 @@ export const FilterKelas = (props) => {
             </Checkbox>
           </li>
           <li>
-            <Checkbox value="Advanced" onChange={handleCheckboxLevel} checked={Level.includes("Advanced")}>
+            <Checkbox value="Advance" onChange={handleCheckboxLevel} checked={Level.includes("Advance")}>
               <label className="text-lg font-semibold">Advanced Level</label>
             </Checkbox>
           </li>

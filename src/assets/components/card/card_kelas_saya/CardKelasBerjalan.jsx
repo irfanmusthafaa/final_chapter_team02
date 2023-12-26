@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 
 export const CardKelasBerjalan = (props) => {
 
-    const [Class, setClass] = useState(props.class);
-    const [Categori, setCategori] = useState(props.categori);
+    // const [Class, setClass] = useState(props.class.class);
+    // const [Categori, setCategori] = useState(props.categori);
     
   return (
-        <div className="flex flex-col bg-white border-2  w-[22rem] rounded-3xl overflow-hidden max-h-64">
-            <Link className="text-xl font-semibold mb-2" to={`/Detail/${props.classCode}`}>
-            <img src={Class.thumbnailPicture} alt="img" className='object-cover max-h-[7rem]'/>
+    <Link className="no-underline" to={`/DetailKelas/${props.class.class.classCode}`}>
+        <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64">
+            <img src={props.class.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]"/>
             <div className="px-4 mb-3 mt-1">
                 <div className="flex justify-between items-center">
-                    <p className="text-purple-700 font-bold ">{Categori} #category</p>
+                    <p className="text-purple-700 font-bold ">{props.class.class.categorys?.categoryName}</p>
                     <p className="text-xs flex justify-center items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path
@@ -22,11 +22,11 @@ export const CardKelasBerjalan = (props) => {
                             fill="#F9CC00"
                         />
                         </svg>
-                        {"#rating"}
+                        {props.class.class.averageRating}
                     </p>
                 </div>
-                <p className="text-black font-bold mt-1">{Class.className}</p>
-                <p className="text-black text-sm mt-1">By:{'#author'}</p>
+                <p className="text-black font-bold mt-1">{props.class.class.className}</p>
+                <p className="text-black text-sm mt-1">By : {props.class.class.author}</p>
                 <div className="flex gap-5 text-xs mt-1">
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -35,7 +35,7 @@ export const CardKelasBerjalan = (props) => {
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold text-purple-900">{Class.levelName}</p>
+                        <p className="font-semibold text-purple-900">{props.class.class.levelName}</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -52,7 +52,7 @@ export const CardKelasBerjalan = (props) => {
                             </clipPath>
                         </defs>
                         </svg>
-                        <p className="font-semibold">{'#10'}</p>
+                        <p className="font-semibold">{props.class.class.module}</p>
                     </div>
                     <div className="flex justify-center items-center gap-1 ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -61,17 +61,19 @@ export const CardKelasBerjalan = (props) => {
                             fill="#73CA5C"
                         />
                         </svg>
-                        <p className="font-semibold">{'#120'} Menit</p>
+                        <p className="font-semibold">{props.class.class.totalDuration} Menit</p>
                     </div>
                 </div>
                 <div className='mt-1'>
                                         {/* garis persentasase */}
-                    <BarProgres/>
+                    <BarProgres
+                        presentase={props.class.presentase}
+                    />
                 </div>
             </div>
-            </Link>
+            
         </div>
-        
+    </Link>
     
   )
 }
