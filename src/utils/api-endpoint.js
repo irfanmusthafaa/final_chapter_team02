@@ -10,6 +10,7 @@ export const API_ENDPOINT = {
   AUTH_RESEND_OTP_PASSWORD: "/api/v1/auth/resend-otp-password",
   DATA_CATEGORY: "/api/v1/category",
   DATA_CLASS: "/api/v1/class",
+  DATA_BANK:"/api/v1/bank",
   PAYMENT_USER: "/api/v1/payment",
   DATA_LESSON: "api/v1/lesson/presentase",
   JOIN_MY_CLASS: "api/v1/class/joinclass",
