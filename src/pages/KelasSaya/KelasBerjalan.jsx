@@ -12,11 +12,10 @@ export const KelasBerjalan= () => {
 
     const [Kategori, setKategori] = useState("");
     const [Level, setLevel] = useState("");
-    const [IsFree, setIsFree] = useState(null);
     const [Latest, setLatest] = useState(null);
     const [Popular, setPopular] = useState(null);
     const [Promo, setPromo] = useState(null);
-    const [filterOpen, setFilterOpen] = useState(false);
+    const [inProgress, setInProgress] = useState(null);
     
 
     const [activeButton, setActiveButton] = useState('ALL');
@@ -28,10 +27,10 @@ export const KelasBerjalan= () => {
     const { data: dataLearning } = useLearningDataQuery({
         categoryId: Kategori,
         levelName: Level,
-        // isFree: IsFree,
         latest: Latest,
         popular: Popular,
         promo: Promo,
+        inProgress:inProgress
     }); 
 
     useEffect(() => {
@@ -43,12 +42,12 @@ export const KelasBerjalan= () => {
     
     const handleButtonClick = (buttonText) => {
         setActiveButton(buttonText);
-        setIsFree(buttonText);
+        setInProgress(buttonText);
         if (buttonText === "ALL") {
-            IsFree(null);
-        } else if (buttonText === "Kelas Premium") {
-            setIsFree(false);
-        } else if (buttonText === "Kelas Gratis") {
+            setInProgress(null);
+        } else if (buttonText === "In Progress") {
+            setInProgress(true);
+        } else if (buttonText === "Selesai") {
             setIsFree(true);
         }
     };
@@ -57,7 +56,7 @@ export const KelasBerjalan= () => {
     <div className='bg-purple-100'>
         <Nav />
         {/* content */}
-        {console.log(Class, "ini sata learning")}
+        {console.log(inProgress, "ini inprogress daata")}
         <div className='flex flex-col h-screens items-center'>
             <div className='flex flex-col h-screens mt-[4%]'>
                 <div className='flex items-center h-full'>
@@ -108,25 +107,41 @@ export const KelasBerjalan= () => {
                             />
                             <NavButton
                             button_text="In Progress"
-                            onClick={() => handleButtonClick("Kelas Premium")}
-                            isActive={activeButton === "Kelas Premium"}
+                            onClick={() => handleButtonClick("In Progress")}
+                            isActive={activeButton === "In Progress"}
                             />
                             <NavButton
                             button_text="Selesai"
-                            onClick={() => handleButtonClick("Kelas Gratis")}
-                            isActive={activeButton === "Kelas Gratis"}
+                            onClick={() => handleButtonClick("Selesai")}
+                            isActive={activeButton === "Selesai"}
                             />
-                            {console.log(IsFree, "ini is free")}
                         </div>
                         <div className="grid mt-[4%] grid-cols-2 gap-4">
-                            {Class?.map((item, index) => (
-                            <CardKelasBerjalan
-                                key={index}
-                                class={item}
-                                category={Category}
-                                free={IsFree}
-                            />
-                            ))}
+                            {activeButton === "ALL" ? 
+                                Class?.map((Class, index) => (
+                                    <CardKelasBerjalan
+                                        key={index}
+                                        class={Class}
+                                        category={Category}
+                                    />
+                                ))
+                            : activeButton === "In Progress" ?
+                                Class?.filter(Class => Class.presentase < 100).map((Class, index) => (
+                                    <CardKelasBerjalan
+                                        key={index}
+                                        class={Class}
+                                        category={Category}
+                                    />
+                                ))
+                            : activeButton === "Selesai" ?
+                                Class?.filter(Class => Class.presentase === 100).map((Class, index) => (
+                                    <CardKelasBerjalan
+                                        key={index}
+                                        class={Class}
+                                        category={Category}
+                                    />
+                                ))
+                            : null}
                         </div>
                     </div>
                 </div>
