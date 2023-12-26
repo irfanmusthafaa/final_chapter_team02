@@ -8,13 +8,6 @@ import iconPrefix from "../../assets/images/icon-prefix2.png";
 import { TableDashboard } from "../../assets/components/Admin/TableDashboard";
 
 export const AdminDashboard = () => {
-  const menus = [
-    { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-purple-500" },
-    { label: "Kategori", link: "/admin/kategori", bgColor: "bg-transparent" },
-    { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-transparent" },
-    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-transparent" },
-  ];
-
   const handleMenuClick = (e) => {
     message.info("Click on menu item.");
     console.log("click", e);
@@ -44,28 +37,13 @@ export const AdminDashboard = () => {
 
   return (
     <div className="w-full flex">
-      <SideBar menus={menus} />
+      <SideBar />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
         <div className="px-16 my-16">
           <Card />
         </div>
-        <div className="px-16 my-16">
-          <div className="flex justify-between mb-5">
-            <h3>Status Pembayaran</h3>
-            <div className="flex justify-between items-center gap-3">
-              <Dropdown menu={menuProps}>
-                <button className="flex justify-center gap-2 items-center text-sm  border-purple-700 bg-white text-purple-700 font-bold border-1 rounded-full p-2">
-                  <img src={iconPrefix} alt="prefix" />
-                  Filter
-                </button>
-              </Dropdown>
-              <FontAwesomeIcon icon={faSearch} className="text-purple-700" />
-            </div>
-          </div>
-          {/* Tabel */}
-          <TableDashboard />
-        </div>
+      
       </div>
     </div>
   );

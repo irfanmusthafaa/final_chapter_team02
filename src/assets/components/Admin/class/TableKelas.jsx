@@ -34,35 +34,59 @@ export const TableKelas = ({ searchTerm, Category, Class }) => {
   const columns = [
     {
       title: "Kode Kelas",
-      dataIndex: "kodeKelas",
-      key: "kodeKelas",
+      dataIndex: "classCode",
+      key: "classCode",
       render: (text) => <a>{text}</a>,
     },
     {
-      title: "Kategori",
-      dataIndex: "kategori",
-      key: "kategori",
+      title: "categoryName",
+      dataIndex: "categoryName",
+      key: "categoryName",
     },
     {
       title: "Nama Kelas",
-      dataIndex: "namaKelas",
-      key: "namaKelas",
+      dataIndex: "className",
+      key: "className",
     },
     {
       title: "Tipe Kelas",
-      dataIndex: "tipeKelas",
-      key: "tipeKelas",
+      dataIndex: "isFree",
+      key: "isFree",
       render: (isFree) => <p className={`${isFree ? "text-green-500" : "text-blue-500"}  font-bold`}>{isFree ? "GRATIS" : "PREMIUM"}</p>,
     },
     {
       title: "Level",
-      dataIndex: "level",
-      key: "level",
+      dataIndex: "levelName",
+      key: "levelName",
     },
     {
       title: "Harga Kelas",
-      dataIndex: "hargaKelas",
-      key: "hargaKelas",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "Promo",
+      dataIndex: "promo",
+      key: "promo",
+      // render: (text) => <p className="hidden">{text}</p>,
+    },
+    {
+      // title: "Link Grup",
+      dataIndex: "linkSosmed",
+      key: "linkSosmed",
+      render: (text) => <p className="hidden">{text}</p>,
+    },
+    {
+      title: "Author",
+      dataIndex: "author",
+      key: "author",
+      // render: (text) => <p className="hidden">{text}</p>,
+    },
+    {
+      // title: "Description",
+      dataIndex: "description",
+      key: "description",
+      render: (text) => <p className="hidden">{text}</p>,
     },
     {
       title: "Aksi",
@@ -82,7 +106,7 @@ export const TableKelas = ({ searchTerm, Category, Class }) => {
           <Button
             className="bg-red-600 text-white hover:bg-red-900 hover:border-0 rounded-full"
             onClick={() => {
-              setDeleteClassId(record.kodeKelas); // Set the ID to be deleted
+              setDeleteClassId(record.classCode); // Set the ID to be deleted
             }}
           >
             <DeleteOutlined />
@@ -96,17 +120,21 @@ export const TableKelas = ({ searchTerm, Category, Class }) => {
   const dynamicData =
     Class?.filter((item) => item.className.toLowerCase().includes(searchTerm.toLowerCase())).map((item) => ({
       key: item.classCode, // Assuming 'id' is a unique identifier for each item
-      kodeKelas: item.classCode,
-      kategori: item.categorys.categoryName,
-      namaKelas: item.className,
-      tipeKelas: item.isFree,
-      level: item.levelName,
-      hargaKelas: item.price,
+      classCode: item.classCode,
+      categoryName: item.categorys.categoryName,
+      className: item.className,
+      isFree: item.isFree,
+      levelName: item.levelName,
+      price: item.price,
+      promo: item.promo,
+      linkSosmed: item.linkSosmed,
+      author: item.author,
+      description: item.description,
     })) || [];
 
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData} size="small" />
       <ModalUpdateKelas openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} Category={Category} />
       <Modal title="Konfirmasi Hapus" open={DeleteClassId !== null} onOk={handleDelete} onCancel={() => setDeleteClassId(null)}>
         <p>Anda yakin ingin menghapus kelas ini?</p>

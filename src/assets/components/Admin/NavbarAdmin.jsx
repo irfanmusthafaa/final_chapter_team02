@@ -1,23 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import searchIcon from "../../images/icon-search3.png";
+import { useGetProfileAdmin } from "../../../services/admin/get-profil-admin";
+import { Avatar, Button, Popover, Space } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOut, faUser } from "@fortawesome/free-solid-svg-icons";
+import { CookiesKey, CookiesStorage } from "../../../utils/cookies";
 
 export const NavbarAdmin = () => {
+  const [Profile, setProfile] = useState({});
+
+  const { data: dataProfile, isLoading, isError } = useGetProfileAdmin();
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setProfile(dataProfile || {});
+    }
+  }, [dataProfile, isLoading, isError]);
+
+  const handleLogout = () => {
+    CookiesStorage.remove(CookiesKey.TokenAdmin);
+    CookiesStorage.remove(CookiesKey.Admin);
+    window.location.href = "/admin/login";
+  };
+
+  const content = (
+    <div className="">
+      <p className="flex justify-center items-center gap-2 mb-2">
+        <FontAwesomeIcon icon={faUser} /> <p>{Profile?.email}</p>
+      </p>
+
+      <Button
+        onClick={handleLogout}
+        className={`flex justify-start items-center gap-2  text-sm  cursor-pointer font-semibold text-slate-700 no-underline hover:text-red-500`}
+      >
+        <FontAwesomeIcon icon={faSignOut} /> <p>Keluar</p>
+      </Button>
+    </div>
+  );
+
+  const profilePicture = Profile?.profilePicture;
+
   return (
     <div className="bg-purple-200 h-16 flex justify-between items-center px-16">
       <div>
-        <h3 className="text-purple-700 font-bold">Hi, Admin!</h3>
+        <h3 className="text-purple-700 font-bold">Hi, {Profile?.fullName}!</h3>
       </div>
       <div>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Cari"
-            className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
-          />
-          <button className="absolute bg-transparent border-none inset-y-0 -ml-10 ">
-            <img src={searchIcon} alt="Search Icon" className="h-6 w-6 cursor-pointer" />
-          </button>
-        </div>
+        <Popover content={content} title="Akun" trigger="hover">
+          <Avatar src={profilePicture ? profilePicture : null} shape="square" size={40} icon={!profilePicture && <UserOutlined />} />
+        </Popover>
       </div>
     </div>
   );

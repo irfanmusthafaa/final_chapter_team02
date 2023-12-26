@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { API_ENDPOINT } from "../../../utils/api-endpoint";
-import http from "../../../utils/http";
+import httpAdmin from "../../../utils/httpAdmin";
 
 const GetChapter = async ({ queryKey }) => {
   const [_key] = queryKey;
-  const { data } = await http
+  const { data } = await httpAdmin
     .get(_key)
     .then((result) => {
       return result;

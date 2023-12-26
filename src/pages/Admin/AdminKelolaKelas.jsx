@@ -11,7 +11,6 @@ import { ModalTambahKelas } from "../../assets/components/Admin/class/ModalTamba
 import searchIcon from "../../assets/images/icon-search3.png";
 import { useCategoryDataQuery } from "../../services/category/get-data-category";
 import { useClassDataQuery } from "../../services/class/get-data-class";
-const { TextArea } = Input;
 
 export const AdminKelolaKelas = () => {
   const [open, setOpen] = useState(false);
@@ -28,42 +27,23 @@ export const AdminKelolaKelas = () => {
     setClass(dataClass?.result);
   }, [dataCategory, dataClass]);
 
-  console.log(Class, "data class");
-  console.log(filterCategory, "filter cat");
-
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const kelasMenus = [
-    { label: "Dashboard", link: "/admin/dashboard", bgColor: "bg-transparent" },
-    { label: "Kategori", link: "/admin/kategori", bgColor: "bg-transparent" },
-    { label: "Kelola Kelas", link: "/admin/kelas", bgColor: "bg-purple-500" },
-    { label: "Chapter", link: "/admin/chapter", bgColor: "bg-transparent" },
-  ];
-
   const handleMenuClick = (e) => {
-    message.info("Click on menu item.");
-    console.log("click", e);
+    const selectedCategoryId = e.key;
+    setFilterCategory(selectedCategoryId);
   };
-  const items = [
-    {
-      label: "1st menu item",
-      key: "1",
-    },
-    {
-      label: "1st menu item",
-      key: "1",
-    },
-    {
-      label: "1st menu item",
-      key: "1",
-    },
-    {
-      label: "1st menu item",
-      key: "1",
-    },
-  ];
+
+  const items =
+    Category?.map((item) => ({
+      key: item.id,
+      label: <p className="text-center">{item.categoryName}</p>,
+    })) || [];
+
+  items.unshift({ key: "", label: <p className="text-center">Semua Kategori</p> });
+
   const menuProps = {
     items,
     onClick: handleMenuClick,
@@ -71,14 +51,14 @@ export const AdminKelolaKelas = () => {
 
   return (
     <div className="w-full flex">
-      <SideBar menus={kelasMenus} />
+      <SideBar />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
         <div className="px-16 my-16">
           <Card />
         </div>
         <div className="px-16 my-16">
-          <div className="flex justify-between mb-5">
+          <div className="flex justify-between items-center  mb-5">
             <h3>Kelola Kelas</h3>
             <div className="flex justify-between items-center gap-3">
               <button
@@ -88,17 +68,18 @@ export const AdminKelolaKelas = () => {
                 <FontAwesomeIcon icon={faPlus} />
                 Tambah
               </button>
-              <Dropdown menu={menuProps}>
+
+              <Dropdown menu={menuProps} placement="bottom">
                 <button className="flex justify-center gap-2 items-center text-sm  border-purple-700 bg-white text-purple-700 font-bold border-1 rounded-full p-2">
                   <img src={iconPrefix} alt="prefix" />
                   Filter
                 </button>
               </Dropdown>
-              <FontAwesomeIcon icon={faSearch} className="text-purple-700" />
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Cari"
+                  placeholder="Cari kelas..."
+                  style={{ border: ".2px solid grey" }}
                   className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
                   value={searchTerm}
                   onChange={handleSearch}

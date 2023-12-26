@@ -3,6 +3,7 @@ import { Checkbox, Input, Radio, Select, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAddClass } from "../../../../services/admin/class/post-class";
+const { TextArea } = Input;
 
 export const ModalTambahKelas = ({ Category }) => {
   const [ClassName, setClassName] = useState("");
@@ -67,16 +68,16 @@ export const ModalTambahKelas = ({ Category }) => {
     },
   ];
 
-  console.log(ClassName, "ClassName");
-  console.log(Description, "Description");
-  console.log(Price, "Price");
-  console.log(Promo, "Promo");
-  console.log(IsFree, "IsFree");
-  console.log(LevelName, "LevelName");
-  console.log(LinkSosmed, "LinkSosmed");
-  console.log(Author, "Author");
-  console.log(CategoryId, "CategoryId");
-  console.log(ThumbnailPicture, "ThumbnailPicture");
+  // console.log(ClassName, "ClassName");
+  // console.log(Description, "Description");
+  // console.log(Price, "Price");
+  // console.log(Promo, "Promo");
+  // console.log(IsFree, "IsFree");
+  // console.log(LevelName, "LevelName");
+  // console.log(LinkSosmed, "LinkSosmed");
+  // console.log(Author, "Author");
+  // console.log(CategoryId, "CategoryId");
+  // console.log(ThumbnailPicture, "ThumbnailPicture");
 
   useEffect(() => {
     if (isError) {
@@ -134,7 +135,8 @@ export const ModalTambahKelas = ({ Category }) => {
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-semibold text-sm">Deskripsi</label>
-            <Input
+            <TextArea
+              rows={4}
               onChange={handleInput}
               id="description"
               className="border rounded-lg hover:border-purple-700"

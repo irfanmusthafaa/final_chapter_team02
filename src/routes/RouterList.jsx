@@ -23,6 +23,11 @@ import { ProtectedUser } from "../assets/components/protected/ProtectedUser";
 import { AdminKategori } from "../pages/Admin/AdminKategori";
 import { ProtectedAdmin } from "../assets/components/Admin/ProtectedAdmin";
 import { AdminChapter } from "../pages/Admin/AdminChapter";
+import { AdminLesson } from "../pages/Admin/AdminLesson";
+import { AdminBank } from "../pages/Admin/AdminBank";
+import { AdminUser } from "../pages/Admin/AdminUser";
+import { AdminTransaksi } from "../pages/Admin/AdminTransaksi";
+import { AdminNotification } from "../pages/Admin/AdminNotification";
 
 export const RouterList = () => {
   return (
@@ -88,6 +93,46 @@ export const RouterList = () => {
           element={
             <ProtectedAdmin>
               <AdminChapter />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/lesson"
+          element={
+            <ProtectedAdmin>
+              <AdminLesson />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/bank"
+          element={
+            <ProtectedAdmin>
+              <AdminBank />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/user"
+          element={
+            <ProtectedAdmin>
+              <AdminUser />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/transaksi"
+          element={
+            <ProtectedAdmin>
+              <AdminTransaksi />
+            </ProtectedAdmin>
+          }
+        ></Route>
+        <Route
+          path="/admin/notifikasi"
+          element={
+            <ProtectedAdmin>
+              <AdminNotification />
             </ProtectedAdmin>
           }
         ></Route>

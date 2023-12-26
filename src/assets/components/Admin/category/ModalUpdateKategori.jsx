@@ -6,6 +6,10 @@ import { UpdateCategory } from "../../../../services/admin/category/put-category
 export const ModalUpdateKategori = ({ record, openUpdate, setOpenUpdate }) => {
   const [CategoryName, setCategoryName] = useState("");
 
+  useEffect(() => {
+    setCategoryName(record.categoryName);
+  }, [record.categoryName]);
+
   const handleInput = (e) => {
     if (e) {
       if (e.target.id === "categoryName") {
@@ -20,6 +24,7 @@ export const ModalUpdateKategori = ({ record, openUpdate, setOpenUpdate }) => {
       return;
     }
     const id = record.idKategori;
+
     if (id) {
       UpdateCategory(id, { categoryName: CategoryName });
       toast.success("Update Category Success");
@@ -54,6 +59,7 @@ export const ModalUpdateKategori = ({ record, openUpdate, setOpenUpdate }) => {
                 className="border rounded-lg hover:border-purple-700"
                 type="text"
                 placeholder="Nama Kategori"
+                value={CategoryName}
               />
             </div>
           </div>

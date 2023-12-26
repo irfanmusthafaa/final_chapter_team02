@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import userIcon from "../../images/Users.png";
+import { useClassDataQuery } from "../../../services/class/get-data-class";
+import { useGetAllUsers } from "../../../services/admin/users/get-all-users";
 
 export const Card = () => {
+  const [Class, setClass] = useState([]);
+  const [Users, setUsers] = useState([]);
+
+  const { data: dataClass } = useClassDataQuery();
+  const { data: dataUsers } = useGetAllUsers();
+
+  useEffect(() => {
+    setClass(dataClass?.result);
+    setUsers(dataUsers?.users);
+  }, [dataClass, dataUsers]);
+
+  const premiumClasses = Class?.filter((item) => !item.isFree);
+
   return (
     <div className="flex justify-between   w-full  gap-3 ">
       <div className="bg-purple-500 p-6 rounded-2xl box-border w-1/3">
@@ -10,7 +25,7 @@ export const Card = () => {
             <img src={userIcon} alt="user icon" />
           </div>
           <div>
-            <p className="text-white text-2xl">450</p>
+            <p className="text-white text-2xl">{Users?.length}</p>
             <p className="text-white text-xl font-bold">Active Users</p>
           </div>
         </div>
@@ -21,7 +36,7 @@ export const Card = () => {
             <img src={userIcon} alt="user icon" />
           </div>
           <div>
-            <p className="text-white text-2xl">25</p>
+            <p className="text-white text-2xl">{Class?.length}</p>
             <p className="text-white text-xl font-bold">Active Class</p>
           </div>
         </div>
@@ -32,7 +47,7 @@ export const Card = () => {
             <img src={userIcon} alt="user icon" />
           </div>
           <div>
-            <p className="text-white text-2xl">20</p>
+            <p className="text-white text-2xl">{premiumClasses?.length}</p>
             <p className="text-white text-xl font-bold">Premium Class</p>
           </div>
         </div>

@@ -17,7 +17,7 @@ import { addRating } from '../../services/rating/add-rating';
 export const DetailKelasPage = () => {
 
 
-const navigate = useNavigate();
+// const navigate = useNavigate();
 
 const { classCode } = useParams();
 

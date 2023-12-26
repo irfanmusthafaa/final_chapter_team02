@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Input, Radio, Select, message } from "antd";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Input, Radio, Select } from "antd";
 import { toast } from "react-toastify";
 import { useAddChapter } from "../../../../services/admin/chapter/post-chapter";
 
@@ -8,7 +7,6 @@ export const ModalTambahChapter = ({ Class }) => {
   const [ChapterName, setChapterName] = useState("");
   const [ClassCode, setClassCode] = useState("");
   const [IsFree, setIsFree] = useState(true);
-  const navigate = useNavigate()
 
   const { mutate: dataChapter, status, isSuccess, isError, error } = useAddChapter();
 
