@@ -19,7 +19,7 @@ export const CardTopikKelas = (props) => {
 
   return (
     <Link className="no-underline" to={`/Detailkelas/${props.class.classCode}`}>
-      <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64">
+      <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64" style={{ border: ".5px solid grey" }}>
         <img src={props.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]" />
         <div className="px-4 mb-3 mt-1">
           <div className="flex justify-between items-center">

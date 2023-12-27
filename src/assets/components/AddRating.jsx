@@ -33,6 +33,7 @@ export const AddRating = (props) => {
               color: starValue <= rating ? 'gold' : 'gray',
               fontSize: '24px',
             }}
+            className='pl-2 md:pl-0'
           >
             ★
           </span>

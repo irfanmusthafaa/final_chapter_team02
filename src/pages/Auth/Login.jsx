@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "antd";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import image from "../../assets/img/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLoginUser } from "../../services/auth/login";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +13,7 @@ export const Login = () => {
   const [Password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { mutate: dataLogin, status, isSuccess, isError, error } = useLoginUser();
 
@@ -33,7 +34,10 @@ export const Login = () => {
     }
     if (isSuccess) {
       toast.success("Login Berhasil");
-      navigate("/");
+
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2500);
     }
   }, [status]);
 
