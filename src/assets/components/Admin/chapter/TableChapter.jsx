@@ -91,9 +91,16 @@ export const TableChapter = ({ searchTerm, Chapter, Class }) => {
       totalDuration: item.totalDuration,
     })) || [];
 
+  const paginationConfig = {
+    pageSize: 10, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData} scroll={{ x: true }} pagination={paginationConfig} />
       <ModalUpdateChapter openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} Class={Class} />
       <Modal title="Konfirmasi Hapus" open={DeleteChapterId !== null} onOk={handleDelete} onCancel={() => setDeleteChapterId(null)}>
         <p>Anda yakin ingin menghapus chapter ini?</p>

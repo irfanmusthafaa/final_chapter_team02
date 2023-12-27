@@ -79,9 +79,16 @@ export const TableKategori = ({ searchTerm, Category }) => {
       thumbnailPictureCategory: item.thumbnailPictureCategory,
     })) || [];
 
+  const paginationConfig = {
+    pageSize: 4, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData} scroll={{ x: true }} pagination={paginationConfig} />
       <ModalUpdateKategori openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} />
       <Modal title="Konfirmasi Hapus" open={deleteCategoryId !== null} onOk={handleDelete} onCancel={() => setDeleteCategoryId(null)}>
         <p>Anda yakin ingin menghapus kategori ini?</p>

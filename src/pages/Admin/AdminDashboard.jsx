@@ -40,10 +40,9 @@ export const AdminDashboard = () => {
       <SideBar />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
-        <div className="px-16 my-16">
+        <div className="px-10 my-16">
           <Card />
         </div>
-      
       </div>
     </div>
   );

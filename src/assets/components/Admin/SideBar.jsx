@@ -1,6 +1,7 @@
 import { LogoutOutlined } from "@ant-design/icons";
 import { CookiesKey, CookiesStorage } from "../../../utils/cookies";
 import logoImage from "../../images/icon-tech-2.png";
+import logoImage2 from "../../img/ppp.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -33,15 +34,11 @@ export const SideBar = () => {
     { label: "Bank", link: "/admin/bank", active: "admin/bank", icon: faCreditCard },
   ];
 
-  const handleLogout = () => {
-    CookiesStorage.remove(CookiesKey.TokenAdmin);
-    CookiesStorage.remove(CookiesKey.Admin);
-    window.location.href = "/admin/login";
-  };
   return (
-    <div className="bg-purple-700 min-h-screen   w-[20%]  ">
+    <div className="bg-purple-700 min-h-screen w-[20%]  ">
       <div className="flex flex-col pt-[2rem] justify center items-center">
-        <img src={logoImage} width={150} placeholder="logo" />
+        <img src={logoImage} width={150} placeholder="logo" className="hidden md:flex" />
+        <img src={logoImage2} width={50} placeholder="logo" className="flex md:hidden" />
         <div className="w-full flex flex-col justify-center items-center mt-10 overflow-hidden">
           {menus.map((menu, index) => (
             <Link
@@ -49,7 +46,7 @@ export const SideBar = () => {
               to={menu.link}
               className={`${
                 activePage === menu.active ? "bg-purple-500" : "bg-purple-700"
-              } w-full flex gap-1 items-center text-sm   py-4  font-semibold text-white no-underline`}
+              } w-full flex flex-col md:flex-row gap-1 items-center text-sm text-[12px] md:text-sm   py-4  font-semibold text-white no-underline`}
             >
               <FontAwesomeIcon icon={menu.icon} className="w-[30%]" /> <p>{menu.label}</p>
             </Link>

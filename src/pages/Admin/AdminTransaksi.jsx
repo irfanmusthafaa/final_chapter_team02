@@ -31,11 +31,11 @@ export const AdminTransaksi = () => {
       <SideBar />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
-        <div className="px-16  my-16">
+        <div className="px-10  my-16">
           <Card />
         </div>
-        <div className="px-16 my-16">
-          <div className="flex justify-between items-center mb-5">
+        <div className="px-10 my-16">
+          <div className="flex flex-col gap-3 md:flex-row justify-between items-start md:items-center mb-5">
             <h3>Transaksi</h3>
             <div className="flex justify-between items-center gap-3">
               <div className="relative">
@@ -43,7 +43,7 @@ export const AdminTransaksi = () => {
                   type="text"
                   placeholder="Cari nama user..."
                   style={{ border: ".2px solid grey" }}
-                  className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[200px] h-[32px] "
+                  className="bg-white border-none  focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-3 pr-10 py-2 w-40 md:w-48 h-4 "
                   value={searchTerm}
                   onChange={handleSearch}
                 />

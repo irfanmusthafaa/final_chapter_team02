@@ -42,9 +42,9 @@ export const NavbarAdmin = () => {
   const profilePicture = Profile?.profilePicture;
 
   return (
-    <div className="bg-purple-200 h-16 flex justify-between items-center px-16">
+    <div className="bg-purple-200 h-16 flex justify-between items-center px-10 ">
       <div>
-        <h3 className="text-purple-700 font-bold">Hi, {Profile?.fullName}!</h3>
+        <h3 className="text-purple-700 font-bold text-sm md:text-lg">Hi, {Profile?.fullName}!</h3>
       </div>
       <div>
         <Popover content={content} title="Akun" trigger="hover">

@@ -132,9 +132,16 @@ export const TableKelas = ({ searchTerm, Category, Class }) => {
       description: item.description,
     })) || [];
 
+  const paginationConfig = {
+    pageSize: 7, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} size="small" />
+      <Table columns={columns} dataSource={dynamicData} size="small" scroll={{ x: true }} pagination={paginationConfig} />
       <ModalUpdateKelas openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} Category={Category} />
       <Modal title="Konfirmasi Hapus" open={DeleteClassId !== null} onOk={handleDelete} onCancel={() => setDeleteClassId(null)}>
         <p>Anda yakin ingin menghapus kelas ini?</p>

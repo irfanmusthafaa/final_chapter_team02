@@ -33,19 +33,19 @@ export const AdminNotification = () => {
       <SideBar />
       <div className="bg-white w-[80%]">
         <NavbarAdmin />
-        <div className="px-16  my-16">
+        <div className="px-10  my-16">
           <Card />
         </div>
-        <div className="px-16 my-16">
-          <div className="flex justify-between items-center  mb-5">
+        <div className="px-10 my-16">
+          <div className="flex flex-col  gap-3 md:flex-row justify-between items-start md:items-center mb-5">
             <h3>Notifikasi</h3>
-            <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-col md:flex-row items-start justify-between md:items-center gap-3">
               <button
-                className="flex justify-between gap-2 border-none  text-white bg-purple-700 hover:bg-purple-900 cursor-pointer rounded-full p-3 "
+                className="flex justify-between gap-2 border-none  text-white bg-purple-700 hover:bg-purple-900 cursor-pointer rounded-xl py-2 px-3  "
                 onClick={() => setOpen(true)}
               >
                 <FontAwesomeIcon icon={faPlus} />
-                Tambah
+                Tambah Data
               </button>
             </div>
           </div>

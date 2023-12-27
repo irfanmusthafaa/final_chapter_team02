@@ -95,9 +95,16 @@ export const TableLesson = ({ searchTerm, Lesson, Chapter }) => {
       chapterId: item.chapterId,
       duration: item.duration,
     })) || [];
+
+  const paginationConfig = {
+    pageSize: 10, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData} scroll={{ x: true }} pagination={paginationConfig} />
       <ModalUpdateLesson openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} Chapter={Chapter} />
       <Modal title="Konfirmasi Hapus" open={DeleteLessonId !== null} onOk={handleDelete} onCancel={() => setDeleteLessonId(null)}>
         <p>Anda yakin ingin menghapus lesson ini?</p>

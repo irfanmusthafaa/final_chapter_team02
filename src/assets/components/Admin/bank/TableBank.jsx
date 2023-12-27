@@ -84,9 +84,16 @@ export const TableBank = ({ searchTerm, Bank }) => {
       bankNumber: item.bankNumber,
     })) || [];
 
+  const paginationConfig = {
+    pageSize: 5, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData} scroll={{ x: true }} pagination={paginationConfig} />
       <ModalUpdateBank openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} />
       <Modal title="Konfirmasi Hapus" open={DeleteBankId !== null} onOk={handleDelete} onCancel={() => setDeleteBankId(null)}>
         <p>Anda yakin ingin menghapus bank ini?</p>

@@ -111,10 +111,16 @@ export const TablePayment = ({ searchTerm, Payment }) => {
     }
   };
 
+  const paginationConfig = {
+    pageSize: 7, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
-      {/* <ModalUpdateBank openUpdate={openUpdate} setOpenUpdate={setOpenUpdate} record={record} /> */}
+      <Table columns={columns} dataSource={dynamicData} scroll={{ x: true }} pagination={paginationConfig} />
     </>
   );
 };

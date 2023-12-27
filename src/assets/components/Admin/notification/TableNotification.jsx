@@ -90,9 +90,17 @@ export const TableNotification = ({ Lesson, Notification }) => {
       dateTime: formatDateTime(item.dateTime),
       userId: item.userId,
     })) || [];
+
+  const paginationConfig = {
+    pageSize: 10, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData} scroll={{ x: true }} pagination={paginationConfig} />
       <Modal title="Konfirmasi Hapus" open={DeleteNotificationId !== null} onOk={handleDelete} onCancel={() => setDeleteNotificationId(null)}>
         <p>Anda yakin ingin menghapus notifikasi ini?</p>
       </Modal>

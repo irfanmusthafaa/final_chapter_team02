@@ -59,9 +59,16 @@ export const TableUsers = ({ searchTerm, Users }) => {
       profilePicture: item.profilePicture,
     })) || [];
 
+  const paginationConfig = {
+    pageSize: 5, // Menetapkan jumlah data per halaman
+    showQuickJumper: true,
+    // showSizeChanger: true,
+    // ... properti pagination lainnya
+  };
+
   return (
     <>
-      <Table columns={columns} dataSource={dynamicData} />
+      <Table columns={columns} dataSource={dynamicData} scroll={{ x: true }} pagination={paginationConfig} />
     </>
   );
 };
