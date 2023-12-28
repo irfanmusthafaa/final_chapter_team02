@@ -11,7 +11,12 @@ export const KursusPopuler = () => {
   const [filterCategory, setFilterCategory] = useState("");
 
   const { data: dataCategory } = useCategoryDataQuery();
-  const { data: dataClass } = useClassDataQuery({ categoryId: filterCategory });
+  const { data: dataClass } = useClassDataQuery({
+    categoryId: filterCategory,
+    popular: true,
+    limit: 1000,
+    page: 1,
+  });
 
   useEffect(() => {
     setCategory(dataCategory);
@@ -24,8 +29,15 @@ export const KursusPopuler = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentCategory, setCurrentCategory] = useState(0);
 
+  // const nextSlide = () => {
+  //   setCurrentSlide((prevSlide) => (prevSlide + 1) % Class.length);
+  // };
+
   const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % Class.length);
+    // Check if there is more data to show
+    if (currentSlide < Class.length - 1) {
+      setCurrentSlide((prevSlide) => prevSlide + 1);
+    }
   };
 
   const prevSlide = () => {
@@ -50,7 +62,7 @@ export const KursusPopuler = () => {
           </a>
         </div>
         {/* filter */}
-        <div className="md:flex flex-wrap gap-3 justify-between my-5 hidden">
+        <div className="md:flex flex-wrap gap-1 w-4/5 justify-between my-5 hidden">
           <button
             onClick={() => setFilterCategory("")}
             className="bg-purple-100 px-5 py-2 rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white"
@@ -112,7 +124,7 @@ export const KursusPopuler = () => {
           <div className="flex justify-center md:justify-between items-center w-full">
             <div className="slider-container">
               <div className="slider" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-                {Class?.map((data) => (
+                {Class?.slice(0, 6).map((data) => (
                   <div
                     key={data.classCode}
                     style={{ border: ".5px solid grey" }}
@@ -124,7 +136,7 @@ export const KursusPopuler = () => {
                         <p className="text-purple-700 font-bold ">{data.categorys.categoryName}</p>
                         <div className="flex flex-row justify-center items-center">
                           <StarFilled className="w-4" style={{ color: "gold" }} />
-                          <p className="pl-[.1rem] font-medium">{data.rated}</p>
+                          <p className="pl-[.1rem] font-medium">{data.averageRating?.toFixed(1)}</p>
                         </div>
                       </div>
                       <p className="text-black font-bold mt-1">{data.className}</p>
@@ -141,7 +153,7 @@ export const KursusPopuler = () => {
                         <div className="flex justify-center items-center gap-1 ">
                           <div className="flex flex-row justify-center items-center">
                             <ClockIcon className="w-4" style={{ color: "green" }} />
-                            <p className="pl-[.1rem] font-semibold">{data.time}</p>
+                            <p className="pl-[.1rem] font-semibold">{data.totalDuration} Menit</p>
                           </div>
                         </div>
                       </div>
@@ -176,11 +188,21 @@ export const KursusPopuler = () => {
               <ChevronLeftIcon />
             </button>
             <button
+              className={`bg-gray-200 text-white rounded-full text-black border-0 ${
+                currentSlide === Class?.length - 1 ? "cursor-not-allowed" : "hover:bg-purple-700 hover:text-white"
+              } w-[30px] h-[30px]`}
+              onClick={nextSlide}
+              disabled={currentSlide === Class?.length - 1}
+            >
+              <ChevronRightIcon />
+            </button>
+
+            {/* <button
               className="bg-gray-200 text-white rounded-full text-black border-0 hover:bg-purple-700 hover:text-white w-[30px] h-[30px]"
               onClick={nextSlide}
             >
               <ChevronRightIcon />
-            </button>
+            </button> */}
           </div>
         </div>
         {/* card mobile */}

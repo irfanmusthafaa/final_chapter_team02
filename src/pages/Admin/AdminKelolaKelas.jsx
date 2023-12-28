@@ -20,7 +20,11 @@ export const AdminKelolaKelas = () => {
   const [filterCategory, setFilterCategory] = useState(undefined);
 
   const { data: dataCategory } = useCategoryDataQuery();
-  const { data: dataClass } = useClassDataQuery({ categoryId: filterCategory });
+  const { data: dataClass } = useClassDataQuery({
+    categoryId: filterCategory,
+    limit: 1000,
+    page: 1,
+  });
 
   useEffect(() => {
     setCategory(dataCategory);
