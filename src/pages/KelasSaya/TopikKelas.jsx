@@ -1,28 +1,38 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FilterKelas } from "../../assets/components/FilterKelas";
-import searchIcon from "../../assets/images/icon-search2.png";
 import { Navbar } from "../../assets/components/Navbar";
 import { NavButton } from "../../assets/components/button/buttton_navigasi/ButtonNav";
 import { CardTopikKelas } from "../../assets/components/card/card_kelas_saya/CardTopikKelas";
-import { fetchDataCategory, useCategoryDataQuery } from "../../services/category/get-data-category";
+import { useCategoryDataQuery } from "../../services/category/get-data-category";
 import { useClassDataQuery } from "../../services/class/get-data-class";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal } from "antd";
+import { Modal, Pagination } from "antd";
+import { useLocation } from "react-router-dom";
+import { MiniSearch } from "../../assets/components/search/MiniSearch";
+import { MiniSearchMobile } from "../../assets/components/search/MiniSearchMobile";
 
 export const TopikKelas = () => {
+
   const [Kategori, setKategori] = useState("");
   const [Level, setLevel] = useState("");
   const [IsFree, setIsFree] = useState(null);
   const [Latest, setLatest] = useState(null);
   const [Popular, setPopular] = useState(null);
   const [Promo, setPromo] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [filterOpen, setFilterOpen] = useState(false);
 
   const [activeButton, setActiveButton] = useState("ALL");
 
   const [Category, setCategory] = useState([]);
   const { data: dataCategory } = useCategoryDataQuery();
+
+  const location = useLocation();
+  const searchParam = new URLSearchParams(location.search).get('search');
+  const [Search, setSearch] = useState(searchParam?searchParam:null);
+
 
   const [Class, setClass] = useState([]);
   const { data: dataClass } = useClassDataQuery({
@@ -32,14 +42,20 @@ export const TopikKelas = () => {
     latest: Latest,
     popular: Popular,
     promo: Promo,
+    search:Search,
+    page:currentPage
   });
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     setCategory(dataCategory);
     if (dataClass) {
       setClass(dataClass.result);
     }
-  }, [dataCategory, dataClass, Kategori, Level, Latest, Popular, Promo]);
+  }, [dataCategory,currentPage, dataClass, Kategori, Level, Latest, Popular, Promo]);
 
   const handleButtonClick = (buttonText) => {
     setActiveButton(buttonText);
@@ -53,6 +69,8 @@ export const TopikKelas = () => {
     }
   };
 
+  
+
   return (
     <div className="bg-purple-100">
       <Navbar />
@@ -65,22 +83,11 @@ export const TopikKelas = () => {
               <h2 className="text-purple-700">Topik Kelas</h2>
             </div>
             <div className="ms-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Cari Kelas..."
-                  className="bg-purple-100 border-purple-700 focus:bg-white focus:outline-none rounded-full px-4 w-[200px] h-[32px]"
-                />
-                <button className="absolute bg-transparent border-none -ms-[15%] inset-y-0 items-center">
-                  <div className="flex">
-                    <img
-                      src={searchIcon}
-                      alt="Search Icon"
-                      className="h-6 w-6 cursor-pointer"
-                    />
-                  </div>
-                </button>
-              </div>
+              {/* search bar  */}
+              <MiniSearch
+                search={Search}
+                setSearch={setSearch}
+              />
             </div>
           </div>
           <div className="flex flex-row h-[100%] gap-10 mt-[2%]">
@@ -99,11 +106,6 @@ export const TopikKelas = () => {
                 setPromo={setPromo}
                 // setIsFree={setIsFree}
               />
-
-              {console.log(Kategori, "ini Kategori ")}
-              {console.log(Level, "ini Level ")}
-              {console.log(Latest, "ini yang terbaru ")}
-              {console.log(Popular, "ini Popular ")}
               {console.log(Promo, "ini Promo ")}
             </div>
             <div className="">
@@ -125,7 +127,7 @@ export const TopikKelas = () => {
                 />
                 {console.log(IsFree, "ini is free")}
               </div>
-              <div className="grid mt-[4%] grid-cols-2 gap-4">
+              <div className="grid mt-[4%] grid-cols-2 gap-5">
                 {Class?.map((item, index) => (
                   <CardTopikKelas
                     key={index}
@@ -135,6 +137,16 @@ export const TopikKelas = () => {
                   />
                 ))}
               </div>
+              <br/>
+              <div className="flex item-center justify-center">
+                <Pagination
+                  simple
+                  defaultCurrent={currentPage}
+                  total={dataClass?.pagination.total_items}
+                  onChange={handlePageChange}
+                />
+              </div>
+              <br/>
             </div>
           </div>
         </div>
@@ -144,28 +156,17 @@ export const TopikKelas = () => {
       <div className="pt-[7rem] flex flex-col h-screens items-center md:hidden">
         <h1 className="text-purple-700">Topik Kelas</h1>
         <div className="flex flex-col w-full h-screens mt-[4%]">
-          <div className="flex h-full">
-            <div className="w-5/6 ms-auto pl-2">
-              <div className="relative cursor-pointer">
-                <input
-                  type="text"
-                  placeholder="Cari Kelas..."
-                  className="bg-purple-100 border-purple-700 focus:bg-white focus:outline-none rounded-full px-4 w-[200px] h-[32px]"
-                />
-                <button className="absolute bg-transparent border-none -ms-[15%] inset-y-0 items-center">
-                  <div className="flex">
-                  <img
-                      src={searchIcon}
-                      alt="Search Icon"
-                      className="h-6 w-6 ml-2 cursor-pointer"
-                    />
-                  </div>
-                </button>
-              </div>
+          <div className="flex h-full mx-5">
+            <div className="w-5/6 ms-auto">
+              {/* search bar  */}
+              <MiniSearchMobile
+                search={Search}
+                setSearch={setSearch}
+              />
             </div>
             <div>
               <button
-                className="flex justify-between gap-2 border-none  text-white bg-purple-700 hover:bg-purple-900 cursor-pointer rounded-full p-3 mr-2 "
+                className="flex justify-between gap-2 border-none  text-white bg-purple-700 hover:bg-purple-900 cursor-pointer rounded-full p-3"
                 onClick={() => setFilterOpen(true)}
               >
                 <FontAwesomeIcon icon={faFilter} />
@@ -217,7 +218,7 @@ export const TopikKelas = () => {
                 />
                 {console.log(IsFree, "ini is free")}
               </div>
-              <div className="flex flex-col justify-center items-center mt-3">
+              <div className="flex flex-col justify-center items-center mt-4">
                   {Class?.map((item, index) => (
                     <CardTopikKelas
                       key={index}
@@ -227,6 +228,15 @@ export const TopikKelas = () => {
                     />
                   ))}
               </div>
+              <div className="flex item-center justify-center">
+                <Pagination
+                  simple
+                  defaultCurrent={currentPage}
+                  total={dataClass?.pagination.total_items}
+                  onChange={handlePageChange}
+                />
+              </div>
+              <br/>
             </div>
           </div>
         </div>

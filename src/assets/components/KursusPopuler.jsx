@@ -11,7 +11,10 @@ export const KursusPopuler = () => {
   const [filterCategory, setFilterCategory] = useState("");
 
   const { data: dataCategory } = useCategoryDataQuery();
-  const { data: dataClass } = useClassDataQuery({ categoryId: filterCategory });
+  const { data: dataClass } = useClassDataQuery({ 
+    categoryId: filterCategory,
+    popular:true
+  });
 
   useEffect(() => {
     setCategory(dataCategory);
@@ -124,7 +127,7 @@ export const KursusPopuler = () => {
                         <p className="text-purple-700 font-bold ">{data.categorys.categoryName}</p>
                         <div className="flex flex-row justify-center items-center">
                           <StarFilled className="w-4" style={{ color: "gold" }} />
-                          <p className="pl-[.1rem] font-medium">{data.rated}</p>
+                          <p className="pl-[.1rem] font-medium">{data.averageRating}</p>
                         </div>
                       </div>
                       <p className="text-black font-bold mt-1">{data.className}</p>
@@ -141,7 +144,7 @@ export const KursusPopuler = () => {
                         <div className="flex justify-center items-center gap-1 ">
                           <div className="flex flex-row justify-center items-center">
                             <ClockIcon className="w-4" style={{ color: "green" }} />
-                            <p className="pl-[.1rem] font-semibold">{data.time}</p>
+                            <p className="pl-[.1rem] font-semibold">{data.totalDuration} Menit</p>
                           </div>
                         </div>
                       </div>

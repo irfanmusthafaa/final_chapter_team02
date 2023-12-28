@@ -4,13 +4,10 @@ import { Link } from 'react-router-dom';
 // import img from '{imgPath}';
 
 export const CardKelasBerjalan = (props) => {
-
-    // const [Class, setClass] = useState(props.class.class);
-    // const [Categori, setCategori] = useState(props.categori);
     
   return (
-    <Link className="no-underline" to={`/DetailKelas/${props.class.class.classCode}`}>
-        <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64">
+    <Link className="no-underline w-full mb-4 md:mb-0" to={`/DetailKelas/${props.class.class.classCode}`}>
+        <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-64 mx-5 shadow-md md:mx-0">
             <img src={props.class.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]"/>
             <div className="px-4 mb-3 mt-1">
                 <div className="flex justify-between items-center">
@@ -65,7 +62,7 @@ export const CardKelasBerjalan = (props) => {
                     </div>
                 </div>
                 <div className='mt-1'>
-                                        {/* garis persentasase */}
+                    {/* garis persentasase */}
                     <BarProgres
                         presentase={props.class.presentase}
                     />

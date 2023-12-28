@@ -12,7 +12,7 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import image from "../img/ppp.png";
 import searchIcon from "../images/icon-search3.png";
 
@@ -97,6 +97,16 @@ export const Navbar = () => {
     }));
   }, [location.pathname, navigation, nav]);
 
+  // search function
+
+  const [searchParam, setSearchParam] = useState();
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+
+    navigate(`/KelasSaya/TopikKelas?search=${searchParam}`);
+  };
+
   return (
     <>
       <Disclosure as="nav" className="bg-purple-700 fixed w-full z-10">
@@ -126,8 +136,10 @@ export const Navbar = () => {
                         type="text"
                         placeholder="Cari Kelas..."
                         className="bg-white border-none focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[170px] h-[32px] md:w-[450px] "
+                        value={searchParam}
+                        onChange={(e) => setSearchParam(e.target.value)}
                       />
-                      <button className="absolute bg-transparent border-none inset-y-0 -ml-10 ">
+                      <button className="absolute bg-transparent border-none inset-y-0 -ml-10" onClick={handleSearch}>
                         <img
                           src={searchIcon}
                           alt="Search Icon"
