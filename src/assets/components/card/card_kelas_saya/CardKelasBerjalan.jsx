@@ -5,16 +5,19 @@ import { ClipboardDocumentListIcon, ClockIcon, ShieldCheckIcon } from "@heroicon
 // import img from '{imgPath}';
 
 export const CardKelasBerjalan = (props) => {
-  // const [Class, setClass] = useState(props.class.class);
-  // const [Categori, setCategori] = useState(props.categori);
+  const [from, setFrom] = useState('/KelasSaya/KelasBerjalan');
+
 
   return (
     <Link
-      className="no-underline"
-      to={`/DetailKelas/${props.class.class.classCode}`}
+      className="no-underline w-full mb-2 md:mb-0"
+      to={{
+        pathname: `/Detailkelas/${props.class.class.classCode}`,
+        hash:'kelasBerjalan' 
+      }}
     >
       <div
-        className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64"
+        className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-64 shadow-md mx-5 md:mx-0 "
         style={{ border: ".5px solid grey" }}
       >
         <img

@@ -15,7 +15,7 @@ const fetchDataLearning = async ({queryKey}) => {
         return null; 
     });
 
-    return data.data.allLearning;
+    return data.data;
 
 }
 

@@ -5,21 +5,23 @@ import { Link } from "react-router-dom";
 
 export const CardTopikKelas = (props) => {
   const cekBayar = () => {
-    console.log("benar sudah masuk cek bayar");
-
-    const sudahBayar = true; // Misalnya, menggantinya dengan logika pengecekan pembayaran
-
+    const sudahBayar = true; 
     if (sudahBayar) {
       alert("ok anda sudah bayar.");
     } else {
-      // Jika belum bayar, berikan pesan atau arahkan ke halaman pembayaran
       alert("Anda belum membayar. Silakan lakukan pembayaran.");
     }
   };
-
+  
   return (
-    <Link className="no-underline" to={`/Detailkelas/${props.class.classCode}`}>
-      <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64" style={{ border: ".5px solid grey" }}>
+    <Link 
+      className="no-underline w-full mb-2 md:mb-0" 
+      to={{
+        pathname: `/Detailkelas/${props.class.classCode}`,
+        hash:'topikKelas' 
+      }}
+    >
+      <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-64 shadow-md mx-5 md:mx-0 ">
         <img src={props.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]" />
         <div className="px-4 mb-3 mt-1">
           <div className="flex justify-between items-center">
@@ -31,7 +33,7 @@ export const CardTopikKelas = (props) => {
                   fill="#F9CC00"
                 />
               </svg>
-              {props.class.averageRating}
+              {props.class.averageRating?.toFixed(1)}
             </p>
           </div>
           <p className="text-black font-bold mt-1">{props.class.className}</p>
@@ -80,7 +82,6 @@ export const CardTopikKelas = (props) => {
               iconPath={props.class.isFree ? null : diamondIcon}
               onClick={cekBayar}
             />
-            {console.log(props.class.isFree, "ini lohh")}
           </div>
         </div>
       </div>

@@ -15,21 +15,24 @@ import { useLearningDataQuery } from "../../services/learning/get-data-learning"
 import { AddRating } from "../../assets/components/AddRating";
 import { ClipboardDocumentListIcon, ClockIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { StarFilled } from "@ant-design/icons";
+import { usePresentaseLessonQuery } from "../../services/lesson/get-presentase-lesson";
 
-export const DetailKelasPage = () => {
+export const DetailKelasPage = (props) => {
   const { classCode } = useParams();
 
   const [Class, setClass] = useState([]);
-
   const { data: dataClass } = useClassDetailQuery(classCode);
 
-  const [selectedLesson, setSelectedLesson] = useState(Class.chapters?.Lessons?.[0]?.id);
-
+  const [selectedLesson, setSelectedLesson] = useState(Class.chapters?.Lessons?.id);
   const [lesson, setLesson] = useState([]);
-  const { data: dataLesson } = useLessonDetailQuery(classCode, selectedLesson);
+  const { data: dataLesson } = useLessonDetailQuery(selectedLesson);
+  const { data: hitLessonPresentase } = usePresentaseLessonQuery(classCode, selectedLesson);
 
   const [learning, setLearning] = useState([]);
-  const { data: dataLearning } = useLearningDataQuery();
+  const { data: dataLearning } = useLearningDataQuery({
+    limit: 1000,
+    page: 1,
+  });
 
   useEffect(() => {
     if (dataClass) {
@@ -43,14 +46,14 @@ export const DetailKelasPage = () => {
     if (dataLearning) {
       setLearning(dataLearning);
     }
-  }, [dataClass, dataLesson, dataLearning]);
+  }, [dataClass, dataLesson, hitLessonPresentase, dataLearning]);
 
   const openTelegramLink = () => {
     window.open(Class.linkSosmed, "_blank");
   };
 
   const joinClass = useMutation(() => joinMyClass(classCode));
-  const isClassCodeExists = learning.some((learning) => learning.classCode === classCode);
+  const isClassCodeExists = learning.allLearning?.some((item) => item.classCode === classCode);
 
   const AddClass = async () => {
     try {
@@ -62,14 +65,19 @@ export const DetailKelasPage = () => {
     }
   };
 
-  const VideoUrl = lesson.lesson?.linkLearningMaterial;
-
+  const VideoUrl = lesson?.linkLearningMaterial;
+  // const VideoUrl = 'https://youtu.be/ixOd42SEUF0';
   const [embedUrl, setEmbedUrl] = useState("");
 
   useEffect(() => {
     const getVideoId = (url) => {
       try {
-        const videoId = url.split("v=")[1];
+        let videoId = url.includes("youtu.be/")
+          ? url.split("youtu.be/")[1]
+          : ((id) => {
+              const ampersandPosition = id.indexOf("&");
+              return ampersandPosition !== -1 ? id.substring(0, ampersandPosition) : id;
+            })(url.split("v=")[1]);
         return videoId;
       } catch (error) {
         console.error("Invalid URL or unable to extract video ID:", error.message);
@@ -101,13 +109,13 @@ export const DetailKelasPage = () => {
               <BackLink />
               <div className="px-5 my-4">
                 <div className="flex justify-between items-center">
-                  <p className="text-purple-700 font-bold ">{Class.categorys?.categoryName}</p>
+                  <h1 className="text-purple-700">{Class.categorys?.categoryName}</h1>
                   <div className="flex flex-row justify-center items-center text-sm">
                     <StarFilled className="w-4" style={{ color: "gold" }} />
                     <p className="pl-[.1rem] font-semibold">{Class.averageRating?.toFixed(1)}</p>
                   </div>
                 </div>
-                <p className="text-black font-bold mt-1">{Class.className}</p>
+                <h2 className="text-black font-bold mt-1">{Class.className}</h2>
                 <p className="text-black text-sm mt-1">By : {Class.author}</p>
                 <div className="flex gap-10 text-xs mt-2">
                   <div className="flex flex-row justify-center items-center">
@@ -139,9 +147,13 @@ export const DetailKelasPage = () => {
         <div className="flex flex-col items-start h-screens px-[5%] w-full">
           <div className=" flex flex-row">
             <div className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] mt-3" style={{ border: ".1px solid grey" }}>
-              <div className="flex justify-center items-center bg-current h-[327px] rounded-2xl mt-4">
+              <div>
+                <h2 className="text-purple-700">{hitLessonPresentase?.lesson.chapters?.chapterName}</h2>
+                <h3>{lesson.title}</h3>
+              </div>
+              <div className="relative bg-current rounded-2xl mt-4" style={{ paddingBottom: "56.25%" }}>
                 <iframe
-                  className="w-full h-full rounded-2xl"
+                  className="absolute inset-0 w-full h-full rounded-2xl"
                   src={embedUrl}
                   title="YouTube Video"
                   frameBorder="0"
@@ -151,7 +163,6 @@ export const DetailKelasPage = () => {
               </div>
               {/* rating add  */}
               <div className="flex flex-col mt-3 w-1/4">
-                <h3 className="text-purple-700">Rate This Class</h3>
                 <AddRating chapters={Class.chapters} classCode={classCode} />
               </div>
               <div className="mt-2">
@@ -180,14 +191,14 @@ export const DetailKelasPage = () => {
       <ModalBeliKelas open={open} setOpen={setOpen} Class={Class} classCode={classCode} />
 
       {/* mobile */}
-      <div className="pt-[6rem] flex flex-col h-screens items-center md:hidden">
-        <div className="bg-purple-100 w-full shadow-md mb-2">
+      <div className="pt-[6rem] flex flex-col h-screens md:hidden">
+        <div className="bg-purple-100 w-full shadow-md">
           <div className="flex flex-col my-[3%]">
             <BackLink />
             <div className="w-full">
               <div className="pl-8 pr-4 my-1">
                 <div className="flex justify-between items-center">
-                  <p className="text-purple-700 font-bold ">{Class.categorys?.categoryName}</p>
+                  <p className="text-purple-700 font-bold text-xl">{Class.categorys?.categoryName}</p>
                   <div className="flex flex-row justify-center items-center text-sm">
                     <StarFilled className="w-4" style={{ color: "gold" }} />
                     <p className="pl-[.1rem] font-semibold">{Class.averageRating?.toFixed(1)}</p>
@@ -221,10 +232,21 @@ export const DetailKelasPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col h-screens items-center justify-center px-3">
-          <div className="flex justify-center items-center bg-current h-fit w-full mt-4">
+        <div className="flex flex-col h-screens items-center justify-center">
+          {/* <div className="relative bg-current rounded-2xl mt-4 mx-4" style={{ paddingBottom: '56.25%', width: '90%', height: 0 }}>
+                    <iframe
+                        className="absolute inset-0 w-full h-full rounded-2xl"
+                        src={embedUrl}
+                        title="YouTube Video"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                    </div> */}
+
+          <div className="relative bg-current mx-4" style={{ width: "100%", height: "0", paddingBottom: "56.25%", maxWidth: "100vw" }}>
             <iframe
-              className="w-full h-full"
+              className="absolute inset-0 w-full h-full"
               src={embedUrl}
               title="YouTube Video"
               frameBorder="0"
@@ -232,13 +254,12 @@ export const DetailKelasPage = () => {
               allowFullScreen
             ></iframe>
           </div>
-          <div className="flex flex-row justify-center bg-">
-            <h3 className="text-purple-700 pt-1">Rate This Class</h3>
+          <div className="flex flex-row justify-center mt-1">
             <AddRating chapters={Class.chapters} classCode={classCode} />
           </div>
         </div>
-        <div className="bg-purple-50">
-          <div className="mt-2 px-3">
+        <div className="bg-purple-50 ">
+          <div className="text-center mt-2 px-3">
             <h3 className="mb-2">Tentang Kelas</h3>
             <p className="text-justify text-sm">{Class.description}</p>
           </div>
