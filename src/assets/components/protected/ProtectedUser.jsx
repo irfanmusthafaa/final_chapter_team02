@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CookiesKey, CookiesStorage } from '../../../utils/cookies';
 import { toast } from 'react-toastify';
 

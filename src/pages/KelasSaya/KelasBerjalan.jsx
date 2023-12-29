@@ -14,6 +14,7 @@ import { Pagination } from 'antd';
 import { MiniSearchMobile } from "../../assets/components/search/MiniSearchMobile";
 
 export const KelasBerjalan = () => {
+    const [from, setFrom] = useState('/KelasSaya/KelasBerjalan');
    
     const [filterOpen, setFilterOpen] = useState(false);
     const [activeButton, setActiveButton] = useState("ALL");
@@ -72,7 +73,9 @@ export const KelasBerjalan = () => {
             <div className='pt-[6rem] md:flex flex-col h-screens items-center hidden'>
                 <div className='flex flex-col h-screens mt-[4%]'>
                     <div className='flex items-center h-full'>
-                        <div className=''><p>Kelas Berjalan</p></div>
+                        <div className="font-bold text-2xl">
+                            <h2 className="text-purple-700">Kelas Saya</h2>
+                        </div>
                         <div className='ms-auto'>
                             {/* search bar  */}
                             <MiniSearch

@@ -5,17 +5,22 @@ import { Link } from "react-router-dom";
 
 export const CardTopikKelas = (props) => {
   const cekBayar = () => {
-    const sudahBayar = true; // Misalnya, menggantinya dengan logika pengecekan pembayaran
+    const sudahBayar = true; 
     if (sudahBayar) {
       alert("ok anda sudah bayar.");
     } else {
-      // Jika belum bayar, berikan pesan atau arahkan ke halaman pembayaran
       alert("Anda belum membayar. Silakan lakukan pembayaran.");
     }
   };
-
+  
   return (
-    <Link className="no-underline w-full mb-2 md:mb-0" to={`/Detailkelas/${props.class.classCode}`}>
+    <Link 
+      className="no-underline w-full mb-2 md:mb-0" 
+      to={{
+        pathname: `/Detailkelas/${props.class.classCode}`,
+        hash:'topikKelas' 
+      }}
+    >
       <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-64 shadow-md mx-5 md:mx-0 ">
         <img src={props.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]" />
         <div className="px-4 mb-3 mt-1">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "../../assets/components/Navbar";
 import chat from "../../assets/images/icon/gridicons_chat.svg";
 import { BackLink } from "../../assets/components/link/BackLink";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useClassDetailQuery } from "../../services/class/get-detail-class";
 import { CustomButtonDua } from "../../assets/components/button/CustomButtonDua";
 import { CardDaftarMateri } from "../../assets/components/card/CardDaftarMateri";
@@ -21,7 +21,7 @@ import {
 import { StarFilled } from "@ant-design/icons";
 import { usePresentaseLessonQuery } from "../../services/lesson/get-presentase-lesson";
 
-export const DetailKelasPage = () => {
+export const DetailKelasPage = (props) => {
     const { classCode } = useParams();
 
     const [Class, setClass] = useState([]);
@@ -79,18 +79,22 @@ export const DetailKelasPage = () => {
     };
     
     const VideoUrl = lesson?.linkLearningMaterial;
+    // const VideoUrl = 'https://youtu.be/ixOd42SEUF0';
     const [embedUrl, setEmbedUrl] = useState('');
 
     useEffect(() => {
+    
         const getVideoId = (url) => {
             try {
-                const videoId = url.split("v=")[1];
+                let videoId = url.includes("youtu.be/")
+                ? url.split("youtu.be/")[1]
+                : ((id) => {
+                    const ampersandPosition = id.indexOf("&");
+                    return ampersandPosition !== -1 ? id.substring(0, ampersandPosition) : id;
+                })(url.split("v=")[1]);
                 return videoId;
             } catch (error) {
-                console.error(
-                "Invalid URL or unable to extract video ID:",
-                error.message
-                );
+                console.error("Invalid URL or unable to extract video ID:", error.message);
                 return null;
             }
         };
@@ -107,6 +111,8 @@ export const DetailKelasPage = () => {
 
     const [open, setOpen] = useState(false);
 
+
+
     return (
         <div className="bg-white">
             {/* navbar */}
@@ -116,7 +122,7 @@ export const DetailKelasPage = () => {
                 <div className="bg-purple-100 w-full shadow-md mb-2">
                     <div className="flex flex-row px-[3.5%]">
                         <div className=" w-[65%] mt-[3%]">
-                            <BackLink to="/KelasSaya/TopikKelas"/>
+                            <BackLink />
                             <div className="px-5 my-4">
                                 <div className="flex justify-between items-center">
                                     <p className="text-purple-700 font-bold text-xl ">
@@ -245,7 +251,7 @@ export const DetailKelasPage = () => {
 
             {/* mobile */}
             <div className="pt-[6rem] flex flex-col h-screens md:hidden">
-                <div className="bg-purple-100 w-full shadow-md mb-2">
+                <div className="bg-purple-100 w-full shadow-md">
                     <div className="flex flex-col my-[3%]">
                         <BackLink />
                         <div className="w-full">
@@ -323,18 +329,16 @@ export const DetailKelasPage = () => {
                     ></iframe>
                     </div> */}
 
-                    <div className="relative bg-current rounded-2xl mt-4 mx-4" style={{ width: '100%', height: '0', paddingBottom: '56.25%', maxWidth: '100vw' }}>
-  <iframe
-    className="absolute inset-0 w-full h-full rounded-2xl"
-    src={embedUrl}
-    title="YouTube Video"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  ></iframe>
-</div>
-
-
+                    <div className="relative bg-current mx-4" style={{ width: '100%', height: '0', paddingBottom: '56.25%', maxWidth: '100vw' }}>
+                        <iframe
+                            className="absolute inset-0 w-full h-full"
+                            src={embedUrl}
+                            title="YouTube Video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
                     <div className="flex flex-row justify-center mt-1">
                         <AddRating 
                             chapters={Class.chapters} 
