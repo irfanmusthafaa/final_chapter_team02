@@ -17,7 +17,7 @@ const GetLesson = async ({ queryKey }) => {
 };
 
 const useGetLesson = (options) => {
-  return useQuery([API_ENDPOINT.DATA_LESSON, options], GetLesson);
+  return useQuery([API_ENDPOINT.DATA_LESSON_ADMIN, options], GetLesson);
 };
 
 export { GetLesson, useGetLesson };

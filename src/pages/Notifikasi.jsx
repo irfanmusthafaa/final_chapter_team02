@@ -39,20 +39,20 @@ export const Notifikasi = () => {
         <div style={{ border: "1px solid #7E22CE" }} className="w-[90%] md:w-[60%] border-t-0  rounded-b-2xl min-h-[500px]">
           {Notifications?.map((data) => (
             <div key={data.id} className="flex px-2 md:px-10">
-              <div className="flex w-full mt-4">
-                <div className="flex gap-1 md:gap-3">
+              <div className="flex w-full flex-col md:flex-row mt-4">
+                <div className="flex items-start w-full md:w-[80%] gap-1 md:gap-3">
                   <div>
                     <img src={iconNotifikasi} alt="icon notif" />
                   </div>
                   <div className="w-full md:w-[30rem] flex flex-col gap-1">
-                    <p className="text-purple-700">{data.title}</p>
+                    <p className="text-purple-700 font-semibold">{data.title}</p>
                     <p className="font-semibold">{data.body}</p>
                     <p className="text-gray-500">{data.deskripsi}</p>
                   </div>
                 </div>
-                <div className="w-[40%] flex justify-center items-center text-sm gap-1 md:gap-5">
+                <div className="w-full md:w-[20%] flex md:justify-center ml-7 md:ml-0 items-center text-sm gap-1 md:gap-5">
                   <p className="text-gray-700 text-sm">{formatDateTime(data.dateTime)}</p>
-                  <FontAwesomeIcon icon={faCircle} className="text-green-500" />
+                  <FontAwesomeIcon icon={faCircle} className="text-green-500 text-sm" />
                 </div>
               </div>
             </div>

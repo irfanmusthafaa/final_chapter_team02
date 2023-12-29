@@ -37,15 +37,14 @@ export const AdminDashboard = () => {
 
   return (
     <>
-      <div className="flex flex-row">
+      <div className="w-full flex">
         <SideBar />
-        <NavbarAdmin />
-        <div className="px-10 my-16">
-          <Card />
+        <div className="bg-white w-[80%]">
+          <NavbarAdmin />
+          <div className="px-10 my-16">
+            <Card />
+          </div>
         </div>
-      </div>
-      <div className="">
-        <Card />
       </div>
     </>
   );

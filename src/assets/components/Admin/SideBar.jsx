@@ -1,80 +1,37 @@
-import React, { useState, useEffect } from "react";
+import { LogoutOutlined } from "@ant-design/icons";
 import { CookiesKey, CookiesStorage } from "../../../utils/cookies";
 import logoImage from "../../images/icon-tech-2.png";
 import logoImage2 from "../../img/ppp.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Bars3Icon,
-  BellIcon,
-  CreditCardIcon,
-  DocumentCheckIcon,
-  DocumentDuplicateIcon,
-  DocumentTextIcon,
-  HomeIcon,
-  ListBulletIcon,
-  UsersIcon,
-  VideoCameraIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+  faHome,
+  faList,
+  faSignOut,
+  faSignOutAlt,
+  faBell,
+  faUsers,
+  faFileInvoice,
+  faCreditCard,
+  faVideo,
+  faRectangleList,
+  faLayerGroup,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation } from "react-router-dom";
 
 export const SideBar = () => {
   const location = useLocation();
+  const activePage = location.pathname.substring(1);
 
   const menus = [
-    {
-      label: "Dashboard",
-      link: "/admin/dashboard",
-      current: location.pathname === "/admin/dashboard",
-      logo: <HomeIcon />,
-    },
-    {
-      label: "Transaksi",
-      link: "/admin/transaksi",
-      current: location.pathname === "/admin/transaksi",
-      logo: <DocumentTextIcon />,
-    },
-    {
-      label: "Kategori",
-      link: "/admin/kategori",
-      current: location.pathname === "/admin/kategori",
-      logo: <DocumentDuplicateIcon />,
-    },
-    {
-      label: "Kelas",
-      link: "/admin/kelas",
-      current: location.pathname === "/admin/kelas",
-      logo: <DocumentCheckIcon />,
-    },
-    {
-      label: "Chapter",
-      link: "/admin/chapter",
-      current: location.pathname === "/admin/chapter",
-      logo: <ListBulletIcon />,
-    },
-    {
-      label: "Lesson",
-      link: "/admin/lesson",
-      current: location.pathname === "/admin/lesson",
-      logo: <VideoCameraIcon />,
-    },
-    {
-      label: "Notifikasi",
-      link: "/admin/notifikasi",
-      current: location.pathname === "/admin/notifikasi",
-      logo: <BellIcon />,
-    },
-    {
-      label: "User",
-      link: "/admin/user",
-      current: location.pathname === "/admin/user",
-      logo: <UsersIcon />,
-    },
-    {
-      label: "Bank",
-      link: "/admin/bank",
-      current: location.pathname === "/admin/bank",
-      logo: <CreditCardIcon />,
-    },
+    { label: "Dashboard", link: "/admin/dashboard", active: "admin/dashboard", icon: faHome },
+    { label: "Transaksi", link: "/admin/transaksi", active: "admin/transaksi", icon: faFileInvoice },
+    { label: "Kategori", link: "/admin/kategori", active: "admin/kategori", icon: faLayerGroup },
+    { label: "Kelas", link: "/admin/kelas", active: "admin/kelas", icon: faRectangleList },
+    { label: "Chapter", link: "/admin/chapter", active: "admin/chapter", icon: faList },
+    { label: "Lesson", link: "/admin/lesson", active: "admin/lesson", icon: faVideo },
+    { label: "Notifikasi", link: "/admin/notifikasi", active: "admin/notifikasi", icon: faBell },
+    { label: "User", link: "/admin/user", active: "admin/user", icon: faUsers },
+    { label: "Bank", link: "/admin/bank", active: "admin/bank", icon: faCreditCard },
   ];
 
   return (

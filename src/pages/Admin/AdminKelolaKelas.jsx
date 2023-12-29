@@ -22,6 +22,7 @@ export const AdminKelolaKelas = () => {
   const { data: dataCategory } = useCategoryDataQuery();
   const { data: dataClass } = useClassDataQuery({
     categoryId: filterCategory,
+    latest: true,
     limit: 1000,
     page: 1,
   });

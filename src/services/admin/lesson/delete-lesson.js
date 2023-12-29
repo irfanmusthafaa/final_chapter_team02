@@ -4,7 +4,7 @@ import httpAdmin from "../../../utils/httpAdmin";
 
 const DeleteLesson = async (id) => {
   try {
-    const response = await httpAdmin.delete(`${API_ENDPOINT.DATA_LESSON}/${id}`);
+    const response = await httpAdmin.delete(`${API_ENDPOINT.DATA_LESSON_ADMIN}/${id}`);
     return response.data;
   } catch (error) {
     return null;

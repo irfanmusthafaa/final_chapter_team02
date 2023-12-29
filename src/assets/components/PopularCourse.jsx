@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { useCategoryDataQuery } from "../../services/category/get-data-category";
 import { useClassDataQuery } from "../../services/class/get-data-class";
 import { BookmarkIcon, ChevronLeftIcon, ChevronRightIcon, ClockIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { StarFilled } from "@ant-design/icons";
-// import "../styles/index.css";
 import { useNavigate } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,7 +14,7 @@ function SampleNextArrow(props) {
   const { className, onClick } = props;
   return (
     <div className={className} onClick={onClick}>
-      <FontAwesomeIcon icon={faAngleRight} color="#000" className=" w-5 h-5 rounded-full text-white bg-slate-400 hover:bg-black" />
+      <FontAwesomeIcon icon={faAngleRight} color="#000" className=" w-5 h-5 rounded-full text-white bg-slate-600 hover:bg-black" size="10px" />
     </div>
   );
 }
@@ -24,42 +23,26 @@ function SamplePrevArrow(props) {
   const { className, onClick } = props;
   return (
     <div className={className} onClick={onClick}>
-      <FontAwesomeIcon icon={faAngleLeft} color="#000" className=" w-5 h-5 rounded-full text-white bg-slate-400 hover:bg-black" />
+      <FontAwesomeIcon icon={faAngleLeft} color="#000" className=" w-5 h-5 rounded-full text-white bg-slate-600 hover:bg-black" size="10px" />
     </div>
   );
 }
 
-export const KursusPopuler = () => {
+export const PopularCourse = () => {
   const [Category, setCategory] = useState([]);
   const [Class, setClass] = useState([]);
   const [filterCategory, setFilterCategory] = useState("");
 
   const navigate = useNavigate();
 
-  const { data: dataCategory } = useCategoryDataQuery();
-  const { data: dataClass } = useClassDataQuery({
-    categoryId: filterCategory,
-    popular: true,
-    limit: 1000,
-    page: 1,
-  });
-
-  useEffect(() => {
-    setCategory(dataCategory);
-    setClass(dataClass?.result);
-  }, [dataCategory, dataClass]);
-
-  console.log(Class, "data class");
-  console.log(filterCategory, "filter cat");
-
   const settings = {
     // dots: true,
     infinite: true,
     speed: 2000,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
-    // nextArrow: <SampleNextArrow />,
-    // prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
     autoplay: true,
     autoplaySpeed: 2000,
     cssEase: "linear",
@@ -70,6 +53,7 @@ export const KursusPopuler = () => {
           slidesToShow: 2,
           slidesToScroll: 2,
           infinite: true,
+          dots: true,
         },
       },
       {
@@ -85,98 +69,58 @@ export const KursusPopuler = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          nextArrow: <SampleNextArrow />,
-          prevArrow: <SamplePrevArrow />,
         },
       },
     ],
   };
 
-  const settingsCategory = {
-    // dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-    // autoplay: false,
-    // autoplaySpeed: 2000,
-    cssEase: "linear",
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          initialSlide: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+  const { data: dataCategory } = useCategoryDataQuery();
+  const { data: dataClass } = useClassDataQuery({
+    categoryId: 2,
+    popular: true,
+    limit: 1000,
+    page: 1,
+  });
+
+  useEffect(() => {
+    setCategory(dataCategory);
+    setClass(dataClass?.result);
+  }, [dataCategory, dataClass]);
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentCategory, setCurrentCategory] = useState(0);
+
+  const nextSlide = () => {
+    // Check if there is more data to show
+    if (currentSlide < Class.length - 1) {
+      setCurrentSlide((prevSlide) => prevSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + Class.length) % Class.length);
+  };
+
+  const next = () => {
+    setCurrentCategory((prevCategory) => (prevCategory + 1) % Category.length);
+  };
+
+  const prev = () => {
+    setCurrentCategory((prevCategory) => (prevCategory - 1 + Category.length) % Category.length);
   };
 
   return (
     <>
-      <div className="w-full flex flex-col justify-center items-center py-7 gap-3">
-        <div className="flex w-4/5 justify-between items-center ">
-          <h3 className="text-xl font-bold">Kursus Populer</h3>
-          <a href="/KelasSaya/TopikKelas" className="text-purple-700 no-underline font-bold text-sm hover:text-purple-900">
-            Lihat Semua
-          </a>
-        </div>
-      </div>
-
-      {/* button category */}
-
-      {/* Kursus Popular */}
-      <div className="w-full  flex justify-center items-center mb-32 ">
+      <div className="w-full bg-white flex justify-center items-center ">
         <div className=" w-4/5 ">
-          <div className="w-full mb-5 cursor-pointer">
-            <Slider {...settingsCategory}>
-              <button
-                onClick={() => setFilterCategory("")}
-                style={{ border: "1px solid black" }}
-                className="bg-purple-100  w-full px-5 py-2 rounded-full cursor-pointer font-bold border-none text-sm hover:bg-purple-700 hover:text-white"
-              >
-                All Category
-              </button>
-              {Category?.map((data) => (
-                <>
-                  <button
-                    key={data.id}
-                    onClick={() => setFilterCategory(data.id)}
-                    className="bg-purple-100 w-full px-5 py-2 cursor-pointer rounded-full font-bold border-none text-sm hover:bg-purple-700 hover:text-white"
-                  >
-                    {data.categoryName}
-                  </button>
-                </>
-              ))}
-            </Slider>
-          </div>
-
           <div className=" w-full">
             <Slider {...settings}>
               {Class?.map((data) => (
                 <div
                   key={data.classCode}
-                  // style={{ border: "5px solid black", boxSizing: "border-box" }}
+                  style={{ border: "5px solid black", boxSizing: "border-box" }}
                   onClick={() => navigate(`/Detailkelas/${data.classCode}`)}
-                  className="cursor-pointer shadow-md shadow-black my-2  flex-col bg-white border-2 rounded-3xl pb-3 "
+                  className="cursor-pointer  flex-col bg-white border-2 rounded-3xl pb-3 "
                 >
                   <div className="w-full">
                     <img src={data.thumbnailPicture} placeholder="img" className="w-full h-40 object-cover rounded-t-3xl" />
@@ -209,7 +153,7 @@ export const KursusPopuler = () => {
                       </div>
                     </div>
                     <div>
-                      <button className="w-[60%] md:w-[50%] mt-2 py-2 flex justify-between items-center rounded-full px-3 border-0 cursor-pointer  bg-purple-700 font-semibold text-xs text-white hover:bg-purple-900 ">
+                      <button className="w-2/3 mt-2 py-2 flex justify-between items-center rounded-full px-3 border-0 cursor-pointer  bg-purple-700 font-semibold text-xs text-white hover:bg-purple-900 ">
                         <div className="flex justify-center items-center gap-1">
                           {" "}
                           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">

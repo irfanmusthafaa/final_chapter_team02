@@ -36,30 +36,66 @@ export const RouterList = () => {
         <Route path="/" element={<Beranda />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/detail-pembayaran/:classCode" element={
-           <ProtectedUser>
-              <DetailPembayaran/>
+        <Route
+          path="/detail-pembayaran/:classCode"
+          element={
+            <ProtectedUser>
+              <DetailPembayaran />
             </ProtectedUser>
-        }></Route>
+          }
+        ></Route>
         <Route path="/sukses-pembayaran" element={<SuksesPembayaran />}></Route>
-        <Route path="/notifikasi" element={<Notifikasi />}></Route>
-        <Route path="/profil" element={<AkunProfil />}></Route>
-        <Route path="/ubah-password" element={<AkunUbahPassword />}></Route>
-        <Route path="/riwayat-pembayaran" element={<AkunRiwayatPembayaran />}></Route>
+        <Route
+          path="/notifikasi"
+          element={
+            <ProtectedUser>
+              <Notifikasi />
+            </ProtectedUser>
+          }
+        ></Route>
+        <Route
+          path="/profil"
+          element={
+            <ProtectedUser>
+              <AkunProfil />
+            </ProtectedUser>
+          }
+        ></Route>
+        <Route
+          path="/ubah-password"
+          element={
+            <ProtectedUser>
+              <AkunUbahPassword />
+            </ProtectedUser>
+          }
+        ></Route>
+        <Route
+          path="/riwayat-pembayaran"
+          element={
+            <ProtectedUser>
+              <AkunRiwayatPembayaran />
+            </ProtectedUser>
+          }
+        ></Route>
         <Route path="/reset-password" element={<ResetPass />}></Route>
         <Route path="/otp" element={<OTP />}></Route>
-        <Route path="/KelasSaya/KelasBerjalan" element={
-          <ProtectedUser>
-            <KelasBerjalan />
-          </ProtectedUser>
-        }></Route>
+        <Route
+          path="/KelasSaya/KelasBerjalan"
+          element={
+            <ProtectedUser>
+              <KelasBerjalan />
+            </ProtectedUser>
+          }
+        ></Route>
         <Route path="/KelasSaya/TopikKelas" element={<TopikKelas />}></Route>
-        <Route path="/Detailkelas/:classCode" element={
-          <ProtectedUser>
-            <DetailKelasPage/>
-          </ProtectedUser>
-          
-        }></Route>
+        <Route
+          path="/Detailkelas/:classCode"
+          element={
+            <ProtectedUser>
+              <DetailKelasPage />
+            </ProtectedUser>
+          }
+        ></Route>
         <Route path="/new-password" element={<NewPass />}></Route>
         <Route path="/password-otp" element={<PasswordOTP />}></Route>
 

@@ -16,6 +16,25 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.slick-prev,
+.slick-next {
+  font-size: 15px !important;
+  background: "black";
+}
+
+.slick-prev:before,
+.slick-next:before {
+  content: "" !important;
+}
+
+.slick-slide > div {
+  margin: 0 10px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: orange !important;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
