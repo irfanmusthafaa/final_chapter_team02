@@ -24,9 +24,9 @@ export const Card = () => {
           <div className="bg-white rounded-2xl w-10 px-3 py-3 text-center">
             <img src={userIcon} alt="user icon" />
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <p className="text-white text-2xl">{Users?.length}</p>
-            <p className="text-white text-xl font-bold">Active Users</p>
+            <p className="text-white text-xl font-bold text-center">Active Users</p>
           </div>
         </div>
       </div>
@@ -35,9 +35,9 @@ export const Card = () => {
           <div className="bg-white rounded-2xl w-10 px-3 py-3 text-center">
             <img src={userIcon} alt="user icon" />
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <p className="text-white text-2xl">{Class?.length}</p>
-            <p className="text-white text-xl font-bold">Active Class</p>
+            <p className="text-white text-xl font-bold text-center">Active Class</p>
           </div>
         </div>
       </div>
@@ -46,9 +46,9 @@ export const Card = () => {
           <div className="bg-white rounded-2xl w-10 px-3 py-3 text-center">
             <img src={userIcon} alt="user icon" />
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <p className="text-white text-2xl">{premiumClasses?.length}</p>
-            <p className="text-white text-xl font-bold">Premium Class</p>
+            <p className="text-white text-xl font-bold text-center">Premium Class</p>
           </div>
         </div>
       </div>

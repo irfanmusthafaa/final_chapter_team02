@@ -27,9 +27,9 @@ export const AdminTransaksi = () => {
     setSearchTerm(e.target.value);
   };
   return (
-    <div className="w-full flex">
-      <SideBar />
-      <div className="bg-white w-[80%]">
+    <div className="min-h-screen flex flex-col bg-green-500">
+      <div className="flex flex-row">
+        <SideBar className="" />
         <NavbarAdmin />
         <div className="px-10  my-16">
           <Card />
@@ -47,14 +47,15 @@ export const AdminTransaksi = () => {
                   value={searchTerm}
                   onChange={handleSearch}
                 />
-                <button className="absolute bg-transparent border-none inset-y-0 -ml-10 ">
-                  <img src={searchIcon} alt="Search Icon" className="h-6 w-6 cursor-pointer" />
-                </button>
-              </div>
+              </button>
             </div>
           </div>
-          <TablePayment searchTerm={searchTerm} Payment={Payment} setOpenUpdate={setOpenUpdate} />
         </div>
+        <TablePayment
+          searchTerm={searchTerm}
+          Payment={Payment}
+          setOpenUpdate={setOpenUpdate}
+        />
       </div>
     </div>
   );

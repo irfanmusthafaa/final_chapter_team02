@@ -58,7 +58,7 @@ export const TopikKelas = () => {
       <Navbar />
 
       {/* dekstop */}
-      <div className="pt-[6rem] md:flex flex-col h-screens items-center hidden">
+      <div className="pt-[6rem] md:flex flex-col h-screens items-center pb-2 hidden">
         <div className="flex flex-col h-screens mt-[4%]">
           <div className="flex items-center h-full">
             <div className="font-bold text-2xl">
@@ -217,7 +217,7 @@ export const TopikKelas = () => {
                 />
                 {console.log(IsFree, "ini is free")}
               </div>
-              <div className="flex flex-col justify-center items-center mt-3">
+              <div className="flex flex-col justify-center items-center mt-6 mb-5 gap-6">
                   {Class?.map((item, index) => (
                     <CardTopikKelas
                       key={index}

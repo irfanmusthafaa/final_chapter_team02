@@ -31,6 +31,10 @@ export const ModalDetailPembayaran = (props) => {
             if (e.target.id === "cardName") {
                 setCardName(e.target.value);
             }
+            if (e.target.id === "cardNumber") {
+                setCardNumber(e.target.value);
+            }
+            
         }
     };
 
@@ -97,7 +101,8 @@ export const ModalDetailPembayaran = (props) => {
             await paymentClass({
               paymentMethod:paymentMethod,
               bankId:bankId,
-              cardName:cardName
+              cardName:cardName,
+              cardNumber:cardNumber
             }, classCode);
             toast.success("Anda Berhasil Melakukan Pembelian kelas");
             setTimeout(() => {
@@ -194,28 +199,26 @@ export const ModalDetailPembayaran = (props) => {
                   <div className="flex flex-col gap-1">
                     <label className="font-semibold text-sm">Nama Kartu Kredit</label>
                     <Input
-                      id="namaKartuKredit"
+                      id="cardName"
+                      onChange={handleInput}
                       className="border rounded-lg hover:border-purple-700"
                       type="text"
-                      placeholder="Jika memilih Bank Transfer diisi (-)"
-                      value="tes"
-                      readOnly
+                      placeholder="Isi dengan card name"
                     />
                   </div>
                   <div className="flex flex-col gap-1">
                     <label className="font-semibold text-sm">No Kartu Kredit</label>
                     <Input
-                      id="noKartuKredit"
+                      id="cardNumber"
+                      onChange={handleInput}
                       className="border rounded-lg hover:border-purple-700"
                       type="text"
-                      placeholder="Jika memilih Bank Transfer diisi (-)"
-                      value="tes"
-                      readOnly
+                      placeholder="Isi dengan card number"
                     />
                   </div>
                 </>
               )}
-            {console.log("ini yang di ambil : ", paymentMethod, cardName, bankId)}
+            {console.log("ini yang di ambil : ", paymentMethod, cardName, bankId, cardNumber)}
             </div>
           
             <div className="flex gap-2 mt-4">

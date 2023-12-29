@@ -19,7 +19,7 @@ export const CardTopikKelas = (props) => {
 
   return (
     <Link className="no-underline" to={`/Detailkelas/${props.class.classCode}`}>
-      <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64">
+      <div className="flex flex-col bg-white border-2 w-[22rem] rounded-3xl overflow-hidden max-h-64" style={{ border: ".5px solid grey" }}>
         <img src={props.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]" />
         <div className="px-4 mb-3 mt-1">
           <div className="flex justify-between items-center">
@@ -35,7 +35,7 @@ export const CardTopikKelas = (props) => {
             </p>
           </div>
           <p className="text-black font-bold mt-1">{props.class.className}</p>
-          <p className="text-black text-sm mt-1">By:{props.class.author}</p>
+          <p className="text-black text-sm mt-1">By : {props.class.author}</p>
           <div className="flex space-x-3 text-xs mt-1">
             <div className="flex justify-center items-center gap-1 ">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">

@@ -36,14 +36,17 @@ export const AdminDashboard = () => {
   };
 
   return (
-    <div className="w-full flex">
-      <SideBar />
-      <div className="bg-white w-[80%]">
+    <>
+      <div className="flex flex-row">
+        <SideBar />
         <NavbarAdmin />
         <div className="px-10 my-16">
           <Card />
         </div>
       </div>
-    </div>
+      <div className="">
+        <Card />
+      </div>
+    </>
   );
 };
