@@ -42,7 +42,7 @@ export const NavbarAdmin = () => {
   const profilePicture = Profile?.profilePicture;
 
   return (
-    <div className="bg-purple-200 h-16 flex justify-between items-center px-16">
+    <div className="bg-purple-200 h-fit flex justify-between items-center w-full py-2 pr-2 pl-[3rem] md:ml-[15rem]">
       <div>
         <h3 className="text-purple-700 font-bold">Hi, {Profile?.fullName}!</h3>
       </div>

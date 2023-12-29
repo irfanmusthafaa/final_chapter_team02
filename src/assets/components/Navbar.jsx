@@ -103,7 +103,6 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-
     navigate(`/KelasSaya/TopikKelas?search=${searchParam}`);
   };
 

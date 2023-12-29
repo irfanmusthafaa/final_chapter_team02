@@ -21,11 +21,11 @@ export const KategoriBelajar = () => {
       <div className="w-full flex flex-col justify-center items-center py-4 gap-3 bg-purple-100">
         <div className="flex w-4/5 justify-between items-center ">
           <h3 className="text-xl font-bold">Kategori Belajar</h3>
-          <a href="/" className="text-purple-700 no-underline font-bold text-sm hover:text-purple-900">
+          <a href="/KelasSaya/TopikKelas" className="text-purple-700 no-underline font-bold text-sm hover:text-purple-900">
             Lihat Semua
           </a>
         </div>
-        <div className="flex flex-wrap justify-between w-4/5">
+        <div className="flex flex-wrap justify-start gap-10 w-4/5">
           {Category?.map((data) => (
             <>
               <div key={data.id} className="flex flex-col justify-center items-center gap-1">

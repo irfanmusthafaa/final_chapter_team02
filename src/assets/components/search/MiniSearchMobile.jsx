@@ -16,7 +16,7 @@ export const MiniSearchMobile = (props) => {
                 <img
                     src={searchIcon}
                     alt="Search Icon"
-                    className="h-6 ml-1"
+                    className="h-6 ml-2"
                 />
             </div>
         </button>

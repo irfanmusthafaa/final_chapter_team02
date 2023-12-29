@@ -7,10 +7,9 @@ export const ProtectedUser = ({ children }) => {
 
     const [FirstLoad, setFirstLoad] = useState(false);
     const navigate = useNavigate();
-    const TokenUser = CookiesStorage.get(CookiesKey.User);
+    const TokenUser = CookiesStorage.get(CookiesKey.AuthToken);
 
     useEffect(() => {
-        console.log(TokenUser, "ini token")
         if (TokenUser == undefined) {
             setFirstLoad(true);
         }

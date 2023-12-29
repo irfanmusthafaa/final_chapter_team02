@@ -15,7 +15,7 @@ export const HeroSection = () => {
             <div className="flex flex-col">
               <img
                 src={image}
-                className="absolute right-0 pt-[6.35rem] h-[83.8%]"
+                className="absolute right-0 pt-[6.35rem] h-[83%]"
               />
               <div className=" flex flex-col justify-center items-center gap-2 w-[32.5rem] pt-[6rem] h-screen">
                 <h1 className="text-white">Kuasai Skills Digital</h1>

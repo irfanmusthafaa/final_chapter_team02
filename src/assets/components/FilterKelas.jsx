@@ -77,7 +77,7 @@ export const FilterKelas = (props) => {
   };
 
   return (
-    <div className="md:w-[17rem] md:h-[39.5rem] bg-[#ffff] md:p-5 rounded-lg shadow-sm">
+    <div className="md:w-[17rem] md:h-fit bg-[#ffff] md:p-5 rounded-lg shadow-sm">
       <div className="pt-0 mt-0">
         <h1 className="md:hidden mb-1 text-purple-700">Filter</h1>
         <h3 className="mx-0 my-2 mt-0 hidden md:flex">Filter</h3>

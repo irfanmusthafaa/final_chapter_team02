@@ -21,9 +21,6 @@ export const KursusPopuler = () => {
     setClass(dataClass?.result);
   }, [dataCategory, dataClass]);
 
-  console.log(Class, "data class");
-  console.log(filterCategory, "filter cat");
-
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentCategory, setCurrentCategory] = useState(0);
 
@@ -48,7 +45,7 @@ export const KursusPopuler = () => {
       <div className="w-full flex flex-col justify-center items-center py-7 gap-3">
         <div className="flex w-4/5 justify-between items-center ">
           <h3 className="text-xl font-bold">Kursus Populer</h3>
-          <a href="/" className="text-purple-700 no-underline font-bold text-sm hover:text-purple-900">
+          <a href="/KelasSaya/TopikKelas" className="text-purple-700 no-underline font-bold text-sm hover:text-purple-900">
             Lihat Semua
           </a>
         </div>
@@ -114,20 +111,20 @@ export const KursusPopuler = () => {
         <div className="md:flex flex-col justify-between w-4/5 hidden">
           <div className="flex justify-center md:justify-between items-center w-full">
             <div className="slider-container">
-              <div className="slider" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+              <div className="slider" style={{ transform: `translateX(-${currentSlide * 50}%)` }}>
                 {Class?.map((data) => (
                   <div
                     key={data.classCode}
                     style={{ border: ".5px solid grey" }}
-                    className="w-64 md:w-fit flex-col bg-white border-2 rounded-3xl pb-3 ml-4"
+                    className="w-fit flex-col bg-white border-2 rounded-3xl pb-3 ml-3"
                   >
-                    <img src={data.thumbnailPicture} placeholder="img" className=" w-64 md:w-80 h-40 object-cover rounded-t-3xl" />
+                    <img src={data.thumbnailPicture} placeholder="img" className="w-80 h-40 object-cover rounded-t-3xl" />
                     <div className="px-2 mt-2">
                       <div className="flex justify-between items-center">
                         <p className="text-purple-700 font-bold ">{data.categorys.categoryName}</p>
                         <div className="flex flex-row justify-center items-center">
                           <StarFilled className="w-4" style={{ color: "gold" }} />
-                          <p className="pl-[.1rem] font-medium">{data.averageRating}</p>
+                          <p className="pl-[.1rem] font-medium">{data.averageRating?.toFixed(1)}</p>
                         </div>
                       </div>
                       <p className="text-black font-bold mt-1">{data.className}</p>
@@ -192,14 +189,14 @@ export const KursusPopuler = () => {
             <div className="slider" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
               {Class?.map((data) => (
                 <div key={data.classCode} className="slide">
-                  <div key={data.classCode} style={{ border: ".5px solid grey" }} className="w-[16.8rem] gap-1 p-2 border-2 rounded-3xl pb-3">
+                  <div key={data.classCode} style={{ border: ".5px solid grey" }} className="w-[16.7rem] gap-1 p-2 border-2 rounded-3xl pb-3">
                     <img src={data.thumbnailPicture} placeholder="img" className="w-full h-40 rounded-t-3xl" />
                     <div className="px-2 mt-2">
                       <div className="flex justify-between items-center">
                         <p className="text-purple-700 font-bold ">{data.className}</p>
                         <div className="flex flex-row justify-center items-center">
                           <StarFilled className="w-4" style={{ color: "gold" }} />
-                          <p className="pl-[.1rem] font-medium">{data.rated}</p>
+                          <p className="pl-[.1rem] font-medium">{data.averageRating?.toFixed(1)}</p>
                         </div>
                       </div>
                       <p className="text-black font-bold mt-1">{data.description}</p>

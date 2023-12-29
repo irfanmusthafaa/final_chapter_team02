@@ -15,7 +15,7 @@ export const CardTopikKelas = (props) => {
   };
 
   return (
-    <Link className="no-underline w-full mb-4 md:mb-0" to={`/Detailkelas/${props.class.classCode}`}>
+    <Link className="no-underline w-full mb-2 md:mb-0" to={`/Detailkelas/${props.class.classCode}`}>
       <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-64 shadow-md mx-5 md:mx-0 ">
         <img src={props.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]" />
         <div className="px-4 mb-3 mt-1">
@@ -28,7 +28,7 @@ export const CardTopikKelas = (props) => {
                   fill="#F9CC00"
                 />
               </svg>
-              {props.class.averageRating}
+              {props.class.averageRating?.toFixed(1)}
             </p>
           </div>
           <p className="text-black font-bold mt-1">{props.class.className}</p>

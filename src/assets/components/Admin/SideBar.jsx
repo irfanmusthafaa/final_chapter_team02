@@ -1,36 +1,80 @@
-import { LogoutOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
 import { CookiesKey, CookiesStorage } from "../../../utils/cookies";
-import logoImage from "../../images/icon-tech-2.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Disclosure } from "@headlessui/react";
+import { useLocation } from "react-router-dom";
 import {
-  faHome,
-  faList,
-  faSignOut,
-  faSignOutAlt,
-  faBell,
-  faUsers,
-  faFileInvoice,
-  faCreditCard,
-  faVideo,
-  faRectangleList,
-  faLayerGroup,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+  Bars3Icon,
+  BellIcon,
+  CreditCardIcon,
+  DocumentCheckIcon,
+  DocumentDuplicateIcon,
+  DocumentTextIcon,
+  HomeIcon,
+  ListBulletIcon,
+  UsersIcon,
+  VideoCameraIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import logoImage from "../../images/icon-tech-2.png";
 
 export const SideBar = () => {
   const location = useLocation();
-  const activePage = location.pathname.substring(1);
 
   const menus = [
-    { label: "Dashboard", link: "/admin/dashboard", active: "admin/dashboard", icon: faHome },
-    { label: "Transaksi", link: "/admin/transaksi", active: "admin/transaksi", icon: faFileInvoice },
-    { label: "Kategori", link: "/admin/kategori", active: "admin/kategori", icon: faLayerGroup },
-    { label: "Kelas", link: "/admin/kelas", active: "admin/kelas", icon: faRectangleList },
-    { label: "Chapter", link: "/admin/chapter", active: "admin/chapter", icon: faList },
-    { label: "Lesson", link: "/admin/lesson", active: "admin/lesson", icon: faVideo },
-    { label: "Notifikasi", link: "/admin/notifikasi", active: "admin/notifikasi", icon: faBell },
-    { label: "User", link: "/admin/user", active: "admin/user", icon: faUsers },
-    { label: "Bank", link: "/admin/bank", active: "admin/bank", icon: faCreditCard },
+    {
+      label: "Dashboard",
+      link: "/admin/dashboard",
+      current: location.pathname === "/admin/dashboard",
+      logo: <HomeIcon />,
+    },
+    {
+      label: "Transaksi",
+      link: "/admin/transaksi",
+      current: location.pathname === "/admin/transaksi",
+      logo: <DocumentTextIcon />,
+    },
+    {
+      label: "Kategori",
+      link: "/admin/kategori",
+      current: location.pathname === "/admin/kategori",
+      logo: <DocumentDuplicateIcon />,
+    },
+    {
+      label: "Kelas",
+      link: "/admin/kelas",
+      current: location.pathname === "/admin/kelas",
+      logo: <DocumentCheckIcon />,
+    },
+    {
+      label: "Chapter",
+      link: "/admin/chapter",
+      current: location.pathname === "/admin/chapter",
+      logo: <ListBulletIcon />,
+    },
+    {
+      label: "Lesson",
+      link: "/admin/lesson",
+      current: location.pathname === "/admin/lesson",
+      logo: <VideoCameraIcon />,
+    },
+    {
+      label: "Notifikasi",
+      link: "/admin/notifikasi",
+      current: location.pathname === "/admin/notifikasi",
+      logo: <BellIcon />,
+    },
+    {
+      label: "User",
+      link: "/admin/user",
+      current: location.pathname === "/admin/user",
+      logo: <UsersIcon />,
+    },
+    {
+      label: "Bank",
+      link: "/admin/bank",
+      current: location.pathname === "/admin/bank",
+      logo: <CreditCardIcon />,
+    },
   ];
 
   const handleLogout = () => {
@@ -38,24 +82,92 @@ export const SideBar = () => {
     CookiesStorage.remove(CookiesKey.Admin);
     window.location.href = "/admin/login";
   };
+
+  const handleNavigation = (path) => {
+    window.location.href = path;
+  };
+
+  useEffect(() => {
+    const updatedMenu = menus.map((item) => ({
+      ...item,
+      current: location.pathname === item.link,
+    }));
+  }, [location.pathname, menus]);
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+
   return (
-    <div className="bg-purple-700 min-h-screen   w-[20%]  ">
-      <div className="flex flex-col pt-[2rem] justify center items-center">
-        <img src={logoImage} width={150} placeholder="logo" />
-        <div className="w-full flex flex-col justify-center items-center mt-10 overflow-hidden">
-          {menus.map((menu, index) => (
-            <Link
-              key={index}
-              to={menu.link}
-              className={`${
-                activePage === menu.active ? "bg-purple-500" : "bg-purple-700"
-              } w-full flex gap-1 items-center text-sm   py-4  font-semibold text-white no-underline`}
-            >
-              <FontAwesomeIcon icon={menu.icon} className="w-[30%]" /> <p>{menu.label}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
+    <>
+      <Disclosure
+        as="div"
+        className="bg-purple-700 absolute top-0 md:w-[20%] h-screen"
+      >
+        {({ open }) => (
+          <>
+            <div className="">
+              <div className="relative flex h-16 items-center justify-between">
+                <div className="absolute left-1 top-3 flex items-center sm:hidden">
+                  <Disclosure.Button className="relative inline-flex items-center bg-purple-700 justify-center rounded-md p-1 text-gray-100 border-0 hover:bg-purple-900 hover:text-white">
+                    <span className="absolute -inset-0.5" />
+                    {open ? (
+                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    ) : (
+                      <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    )}
+                  </Disclosure.Button>
+                </div>
+                <div className="md:flex flex-col justify pt-[35rem] hidden w-full px-2 gap-4">
+                  <img src={logoImage} width={200} placeholder="logo" />
+                  {menus.map((item) => (
+                    <div
+                      key={item.label}
+                      onClick={() => handleNavigation(item.link)}
+                      className={classNames(
+                        item.current
+                          ? "bg-purple-900 text-white"
+                          : "hover:bg-purple-900 text-white",
+                        "rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <div className="flex flex-row items-center gap-2">
+                        <div className="flex flex-row w-6">{item.logo}</div>
+                        {item.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <Disclosure.Panel className="md:hidden">
+              <div className=" space-y-1 px-2 pb-3">
+                {menus.map((item) => (
+                  <Disclosure.Button
+                    key={item.label}
+                    as="a"
+                    onClick={() => handleNavigation(item.link)}
+                    className={classNames(
+                      "flex",
+                      item.current
+                        ? "bg-purple-900 text-white"
+                        : "text-gray-300 hover:bg-purple-900 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
+                    )}
+                    style={{ cursor: "pointer", width: "full" }} // Adjust width based on whether the sidebar is open
+                  >
+                    <div className="flex flex-row gap-2">
+                      <div className="flex flex-row w-6">{item.logo}</div>
+                      {item.label}
+                    </div>
+                  </Disclosure.Button>
+                ))}
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </>
   );
 };

@@ -76,7 +76,7 @@ export const TopikKelas = () => {
       <Navbar />
 
       {/* dekstop */}
-      <div className="pt-[6rem] md:flex flex-col h-screens items-center hidden">
+      <div className="pt-[6rem] md:flex flex-col h-screens items-center pb-2 hidden">
         <div className="flex flex-col h-screens mt-[4%]">
           <div className="flex items-center h-full">
             <div className="font-bold text-2xl">
@@ -104,9 +104,7 @@ export const TopikKelas = () => {
                 setLatest={setLatest}
                 setPopular={setPopular}
                 setPromo={setPromo}
-                // setIsFree={setIsFree}
               />
-              {console.log(Promo, "ini Promo ")}
             </div>
             <div className="">
               <div className="flex flex-row gap-5">
@@ -125,7 +123,6 @@ export const TopikKelas = () => {
                   onClick={() => handleButtonClick("Kelas Gratis")}
                   isActive={activeButton === "Kelas Gratis"}
                 />
-                {console.log(IsFree, "ini is free")}
               </div>
               <div className="grid mt-[4%] grid-cols-2 gap-5">
                 {Class?.map((item, index) => (
@@ -200,7 +197,7 @@ export const TopikKelas = () => {
               />
             </Modal>
             <div className="mt-2">
-              <div className="flex flex-row gap-2 md:gap-5 justify-center items-center">
+              <div className="flex flex-row gap-3 md:gap-5 justify-center items-center">
                 <NavButton
                   button_text="ALL"
                   onClick={() => handleButtonClick("ALL")}
@@ -216,9 +213,8 @@ export const TopikKelas = () => {
                   onClick={() => handleButtonClick("Kelas Gratis")}
                   isActive={activeButton === "Kelas Gratis"}
                 />
-                {console.log(IsFree, "ini is free")}
               </div>
-              <div className="flex flex-col justify-center items-center mt-4">
+              <div className="flex flex-col justify-center items-center my-5 gap-5">
                   {Class?.map((item, index) => (
                     <CardTopikKelas
                       key={index}
