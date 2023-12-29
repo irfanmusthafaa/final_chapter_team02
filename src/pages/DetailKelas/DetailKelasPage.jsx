@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "../../assets/components/Navbar";
 import chat from "../../assets/images/icon/gridicons_chat.svg";
 import { BackLink } from "../../assets/components/link/BackLink";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useClassDetailQuery } from "../../services/class/get-detail-class";
 import { CustomButtonDua } from "../../assets/components/button/CustomButtonDua";
 import { CardDaftarMateri } from "../../assets/components/card/CardDaftarMateri";
@@ -125,9 +125,9 @@ export const DetailKelasPage = (props) => {
                             <BackLink />
                             <div className="px-5 my-4">
                                 <div className="flex justify-between items-center">
-                                    <p className="text-purple-700 font-bold text-xl ">
+                                    <h1 className="text-purple-700">
                                         {Class.categorys?.categoryName}
-                                    </p>
+                                    </h1>
                                     <div className="flex flex-row justify-center items-center text-sm">
                                         <StarFilled className="w-4" style={{ color: "gold" }} />
                                         <p className="pl-[.1rem] font-semibold">
@@ -135,7 +135,7 @@ export const DetailKelasPage = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                                <p className="text-black font-bold mt-1">{Class.className}</p>
+                                <h2 className="text-black font-bold mt-1">{Class.className}</h2>
                                 <p className="text-black text-sm mt-1">By : {Class.author}</p>
                                 <div className="flex gap-10 text-xs mt-2">
                                     <div className="flex flex-row justify-center items-center">
@@ -197,6 +197,10 @@ export const DetailKelasPage = (props) => {
                             className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] mt-3"
                             style={{ border: ".1px solid grey" }}
                         >
+                            <div>
+                                <h2 className="text-purple-700">{hitLessonPresentase?.lesson.chapters?.chapterName}</h2>
+                                <h3>{lesson.title}</h3>
+                            </div>
                             <div className="relative bg-current rounded-2xl mt-4" style={{ paddingBottom: '56.25%' }}>
                                 <iframe
                                     className="absolute inset-0 w-full h-full rounded-2xl"

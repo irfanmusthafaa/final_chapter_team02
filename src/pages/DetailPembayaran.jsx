@@ -82,7 +82,7 @@ export const DetailPembayaran = () => {
                             fill="#F9CC00"
                           />
                         </svg>{" "}
-                        {Class.averageRating}
+                        {Class.averageRating?.toFixed(1)}
                       </p>
                     </div>
                     <div className="flex flex-col justify-start items-start gap-1">
@@ -96,9 +96,7 @@ export const DetailPembayaran = () => {
                   </div>
                 </div>
               <div className="flex flex-row">
-                <div className="flex flex-col"></div>
-                <div className="flex flex-col"></div>
-                <div className="flex flex-col"></div>
+                <div className="flex flex-col">{Class.price}</div>
               </div>
               <div className="w-full flex justify-center items-center">
                   <div
@@ -142,7 +140,7 @@ export const DetailPembayaran = () => {
                             fill="#F9CC00"
                           />
                         </svg>{" "}
-                        {Class.averageRating}
+                        {Class.averageRating?.toFixed(1)}
                       </p>
                     </div>
                     <div className="flex flex-col justify-start items-start gap-1">
@@ -156,9 +154,7 @@ export const DetailPembayaran = () => {
                   </div>
                 </div>
                 <div className="flex flex-row">
-                  <div className="flex flex-col"></div>
-                  <div className="flex flex-col"></div>
-                  <div className="flex flex-col"></div>
+                  <div className="flex flex-col">{Class.price}</div>
                 </div>
                 <div className="w-full flex justify-center items-center">
                   <div
