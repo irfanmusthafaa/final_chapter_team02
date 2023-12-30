@@ -26,6 +26,10 @@ export const DetailPembayaran = () => {
         setClass(dataClass);
     }
   }, [dataClass]);
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+  };
  
   
 
@@ -59,7 +63,7 @@ export const DetailPembayaran = () => {
     
 
     {/* batas */}
-          <div className="flex flex-col w-1/3">
+          <div className="flex flex-col w-1/1">
             <button className="rounded-xl h-fit flex flex-col gap-3 p-3 bg-transparent" style={{ border: "1px solid #4B0082" }}>
               <label className="font-bold text-xl">Pembayaran Kelas</label>
               <div className="flex flex-col bg-white border-2 rounded-3xl w-full shadow-lg overflow-hidden max-h-54">
@@ -93,11 +97,29 @@ export const DetailPembayaran = () => {
                         By : {Class.author}
                       </label>
                     </div>
+
+                    <div className="bg-gray-100 rounded-b-2xl py-2 px-2 mb-2">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div className="flex flex-col items-start p-4 bg-white rounded-md shadow-md">
+                          <p className="font-bold mb-2">Harga :</p>
+                          <span>{formatCurrency(Class.price)}</span>
+                        </div>
+                        <div className="flex flex-col items-start p-4 bg-white rounded-md shadow-md">
+                          <p className="font-bold mb-2">Harga Promo:</p>
+                          <span>{formatCurrency(Class.promo)}</span>
+                        </div>
+                        <div className="flex flex-col items-start p-4 bg-white rounded-md shadow-md">
+                          <p className="font-bold mb-2">Total Bayar :</p>
+                          <span className="text-purple-700">
+                            {Class.promo !== 0 ? formatCurrency(Class.promo) : formatCurrency(Class.price)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              <div className="flex flex-row">
-                <div className="flex flex-col">{Class.price}</div>
-              </div>
+              
+
               <div className="w-full flex justify-center items-center">
                   <div
                     className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2rem] hover:bg-[#73CA5C]"
@@ -151,11 +173,28 @@ export const DetailPembayaran = () => {
                         By : {Class.author}
                       </label>
                     </div>
+
+                    <div className="bg-gray-100 rounded-b-2xl py-1 px-1 mb-2">
+                      <div className="flex gap-2">
+                        <div className="flex flex-col items-start ps-1">
+                          <p className="font-bold text-xs mb-2">Harga :</p>
+                          <span className="text-purple-700">{formatCurrency(Class.price)}</span>
+                        </div>
+                        <div className="flex flex-col items-start ps-1">
+                          <p className="font-bold text-xs mb-2">Harga Promo:</p>
+                          <span className="text-purple-700">{formatCurrency(Class.promo)}</span>
+                        </div>
+                        <div className="flex flex-col items-start ps-1">
+                          <p className="font-bold text-xs mb-2">Total Bayar :</p>
+                          <span className="text-purple-700">
+                             {Class.promo !== 0 ? formatCurrency(Class.promo) : formatCurrency(Class.price)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-row">
-                  <div className="flex flex-col">{Class.price}</div>
-                </div>
+                
                 <div className="w-full flex justify-center items-center">
                   <div
                     className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2rem] hover:bg-[#73CA5C]"

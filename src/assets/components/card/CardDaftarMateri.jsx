@@ -31,7 +31,7 @@ export const CardDaftarMateri = (props) => {
           .map((chapter, chapterIndex) => (
             <div key={chapter.id} className="flex flex-col gap-3 bg-white px-2 md:px-0">
               <div className="flex justify-between">
-                <h5 className="text-purple-700">{chapter.chapterName}</h5>
+                <h4 className="text-purple-700">{chapter.chapterName}</h4>
                 <p className="text-sm font-semibold pr-2 text-blue-400">{chapter.totalDuration} Menit</p>
               </div>
               {chapter.Lessons.map((lesson, lessonIndex) => (

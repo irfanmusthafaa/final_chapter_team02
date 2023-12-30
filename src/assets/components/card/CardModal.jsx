@@ -1,26 +1,16 @@
 import React from 'react'
 import { CustomButtonSatu } from '../button/CustomButtonSatu'
-import diamondIcon from '../../images/icon/diamond.svg'
 
 export const CardModal = (props) => {
  
-    const cekBayar = () => {
-
-        console.log("benar sudah masuk cek bayar")
-    
-    const sudahBayar = true; // Misalnya, menggantinya dengan logika pengecekan pembayaran
-
-    if (sudahBayar) {
-        alert('Silahkan tekan tombol beli sekarang.');
-        // Jika sudah bayar, pindahkan ke halaman detail
-        //   window.location.href = 'KelasSaya/Detail/{id}';
-    } else {
-      // Jika belum bayar, berikan pesan atau arahkan ke halaman pembayaran
-      alert('Anda belum membayar. Silakan lakukan pembayaran.');
-      // Atau bisa diarahkan ke halaman pembayaran seperti berikut:
-      // window.location.href = '/pembayaran';
-    }
+   const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
   };
+
+  const buttonText = props.Class.promo !== 0
+  ? [<del key="originalPrice">{formatCurrency(props.Class.price)}</del>, `${formatCurrency(props.Class.promo)}`]
+  : [`Beli ${formatCurrency(props.Class.price)}`];
+ 
   
     return (
         <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-54" style={{ border: "1px solid #4B0082" }}>
@@ -35,7 +25,7 @@ export const CardModal = (props) => {
                             fill="#F9CC00"
                         />
                         </svg>{" "}
-                        {props.Class.averageRating}
+                        {props.Class.averageRating.toFixed(1)}
                     </p>
                 </div>
                 <p className="text-black font-bold">{props.Class.className}</p>
@@ -78,11 +68,12 @@ export const CardModal = (props) => {
                     </div>
                 </div>
                 <div>
-                    {/* button */}
-                    <CustomButtonSatu button_text={`Beli Rp. ${props.Class.price}`} iconPath="" onClick={cekBayar}/>
-                   
+                    
+                    <CustomButtonSatu button_text={buttonText} iconPath="" onClick={null} />
+
                 </div>
             </div>
+
         </div>
         
     
