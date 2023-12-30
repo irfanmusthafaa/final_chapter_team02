@@ -9,12 +9,12 @@ import { Footer } from "../assets/components/Footer";
 
 export const Beranda = () => {
   return (
-    <>
+    <div className=" w-full overflow-x-hidden">
       <Navbar />
       <HeroSection />
       <KategoriBelajar />
       <KursusPopuler />
       <Footer />
-    </>
+    </div>
   );
 };

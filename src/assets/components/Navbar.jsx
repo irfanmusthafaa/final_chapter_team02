@@ -110,8 +110,10 @@ export const Navbar = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 justify-between sm:items-stretch gap-4">
-                  <div className="flex flex-shrink-0 items-center gap-2 md:gap-4">
-                    <img className="h-16 w-auto" src={image} alt="Your Company" />
+                  <div className="flex flex-shrink-0 items-center gap-2 md:gap-4 ">
+                    <a href="/">
+                      <img className="h-16 w-auto cursor-pointer" src={image} alt="Your Company" />
+                    </a>
                     <div className="relative">
                       <input
                         type="text"
@@ -264,7 +266,7 @@ export const Navbar = () => {
               </div>
             </div>
             {/* mobile */}
-            <Disclosure.Panel className="md:hidden">
+            <Disclosure.Panel className="md:hidden ">
               {isLoggedIn ? (
                 <div className="space-y-1 px-2 pb-3 pt-2">
                   {navigation.map((item) => (
