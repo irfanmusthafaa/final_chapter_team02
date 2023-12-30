@@ -59,7 +59,7 @@ export const DetailKelasPage = (props) => {
     try {
       joinClass.mutate();
       toast.success("Anda Berhasil Menambahkan Kelas ke dalam Kelas Saya");
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error("Invalid URL or unable to extract video ID:", error.message);
       return null;
