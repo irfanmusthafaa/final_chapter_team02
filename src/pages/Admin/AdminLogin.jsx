@@ -55,7 +55,7 @@ export const AdminLogin = () => {
       <div className="bg-purple-700 md:flex md:w-1/2 justify-center items-center hidden">
         <img src={image} className="w-1/2" alt="" />
       </div>
-      <div className="w-full md:w-2/3 flex flex-col justify-center items-center gap-3">
+      <div className="w-full mt-5 md:mt-0 md:w-2/3 flex flex-col justify-center items-center gap-3">
         <div className="bg-white w-5/6 md:w-1/2 flex flex-col gap-3 p-4 rounded-xl shadow-xl">
           <h2 className="text-purple-700">Admin Page Login</h2>
           <div className="flex flex-col gap-1">
