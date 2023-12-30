@@ -36,8 +36,8 @@ export const HeroSection = () => {
       <div className="flex w-full md:hidden">
         <div className="w-full relative">
           <div className="w-full h-screen bg-purple-700 flex justify-center items-center">
-            <div className="flex flex-col ">
-              <img src={image} className="mx-5 w-[20rem] mt-[5rem]  h-[30%] bg-white rounded-lg" />
+            <div className="flex flex-col justify-center items-center">
+              <img src={image} className="mx-5 w-[20rem] mt-5  h-[30%] bg-white rounded-lg" />
 
               <div className="w-[22.5rem] pt-8 flex flex-col items-center gap-1 ">
                 <h2 className="text-white">Kuasai Skills Digital</h2>

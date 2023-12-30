@@ -15,15 +15,7 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
-  const {
-    mutate: dataRegister,
-    status,
-    isSuccess,
-    error,
-    data,
-    success,
-    isError,
-  } = useRegisterUser();
+  const { mutate: dataRegister, status, isSuccess, error, data, success, isError } = useRegisterUser();
 
   const handleInput = (e) => {
     if (e) {
@@ -44,11 +36,7 @@ export const Register = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(
-        error.response.data.err
-          ? error.response.data.err
-          : error.response.data.message
-      );
+      toast.error(error.response.data.err ? error.response.data.err : error.response.data.message);
     }
     if (isSuccess) {
       console.log(data.data.data.token, "data regisss");
@@ -90,7 +78,9 @@ export const Register = () => {
   return (
     <div className="bg-purple-100 md:bg-white w-full h-screen flex flex-col md:flex-row gap-5">
       <div className="flex justify-center">
-        <img src={image2} className="w-1/6 md:hidden pt-3" alt="" />
+        <a href="/" className="text-center">
+          <img src={image2} className="w-1/6 md:hidden pt-3 " alt="Tech Academy" />
+        </a>
       </div>
       <div className="w-full md:w-2/3 flex flex-col justify-center items-center gap-3">
         <div className="bg-white w-5/6 md:w-1/2 flex flex-col gap-3 p-4 rounded-xl shadow-xl">
@@ -108,24 +98,11 @@ export const Register = () => {
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Email</label>
-            <Input
-              onChange={handleInput}
-              id="email"
-              className="border rounded-lg text-base"
-              type="email"
-              placeholder="Contoh: johndee@gmail.com"
-            />
+            <Input onChange={handleInput} id="email" className="border rounded-lg text-base" type="email" placeholder="Contoh: johndee@gmail.com" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Nomor Telepon</label>
-            <Input
-              onChange={handleInput}
-              id="notelp"
-              className="border rounded-lg text-base"
-              type="text"
-              maxLength={13}
-              placeholder="+62."
-            />
+            <Input onChange={handleInput} id="notelp" className="border rounded-lg text-base" type="text" maxLength={13} placeholder="+62." />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-normal text-sm">Password</label>
@@ -135,9 +112,7 @@ export const Register = () => {
               id="password"
               placeholder="Buat Password"
               type="password"
-              iconRender={(visible) =>
-                visible ? <EyeInvisibleOutlined /> : <EyeOutlined />
-              }
+              iconRender={(visible) => (visible ? <EyeInvisibleOutlined /> : <EyeOutlined />)}
             />
           </div>
           <div className="flex flex-col">
@@ -163,7 +138,9 @@ export const Register = () => {
         </div>
       </div>
       <div className="bg-purple-700 md:flex md:w-1/2 flex-col justify-center items-center hidden">
-        <img src={image} className="w-1/2" alt="" />
+        <a href="/" className="text-center">
+          <img src={image} className="w-1/2 cursor-pointer" alt="" />
+        </a>
       </div>
     </div>
   );

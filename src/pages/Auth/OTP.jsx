@@ -86,7 +86,9 @@ export const OTP = () => {
   return (
     <div className="bg-purple-100 md:bg-white w-full h-screen flex flex-col md:flex-row gap-5">
       <div className="flex justify-center">
-        <img src={image2} className="w-1/6 md:hidden pt-3" alt="" />
+        <a href="/" className="text-center">
+          <img src={image2} className="w-1/6 md:hidden pt-3" alt="Tech Academy" />
+        </a>
       </div>
       <div className="w-full md:w-2/3 flex flex-col items-center gap-5 pt-[1rem] md:pt-[7rem]">
         <div className="bg-white w-5/6 md:w-1/2 flex flex-col gap-3 p-4 rounded-xl shadow-xl">
@@ -139,8 +141,10 @@ export const OTP = () => {
           </div>
         </div>
       </div>
-      <div className="md:flex md:w-1/2 bg-purple-700 flex justify-center items-center hidden">
-        <img src={image} className="w-1/2" alt="" />
+      <div className="md:flex md:w-1/2 bg-purple-700 justify-center items-center hidden">
+        <a href="/" className="text-center">
+          <img src={image} className="w-1/2" alt="Tech Academy" />
+        </a>
       </div>
     </div>
   );

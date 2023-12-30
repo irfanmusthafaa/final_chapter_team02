@@ -153,7 +153,7 @@ export const KursusPopuler = () => {
                 style={{ border: "1px solid black" }}
                 className="bg-purple-100  w-full px-5 py-2 rounded-full cursor-pointer font-bold border-none text-sm hover:bg-purple-700 hover:text-white"
               >
-                All Category
+                Semua Kategori
               </button>
               {Category?.map((data) => (
                 <>
@@ -221,7 +221,7 @@ export const KursusPopuler = () => {
                           Beli
                         </div>
                         <div>
-                          <p className="pl-2">Rp {data.price}</p>
+                          <p className="pl-2">Rp {data.price.toLocaleString("id-ID")}</p>
                         </div>
                       </button>
                     </div>
