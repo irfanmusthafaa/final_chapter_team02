@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BarProgres } from "../barProgres";
+import { BarProgres } from "../BarProgres";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay, faLock } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,11 +42,7 @@ export const CardDaftarMateri = (props) => {
                     borderBottom: "1px solid #B19CD9",
                     boxShadow: "0px 4px 6px -2px rgba(0, 0, 0, 0.08)",
                   }}
-                  onClick={() =>
-                    chapter.is_preview
-                      ? handleKlikLesson(lesson.id)
-                      : openModal()
-                  }
+                  onClick={() => (chapter.is_preview ? handleKlikLesson(lesson.id) : openModal())}
                 >
                   <div className="flex-shrink-0 w-8 h-8 bg-purple-200 font-semibold text-sm flex items-center justify-center rounded-full mb-1">
                     {lessonIndex + 1}
@@ -56,11 +52,7 @@ export const CardDaftarMateri = (props) => {
                   <FontAwesomeIcon
                     icon={chapter.is_preview ? faCirclePlay : faLock}
                     className="absolute right-0 mr-2 h-5 w-5 transition-transform transform hover:scale-105"
-                    style={
-                      chapter.is_preview
-                        ? { color: "#73CA5C" }
-                        : { color: "#A3A3A3" }
-                    }
+                    style={chapter.is_preview ? { color: "#73CA5C" } : { color: "#A3A3A3" }}
                   />
                 </div>
               ))}
