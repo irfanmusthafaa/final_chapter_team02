@@ -3,7 +3,10 @@ import { Navbar } from "../assets/components/Navbar";
 import img from "../assets/img/🦆 illustration _Cart shopping list_.png";
 
 export const SuksesPembayaran = () => {
-  const whatsappUrl = `https://wa.me/6281313436773`;
+  const whatsappUrl = "https://wa.me/6289657136350";
+  const openWa = () => {
+    window.open(whatsappUrl, "_blank");
+  };
   return (
     <div>
       <Navbar />
@@ -14,8 +17,8 @@ export const SuksesPembayaran = () => {
           <label className="text-xs font-semibold pt-[1rem]">
             Chat Admin untuk Konfirmasi Pembayaran!
           </label>
-          <button className="w-[15rem] bg-purple-700 font-semibold border-0 h-8 rounded-2xl mt-5 hover:bg-purple-900 ">
-            <a href="{whatsappUrl}" target="_blank" rel="noopener noreferrer" className="no-underline text-white cursor-pointer">Chat Admin</a>
+          <button onClick={openWa} className="w-[15rem] bg-purple-700 font-semibold rounded-full border-0 h-8 text-white cursor-pointerrounded-2xl mt-5 hover:bg-purple-900 ">
+            Chat Admin
           </button>
         </div>
       </div>

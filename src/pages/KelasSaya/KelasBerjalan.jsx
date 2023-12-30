@@ -109,12 +109,12 @@ export const KelasBerjalan = () => {
                                     isActive={activeButton === "ALL"}
                                 />
                                 <NavButton
-                                    button_text="In Progress"
+                                    button_text={<>&nbsp;&nbsp;In Progress&nbsp;&nbsp;</>}
                                     onClick={() => handleButtonClick("In Progress")}
                                     isActive={activeButton === "In Progress"}
                                 />
                                 <NavButton
-                                    button_text={<>&nbsp;&nbsp;Selesai&nbsp;&nbsp;</>}
+                                    button_text={<>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selesai&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>}
                                     onClick={() => handleButtonClick("Selesai")}
                                     isActive={activeButton === "Selesai"}
                                 />

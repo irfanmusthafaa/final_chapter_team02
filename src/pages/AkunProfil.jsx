@@ -33,7 +33,6 @@ export const AkunProfil = () => {
     setCity(Profile?.city);
     setCountry(Profile?.country);
     setNoTelp(Profile?.noTelp);
-    // setAvatar(Profile?.profilePicture);
   }, [Profile?.fullName, Profile?.city, Profile?.country, Profile?.noTelp, Profile?.profilePicture]);
 
   const handleInput = (e) => {

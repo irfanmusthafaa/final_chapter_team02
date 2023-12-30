@@ -37,21 +37,7 @@ export const ModalDetailPembayaran = (props) => {
             
         }
     };
-
-    useEffect(() => {
-        // handlePaymentClass(classCode);
-        // if (isError) {
-        //     message.error(error.response.data.message);
-        // }
-        // if (isSuccess) {
-        //     toast.success("Anda Berhasil Melakukan Pembelian kelas");
-        //     // setTimeout(() => {
-        //     //   window.location.href = '/sukses-pembayaran';
-        //     // }, 1000);
-        // }
-    }, []);
-
-    
+        
     const [selectedBank, setSelectedBank] = useState(null);
     const [namaRekening, setNamaRekening] = useState('');
     const [noRekening, setNoRekening] = useState('');
@@ -91,11 +77,6 @@ export const ModalDetailPembayaran = (props) => {
             });
             return;
         }
-
-        // const formData = new FormData();
-        // formData.append("paymentMethod", paymentMethod);
-        // formData.append("bankId", bankId);
-        // formData.append("cardName", cardName);
 
         try {
             await paymentClass({

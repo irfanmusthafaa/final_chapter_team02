@@ -59,6 +59,7 @@ export const DetailKelasPage = (props) => {
     try {
       joinClass.mutate();
       toast.success("Anda Berhasil Menambahkan Kelas ke dalam Kelas Saya");
+      window.location.reload();
     } catch (error) {
       console.error("Invalid URL or unable to extract video ID:", error.message);
       return null;
@@ -116,8 +117,8 @@ export const DetailKelasPage = (props) => {
                   </div>
                 </div>
                 <h2 className="text-black font-bold mt-1">{Class.className}</h2>
-                <p className="text-black text-sm mt-1">By : {Class.author}</p>
-                <div className="flex gap-10 text-xs mt-2">
+                <p className="text-black mt-1">By : {Class.author}</p>
+                <div className="flex gap-10 mt-2">
                   <div className="flex flex-row justify-center items-center">
                     <ShieldCheckIcon className="w-4" style={{ color: "green" }} />
                     <p className="pl-[.1rem] font-semibold">{Class.levelName}</p>
@@ -148,7 +149,7 @@ export const DetailKelasPage = (props) => {
           <div className=" flex flex-row">
             <div className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] mt-3" style={{ border: ".1px solid grey" }}>
               <div>
-                <h2 className="text-purple-700">{hitLessonPresentase?.lesson.chapters?.chapterName}</h2>
+                <h2 className="text-purple-700">{lesson.chapters?.chapterName}</h2>
                 <h3>{lesson.title}</h3>
               </div>
               <div className="relative bg-current rounded-2xl mt-4" style={{ paddingBottom: "56.25%" }}>
