@@ -10,11 +10,10 @@ export const HeroSection = () => {
   return (
     <>
       <div className="hidden md:flex w-full">
-        <div className="w-full relative">
-          <div className="w-full h-screen bg-purple-700 flex">
-            <div className="flex flex-col">
-              <img src={image} className="absolute right-0 bottom-0 h-[83.8%]" />
-              <div className=" flex flex-col justify-center items-center gap-1 w-[32.5rem] pt-[6rem] h-screen">
+        <div className="w-full ">
+          <div className="w-full h-screen bg-purple-700 flex ">
+            <div className="flex  ">
+              <div className=" flex flex-col justify-center items-center gap-1 w-[40%] pt-[2rem] h-screen ">
                 <h1 className="text-white">Kuasai Skills Digital</h1>
                 <h1 className="text-white">dan Gapai Masa Depan Mu</h1>
                 <h1 className="text-white">#FirstStepForYourFuture</h1>
@@ -25,6 +24,9 @@ export const HeroSection = () => {
                 >
                   Ikuti Kelas
                 </div>
+              </div>
+              <div className="w-[60%] flex justify-end items-end">
+                <img src={image} className="w-full" />
               </div>
             </div>
           </div>

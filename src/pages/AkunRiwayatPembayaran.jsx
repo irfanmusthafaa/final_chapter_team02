@@ -14,13 +14,14 @@ import iconPremium from "../assets/images/ic-premium.png";
 import { MenuAkun } from "../assets/components/MenuAkun";
 import img from "../assets/images/kursus.png";
 import { useGetPaymentUser } from "../services/payment/get-payment";
+import { useNavigate } from "react-router-dom";
 
 export const AkunRiwayatPembayaran = () => {
   const [Payment, setPayment] = useState([]);
 
   const { data: dataPayment, isLoading, isError } = useGetPaymentUser();
 
-  console.log(Payment, "payment");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -80,6 +81,8 @@ export const AkunRiwayatPembayaran = () => {
                               onClick={() => {
                                 if (!item.status) {
                                   window.open("https://wa.me/6289657136350", "_blank");
+                                } else {
+                                  navigate(`/detailKelas/${item.class.classCode}`);
                                 }
                               }}
                             >
