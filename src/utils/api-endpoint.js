@@ -8,6 +8,7 @@ export const API_ENDPOINT = {
   AUTH_RESET_PASSWORD: "/api/v1/auth/reset-password",
   AUTH_CHANGE_PASSWORD: "/api/v1/password/change-password",
   AUTH_RESEND_OTP_PASSWORD: "/api/v1/auth/resend-otp-password",
+  AUTH_ACTIVATE_ACCOUNT: "/api/v1/auth/send-otp",
   DATA_CATEGORY: "/api/v1/category",
   DATA_CLASS: "/api/v1/class",
   DATA_BANK: "/api/v1/bank",

@@ -51,7 +51,7 @@ const navigation = [
 
 const nav = [
   {
-    name: "Kursus",
+    name: "Kelas",
     href: "/KelasSaya/TopikKelas",
     current: location.pathname === "/KelasSaya/TopikKelas",
     logo: <ListBulletIcon />,
@@ -204,7 +204,7 @@ export const Navbar = () => {
                             <div className="flex flex-row w-6">
                               <PlayCircleIcon />
                             </div>
-                            {`${activePage === "KelasSaya/KelasBerjalan" ? "Kursus Saya" : ""}`}
+                            {`${activePage === "KelasSaya/KelasBerjalan" ? "Kelas Saya" : ""}`}
                           </div>
                         </a>
                         <a

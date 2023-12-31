@@ -76,6 +76,15 @@ export const AdminLogin = () => {
           </div>
 
           <div>
+            <div className="flex justify-end">
+              <label
+                className="text-xs text-purple-700 hover:text-purple-900"
+                onClick={() => navigate("/reset-password-admin")}
+                style={{ cursor: "pointer" }}
+              >
+                Lupa Password ?
+              </label>
+            </div>
             <button
               onClick={() => {
                 handleLogin();

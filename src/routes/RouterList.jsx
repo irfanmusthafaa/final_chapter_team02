@@ -28,6 +28,10 @@ import { AdminBank } from "../pages/Admin/AdminBank";
 import { AdminUser } from "../pages/Admin/AdminUser";
 import { AdminTransaksi } from "../pages/Admin/AdminTransaksi";
 import { AdminNotification } from "../pages/Admin/AdminNotification";
+import { Activation } from "../pages/Auth/Activation";
+import { AdminResetPass } from "../pages/Admin/AdminResetPass";
+import { AdminPasswordOTP } from "../pages/Admin/AdminPasswordOTP";
+import { AdminNewPass } from "../pages/Admin/AdminNewPass";
 
 export const RouterList = () => {
   return (
@@ -36,6 +40,7 @@ export const RouterList = () => {
         <Route path="/" element={<Beranda />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/activation" element={<Activation />}></Route>
         <Route
           path="/detail-pembayaran/:classCode"
           element={
@@ -100,6 +105,9 @@ export const RouterList = () => {
         <Route path="/password-otp" element={<PasswordOTP />}></Route>
 
         <Route path="/admin/login" element={<AdminLogin />}></Route>
+        <Route path="/reset-password-admin" element={<AdminResetPass />}></Route>
+        <Route path="/new-password-admin" element={<AdminNewPass />}></Route>
+        <Route path="/password-otp-admin" element={<AdminPasswordOTP />}></Route>
         <Route
           path="/admin/dashboard"
           element={

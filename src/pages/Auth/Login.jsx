@@ -91,6 +91,11 @@ export const Login = () => {
           </div>
 
           <div>
+            <div className="flex justify-end">
+              <label className="text-xs text-purple-700 hover:text-purple-900" onClick={() => navigate("/activation")} style={{ cursor: "pointer" }}>
+                Aktivasi Akun
+              </label>
+            </div>
             <button
               onClick={() => {
                 loginUser();
