@@ -85,8 +85,8 @@ export const KursusPopuler = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          nextArrow: <SampleNextArrow />,
-          prevArrow: <SamplePrevArrow />,
+          // nextArrow: <SampleNextArrow />,
+          // prevArrow: <SamplePrevArrow />,
         },
       },
     ],
