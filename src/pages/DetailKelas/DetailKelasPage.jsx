@@ -16,18 +16,16 @@ import { AddRating } from "../../assets/components/AddRating";
 import { ClipboardDocumentListIcon, ClockIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import { StarFilled } from "@ant-design/icons";
 import { usePresentaseLessonQuery } from "../../services/lesson/get-presentase-lesson";
+import { ButtonPlay } from "../../assets/components/button/ButtonPlay";
 
 export const DetailKelasPage = (props) => {
   const { classCode } = useParams();
-
   const [Class, setClass] = useState([]);
   const { data: dataClass } = useClassDetailQuery(classCode);
-
   const [selectedLesson, setSelectedLesson] = useState(Class.chapters?.Lessons?.id);
   const [lesson, setLesson] = useState([]);
   const { data: dataLesson } = useLessonDetailQuery(selectedLesson);
   const { data: hitLessonPresentase } = usePresentaseLessonQuery(classCode, selectedLesson);
-
   const [learning, setLearning] = useState([]);
   const { data: dataLearning } = useLearningDataQuery({
     limit: 1000,
@@ -35,18 +33,10 @@ export const DetailKelasPage = (props) => {
   });
 
   useEffect(() => {
-    if (dataClass) {
-      setClass(dataClass);
-    }
-
-    if (dataLesson) {
-      setLesson(dataLesson);
-    }
-
-    if (dataLearning) {
-      setLearning(dataLearning);
-    }
-  }, [dataClass, dataLesson, hitLessonPresentase, dataLearning]);
+    dataClass ? setClass(dataClass) : null;
+    dataLesson ? setLesson(dataLesson) : null;
+    dataLearning ? setLearning(dataLearning) : null;
+  }, [dataClass, dataLesson, hitLessonPresentase, dataLearning, selectedLesson, setSelectedLesson]);
 
   const openTelegramLink = () => {
     window.open(Class.linkSosmed, "_blank");
@@ -59,7 +49,9 @@ export const DetailKelasPage = (props) => {
     try {
       joinClass.mutate();
       toast.success("Anda Berhasil Menambahkan Kelas ke dalam Kelas Saya");
-      // window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error("Invalid URL or unable to extract video ID:", error.message);
       return null;
@@ -67,8 +59,8 @@ export const DetailKelasPage = (props) => {
   };
 
   const VideoUrl = lesson?.linkLearningMaterial;
-  // const VideoUrl = 'https://youtu.be/ixOd42SEUF0';
   const [embedUrl, setEmbedUrl] = useState("");
+  const [showImage, setShowImage] = useState(true);
 
   useEffect(() => {
     const getVideoId = (url) => {
@@ -93,6 +85,7 @@ export const DetailKelasPage = (props) => {
     if (VideoUrl) {
       const videoId = getVideoId(VideoUrl);
       videoId && setEmbedUrl(convertToEmbedUrl(videoId));
+      setShowImage(false);
     }
   }, [VideoUrl]);
 
@@ -149,18 +142,42 @@ export const DetailKelasPage = (props) => {
           <div className=" flex flex-row">
             <div className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] mt-3" style={{ border: ".1px solid grey" }}>
               <div>
-                <h2 className="text-purple-700">{lesson.chapters?.chapterName}</h2>
-                <h3>{lesson.title}</h3>
+                {showImage && (
+                  <div
+                    className={`${showImage ? "opacity-100 scale-100" : "transition-opacity transform duration-1000 ease-in-out opacity-0 scale-95"}`}
+                  >
+                    <h2 className="text-purple-700">Pilih Lesson yang ingin dipelajari</h2>
+                    <h3>Klik daftar lesson di samping</h3>
+                  </div>
+                )}
+                <div
+                  className={`transition-opacity transform duration-1000 ease-in-out ${!showImage ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+                >
+                  <h2 className="text-purple-700">{lesson.chapters?.chapterName}</h2>
+                  <h3>{lesson.title}</h3>
+                </div>
               </div>
-              <div className="relative bg-current rounded-2xl mt-4" style={{ paddingBottom: "56.25%" }}>
-                <iframe
-                  className="absolute inset-0 w-full h-full rounded-2xl"
-                  src={embedUrl}
-                  title="YouTube Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+              <div className="relative bg-current rounded-2xl mt-4 " style={{ paddingBottom: "56.25%" }}>
+                {showImage ? (
+                  <div className="absolute inset-0 flex items-center justify-center content-center">
+                    <img
+                      src="https://assets-global.website-files.com/62d78f7d36328323c7e2f7eb/62fe1d3d8c83f219d316b8b6_course%20youtube.png" // Ganti URL_GAMBAR_DEFAULT dengan URL gambar default Anda
+                      alt="Default Image"
+                      className="w-full h-full rounded-2xl"
+                      style={{ objectFit: "cover" }}
+                    />
+                    <ButtonPlay />
+                  </div>
+                ) : (
+                  <iframe
+                    className="absolute inset-0 w-full h-full rounded-2xl"
+                    src={embedUrl}
+                    title="YouTube Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                )}
               </div>
               {/* rating add  */}
               <div className="flex flex-col mt-3 w-1/4">
@@ -234,26 +251,27 @@ export const DetailKelasPage = (props) => {
           </div>
         </div>
         <div className="flex flex-col h-screens items-center justify-center">
-          {/* <div className="relative bg-current rounded-2xl mt-4 mx-4" style={{ paddingBottom: '56.25%', width: '90%', height: 0 }}>
-                    <iframe
-                        className="absolute inset-0 w-full h-full rounded-2xl"
-                        src={embedUrl}
-                        title="YouTube Video"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
-                    </div> */}
-
           <div className="relative bg-current mx-4" style={{ width: "100%", height: "0", paddingBottom: "56.25%", maxWidth: "100vw" }}>
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src={embedUrl}
-              title="YouTube Video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+            {showImage ? (
+              <div className="absolute inset-0 flex items-center justify-center content-center">
+                <img
+                  src="https://assets-global.website-files.com/62d78f7d36328323c7e2f7eb/62fe1d3d8c83f219d316b8b6_course%20youtube.png" // Ganti URL_GAMBAR_DEFAULT dengan URL gambar default Anda
+                  alt="Default Image"
+                  className="w-full h-full"
+                  style={{ objectFit: "cover" }}
+                />
+                <ButtonPlay />
+              </div>
+            ) : (
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src={embedUrl}
+                title="YouTube Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
           </div>
           <div className="flex flex-row justify-center mt-1">
             <AddRating chapters={Class.chapters} classCode={classCode} />

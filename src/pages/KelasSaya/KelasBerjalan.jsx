@@ -14,11 +14,8 @@ import { Pagination } from 'antd';
 import { MiniSearchMobile } from "../../assets/components/search/MiniSearchMobile";
 
 export const KelasBerjalan = () => {
-    const [from, setFrom] = useState('/KelasSaya/KelasBerjalan');
-   
     const [filterOpen, setFilterOpen] = useState(false);
     const [activeButton, setActiveButton] = useState("ALL");
-
     const [Kategori, setKategori] = useState("");
     const [Level, setLevel] = useState("");
     const [Latest, setLatest] = useState(null);
@@ -27,10 +24,8 @@ export const KelasBerjalan = () => {
     const [inProgress, setInProgress] = useState(null);
     const [Search, setSearch] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    
     const [Category, setCategory] = useState([]);
     const { data: dataCategory } = useCategoryDataQuery();
-
     const [Class, setClass] = useState([]);
     const { data: dataLearning } = useLearningDataQuery({
         categoryId: Kategori,
@@ -49,21 +44,15 @@ export const KelasBerjalan = () => {
 
     useEffect(() => {
         setCategory(dataCategory);
-        if (dataLearning) {
-            setClass(dataLearning.allLearning);
-        }
+        dataLearning ? setClass(dataLearning.allLearning) : null;
     }, [dataCategory, dataLearning, Kategori, Level, Latest, Popular, Promo]);
     
      const handleButtonClick = (buttonText) => {
         setActiveButton(buttonText);
         setInProgress(buttonText);
-        if (buttonText === "ALL") {
-            setInProgress(null);
-        } else if (buttonText === "In Progress") {
-            setInProgress(true);
-        } else if (buttonText === "Selesai") {
-            setInProgress(true);
-        }
+        buttonText === "ALL" ? setInProgress(null) 
+        : buttonText === "In Progress" || buttonText === "Selesai" ? setInProgress(true)
+        : null;
     };
 
     return (

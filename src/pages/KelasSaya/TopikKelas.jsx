@@ -21,19 +21,13 @@ export const TopikKelas = () => {
   const [Popular, setPopular] = useState(null);
   const [Promo, setPromo] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [filterOpen, setFilterOpen] = useState(false);
-
   const [activeButton, setActiveButton] = useState("ALL");
-
   const [Category, setCategory] = useState([]);
   const { data: dataCategory } = useCategoryDataQuery();
-
   const location = useLocation();
   const searchParam = new URLSearchParams(location.search).get('search');
   const [Search, setSearch] = useState(searchParam?searchParam:null);
-
-
   const [Class, setClass] = useState([]);
   const { data: dataClass } = useClassDataQuery({
     categoryId: Kategori,
@@ -52,21 +46,17 @@ export const TopikKelas = () => {
 
   useEffect(() => {
     setCategory(dataCategory);
-    if (dataClass) {
-      setClass(dataClass.result);
-    }
+    dataClass ? setClass(dataClass.result) : null;
   }, [dataCategory,currentPage, dataClass, Kategori, Level, Latest, Popular, Promo]);
 
   const handleButtonClick = (buttonText) => {
     setActiveButton(buttonText);
     setIsFree(buttonText);
-    if (buttonText === "ALL") {
-      setIsFree(null);
-    } else if (buttonText === "Kelas Premium") {
-      setIsFree(false);
-    } else if (buttonText === "Kelas Gratis") {
-      setIsFree(true);
-    }
+    buttonText === "ALL" ? setIsFree(null)
+    : buttonText === "Kelas Premium" ? setIsFree(false)
+    : buttonText === "Kelas Gratis" ? setIsFree(true)
+    : null;
+
   };
 
   
