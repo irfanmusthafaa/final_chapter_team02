@@ -85,6 +85,8 @@ export const KursusPopuler = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          autoplay: false,
+          speed: 500,
           // nextArrow: <SampleNextArrow />,
           // prevArrow: <SamplePrevArrow />,
         },

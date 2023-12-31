@@ -3,8 +3,8 @@ import logo from "../img/logo-purple.png";
 
 export const Footer = () => {
   return (
-    <footer className="bg-purple-100 dark:bg-gray-900">
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+    <footer className="bg-purple-100 px-5 dark:bg-gray-900">
+      <div className="mx-auto w-full max-w-screen-xl pl-4 md:pl-0 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <a href="#" className="flex items-center  no-underline">
