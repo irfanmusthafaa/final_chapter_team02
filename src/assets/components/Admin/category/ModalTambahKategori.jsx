@@ -23,7 +23,7 @@ export const ModalTambahKategori = () => {
 
   useEffect(() => {
     if (isError) {
-      message.error(error.response.data.message);
+      toast.warning(error.response.data.error.message);
     }
     if (isSuccess) {
       toast.success("Successfully Added Category");

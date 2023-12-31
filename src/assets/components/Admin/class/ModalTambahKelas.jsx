@@ -81,7 +81,7 @@ export const ModalTambahKelas = ({ Category }) => {
 
   useEffect(() => {
     if (isError) {
-      message.error(error.response.data.err);
+      toast.warning(error.response.data.error.message);
     }
     if (isSuccess) {
       toast.success("Successfully Added Class");

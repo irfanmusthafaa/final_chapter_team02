@@ -7,19 +7,19 @@ const { TextArea } = Input;
 export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }) => {
   const [ClassName, setClassName] = useState("");
   const [Description, setDescription] = useState("");
-  const [Price, setPrice] = useState(0);
-  const [Promo, setPromo] = useState(0);
+  const [Price, setPrice] = useState(null);
+  const [Promo, setPromo] = useState(null);
   const [LevelName, setLevelName] = useState("");
   const [IsFree, setIsFree] = useState(true);
-  const [CategoryId, setCategoryId] = useState("");
+  const [CategoryId, setCategoryId] = useState(null);
   const [LinkSosmed, setLinkSosmed] = useState("");
   const [Author, setAuthor] = useState("");
 
   useEffect(() => {
     setClassName(record.className);
     setDescription(record.description);
-    setPrice(record.price);
-    setPromo(record.promo);
+    setPrice(String(record.price));
+    setPromo(String(record.promo));
     setLevelName(record.levelName);
     setIsFree(record.isFree);
     setCategoryId(record.categoryId);
@@ -36,6 +36,8 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
     record.linkSosmed,
     record.author,
   ]);
+
+  console.log(record, "record");
 
   const handleInput = (e) => {
     if (e) {
@@ -87,8 +89,8 @@ export const ModalUpdateKelas = ({ record, openUpdate, setOpenUpdate, Category }
 
   console.log(ClassName, "ClassName");
   console.log(Description, "Description");
-  console.log(typeof Price, "Price");
-  console.log(typeof Promo, "Promo");
+  console.log(Price, "Price");
+  console.log(Promo, "Promo");
   console.log(IsFree, "IsFree");
   console.log(LevelName, "LevelName");
   console.log(LinkSosmed, "LinkSosmed");
