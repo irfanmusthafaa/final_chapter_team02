@@ -61,7 +61,7 @@ export const KursusPopuler = () => {
     // nextArrow: <SampleNextArrow />,
     // prevArrow: <SamplePrevArrow />,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 0,
     cssEase: "linear",
     responsive: [
       {
@@ -147,8 +147,8 @@ export const KursusPopuler = () => {
 
       {/* Kursus Popular */}
       <div className="w-full  flex justify-center items-center mb-32 ">
-        <div className=" w-4/5 ">
-          <div className="w-full mb-5 cursor-pointer">
+        <div className=" w-full flex flex-col justify-center items-center ">
+          <div className="w-4/5 mb-5 cursor-pointer">
             <Slider {...settingsCategory}>
               <button
                 onClick={() => setFilterCategory("")}
@@ -171,7 +171,7 @@ export const KursusPopuler = () => {
             </Slider>
           </div>
 
-          <div className=" w-full">
+          <div className="w-4/5 md:w-full">
             <Slider {...settings}>
               {Class?.map((data) => (
                 <div
@@ -180,7 +180,7 @@ export const KursusPopuler = () => {
                   onClick={() => navigate(`/Detailkelas/${data.classCode}`)}
                   className="cursor-pointer shadow-md shadow-black my-2  flex-col bg-white border-2 rounded-3xl pb-3 "
                 >
-                  <div className="w-full">
+                  <div className="w-full ">
                     <img src={data.thumbnailPicture} placeholder="img" className="w-full h-40 object-cover rounded-t-3xl" />
                   </div>
 
