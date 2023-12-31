@@ -1,12 +1,27 @@
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import icon_play from "../../images/icon/play.svg";
 import React from 'react'
 
-export const ButtonPlay = ({onClick, active, index}) => {
+export const ButtonPlay = () => {
   return (
-    <button  onClick={() => onClick(index)}>
-        <FontAwesomeIcon icon={faCirclePlay} className={`absolute right-0 mr-8 h-5 w-5 transition-transform transform hover:scale-105`} style={{ color: active ? '#4C1D95' : '#73CA5C' }}/>
-        
+    <button className="animate-ping absolute w-16 h-16 bg-purple-500 rounded-full border-[0.3rem] border-white cursor-pointer transition-transform duration-500 ease-in-out">
+      <img src={icon_play} alt="Icon"/>
+      <style>{`
+        @keyframes scale {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.25);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+
+        .animate-ping {
+          animation: scale 2s infinite;
+        }
+      `}</style>
     </button>
     
   )

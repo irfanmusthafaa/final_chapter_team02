@@ -118,8 +118,7 @@ export const DetailPembayaran = () => {
                     </div>
                   </div>
                 </div>
-              
-
+            
               <div className="w-full flex justify-center items-center">
                   <div
                     className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2rem] hover:bg-[#73CA5C]"
@@ -131,8 +130,6 @@ export const DetailPembayaran = () => {
               </div>
             </button>
           </div>
-          {/* collapse */}
-    
         </div>
       </div>
       {/* mobile */}
@@ -206,9 +203,6 @@ export const DetailPembayaran = () => {
                 </div>
               </button>
             </div>
-              
-              {/* collapse */}
-          
         </div>
       </div>
     </div>
