@@ -124,7 +124,7 @@ export const Navbar = () => {
                     </a>
                     <form className="relative" onSubmit={handleSearch}>
                       <input
-                        type="search"
+                        type="text"
                         name="search"
                         placeholder="Cari Kelas..."
                         className="bg-white border-none focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[170px] h-[32px] md:w-[450px] "
