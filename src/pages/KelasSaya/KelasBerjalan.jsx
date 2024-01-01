@@ -93,17 +93,17 @@ export const KelasBerjalan = () => {
                         <div className="">
                             <div className="flex flex-row gap-5">
                                 <NavButton
-                                    button_text="ALL"
+                                    button_text={<div className="px-10">ALL</div>}
                                     onClick={() => handleButtonClick("ALL")}
                                     isActive={activeButton === "ALL"}
                                 />
                                 <NavButton
-                                    button_text={<>&nbsp;&nbsp;In Progress&nbsp;&nbsp;</>}
+                                    button_text={<div className="px-20" style={{ whiteSpace: 'nowrap' }}>In Progress</div>}
                                     onClick={() => handleButtonClick("In Progress")}
                                     isActive={activeButton === "In Progress"}
                                 />
                                 <NavButton
-                                    button_text={<>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selesai&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</>}
+                                    button_text={<div className="px-20">Selesai</div>}
                                     onClick={() => handleButtonClick("Selesai")}
                                     isActive={activeButton === "Selesai"}
                                 />
@@ -199,7 +199,7 @@ export const KelasBerjalan = () => {
                         <div className="mt-2">
                             <div className="flex flex-row gap-3 justify-center items-center">
                                 <NavButton
-                                    button_text="ALL"
+                                    button_text={<>ALL</>}
                                     onClick={() => handleButtonClick("ALL")}
                                     isActive={activeButton === "ALL"}
                                 />
