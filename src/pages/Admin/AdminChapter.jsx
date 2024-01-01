@@ -19,7 +19,11 @@ export const AdminChapter = () => {
   const [Class, setClass] = useState([]);
 
   const { data: dataChapter, isLoading, isError } = useGetChapter();
-  const { data: dataClass } = useClassDataQuery();
+  const { data: dataClass } = useClassDataQuery({
+    latest: true,
+    limit: 1000,
+    page: 1,
+  });
 
   useEffect(() => {
     if (!isLoading && !isError) {
