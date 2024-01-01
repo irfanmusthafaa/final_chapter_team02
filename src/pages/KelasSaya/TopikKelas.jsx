@@ -187,7 +187,7 @@ export const TopikKelas = () => {
               />
             </Modal>
             <div className="mt-2">
-              <div className="flex flex-row gap-3 md:gap-5 justify-center items-center">
+              <div className="flex flex-row gap-3 mx-5 md:gap-5 justify-center items-center">
                 <NavButton
                   button_text="ALL"
                   onClick={() => handleButtonClick("ALL")}

@@ -99,7 +99,6 @@ export const DetailKelasPage = (props) => {
       {/* navbar */}
       <Navbar classPageActive={location.pathname.includes("/KelasSaya/KelasBerjalan") || location.pathname.includes(`/Detailkelas/${classCode}`)} />
       {/* dekstop */}
-      {/* {console.log(hitLessonPresentase.presentase, "tes lah sekali")} */}
       <div className="pt-[5rem] md:flex flex-col w-full h-screens items-center hidden">
         <div className="bg-purple-100 w-full shadow-md mb-2">
           <div className="flex flex-row px-[3.5%]">
@@ -168,10 +167,10 @@ export const DetailKelasPage = (props) => {
                 {showImage? (
                     <div className="absolute inset-0 flex items-center justify-center content-center">
                       <img
-                      src="https://assets-global.website-files.com/62d78f7d36328323c7e2f7eb/62fe1d3d8c83f219d316b8b6_course%20youtube.png" // Ganti URL_GAMBAR_DEFAULT dengan URL gambar default Anda
-                      alt="Default Image"
-                      className="w-full h-full rounded-2xl"
-                      style={{ objectFit: "cover" }}
+                        src="https://assets-global.website-files.com/62d78f7d36328323c7e2f7eb/62fe1d3d8c83f219d316b8b6_course%20youtube.png"
+                        alt="Default Image"
+                        className="w-full h-full rounded-2xl"
+                        style={{ objectFit: "cover" }}
                       />
                       <ButtonPlay/>
                     </div>

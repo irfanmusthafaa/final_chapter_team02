@@ -3,7 +3,7 @@ import React from 'react'
 
 export const ButtonPlay = () => {
   return (
-    <button className="animate-ping absolute w-16 h-16 bg-purple-500 rounded-full border-[0.3rem] border-white cursor-pointer transition-transform duration-500 ease-in-out">
+    <div className="animate-ping absolute w-16 h-16 bg-purple-500 rounded-full border-[0.3rem] border-white cursor-pointer transition-transform duration-500 ease-in-out" style={{ border: "0.4rem solid white" }}>
       <img src={icon_play} alt="Icon"/>
       <style>{`
         @keyframes scale {
@@ -22,7 +22,7 @@ export const ButtonPlay = () => {
           animation: scale 2s infinite;
         }
       `}</style>
-    </button>
+    </div>
     
   )
 }
