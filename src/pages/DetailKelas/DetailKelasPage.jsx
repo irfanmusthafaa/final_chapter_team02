@@ -297,7 +297,14 @@ export const DetailKelasPage = (props) => {
             <h3 className="mb-2">Tentang Kelas</h3>
             <p className="text-justify text-sm">{Class.description}</p>
           </div>
-          <CardDaftarMateri Kelas={Class} setIsModalOpen={setOpen} Id={selectedLesson} setId={setSelectedLesson} />
+          <CardDaftarMateri 
+            Kelas={Class} 
+            setIsModalOpen={setOpen} 
+            Id={selectedLesson} 
+            setId={setSelectedLesson} 
+            showImage={showImage}
+            realtimePresentase={realtimePresentase}
+          />
         </div>
       </div>
     </div>
