@@ -43,9 +43,9 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
       });
       toast.success("Update Chapter Success");
       setOpenUpdate(false);
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1000);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } else {
       toast.error("Data Tidak Berhasil di Update");
     }
