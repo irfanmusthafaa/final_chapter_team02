@@ -26,6 +26,7 @@ export const DetailKelasPage = (props) => {
   const [lesson, setLesson] = useState([]);
   const { data: dataLesson } = useLessonDetailQuery(selectedLesson);
   const { data: hitLessonPresentase } = usePresentaseLessonQuery(classCode, selectedLesson);
+  const [realtimePresentase, setRealtimePresentase] = useState();
   const [learning, setLearning] = useState([]);
   const { data: dataLearning } = useLearningDataQuery({
     limit: 1000,
@@ -36,6 +37,7 @@ export const DetailKelasPage = (props) => {
     dataClass ? setClass(dataClass) : null;
     dataLesson ? setLesson(dataLesson) : null;
     dataLearning ? setLearning(dataLearning) : null;
+    hitLessonPresentase ? setRealtimePresentase(hitLessonPresentase.presentase) : null;
   }, [dataClass, dataLesson, hitLessonPresentase, dataLearning, selectedLesson, setSelectedLesson]);
 
   const openTelegramLink = () => {
@@ -96,7 +98,7 @@ export const DetailKelasPage = (props) => {
       {/* navbar */}
       <Navbar classPageActive={location.pathname.includes("/KelasSaya/KelasBerjalan") || location.pathname.includes(`/Detailkelas/${classCode}`)} />
       {/* dekstop */}
-      <div className="pt-[5rem] md:flex flex-col h-screens items-center hidden">
+      <div className="pt-[5rem] md:flex flex-col w-full h-screens items-center hidden">
         <div className="bg-purple-100 w-full shadow-md mb-2">
           <div className="flex flex-row px-[3.5%]">
             <div className=" w-[65%] mt-[3%]">
@@ -137,10 +139,17 @@ export const DetailKelasPage = (props) => {
             </div>
           </div>
         </div>
-        <CardDaftarMateri Kelas={Class} setIsModalOpen={setOpen} Id={selectedLesson} setId={setSelectedLesson} />
-        <div className="flex flex-col items-start h-screens px-[5%] w-full">
+        <CardDaftarMateri
+          Kelas={Class}
+          setIsModalOpen={setOpen}
+          Id={selectedLesson}
+          setId={setSelectedLesson}
+          showImage={showImage}
+          realtimePresentase={realtimePresentase}
+        />
+        <div className="flex flex-col items-start h-screens px-[5%] w-[90%]">
           <div className=" flex flex-row">
-            <div className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] mt-3" style={{ border: ".1px solid grey" }}>
+            <div className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] ml-0 mt-3" style={{ border: ".1px solid grey" }}>
               <div>
                 {showImage && (
                   <div
@@ -161,7 +170,7 @@ export const DetailKelasPage = (props) => {
                 {showImage ? (
                   <div className="absolute inset-0 flex items-center justify-center content-center">
                     <img
-                      src="https://assets-global.website-files.com/62d78f7d36328323c7e2f7eb/62fe1d3d8c83f219d316b8b6_course%20youtube.png" // Ganti URL_GAMBAR_DEFAULT dengan URL gambar default Anda
+                      src="https://assets-global.website-files.com/62d78f7d36328323c7e2f7eb/62fe1d3d8c83f219d316b8b6_course%20youtube.png"
                       alt="Default Image"
                       className="w-full h-full rounded-2xl"
                       style={{ objectFit: "cover" }}
@@ -210,11 +219,15 @@ export const DetailKelasPage = (props) => {
 
       {/* mobile */}
       <div className="pt-[6rem] flex flex-col h-screens md:hidden">
-        <div className="bg-purple-100 w-full shadow-md">
-          <div className="flex flex-col my-[3%]">
+        <div className="fixed h-[4rem] bg-purple-100 flex flex-col w-full gap-3 items-center shadow-lg z-10">
+          <div className="w-full mt-5">
             <BackLink />
+          </div>
+        </div>
+        <div className="bg-purple-100 w-full shadow-md pt-[4rem]">
+          <div className="flex flex-col my-[3%]">
             <div className="w-full">
-              <div className="pl-8 pr-4 my-1">
+              <div className="mx-4 my-1">
                 <div className="flex justify-between items-center">
                   <p className="text-purple-700 font-bold text-xl">{Class.categorys?.categoryName}</p>
                   <div className="flex flex-row justify-center items-center text-sm">
