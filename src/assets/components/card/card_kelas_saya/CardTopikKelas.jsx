@@ -21,7 +21,7 @@ export const CardTopikKelas = (props) => {
         hash:'topikKelas' 
       }}
     >
-      <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-80 shadow-md mx-5 md:mx-0 ">
+      <div className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-80 shadow-md mx-5 md:mx-0 md:max-w-md ">
         <img src={props.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]" />
         <div className="px-4 mb-3 mt-1">
           <div className="flex justify-between items-center">
