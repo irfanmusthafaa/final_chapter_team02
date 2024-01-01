@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export const CardDaftarMateri = (props) => {
 
-  const [presentase, setPresentase] = useState(props.Kelas.presentase);
+  // const [presentase, setPresentase] = useState(props.Kelas.presentase);
   const handleKlikLesson = async (idLesson) => {
     try {
       props.setId(idLesson);
@@ -18,10 +18,9 @@ export const CardDaftarMateri = (props) => {
     props.setIsModalOpen(true);
   };
 
-  useEffect(() => {
-    // Memperbarui nilai presentase ketika props.Kelas.presentase berubah
-    setPresentase(props.Kelas.presentase);
-  }, [props.Kelas, props.setId]);
+  // useEffect(() => {
+  //   setPresentase(props.Kelas.presentase);
+  // }, [props.Kelas, props.setId, handleKlikLesson]);
 
   return (
     <div className="absolute right-0 md:mr-[4%] md:mt-[5%] w-full md:w-[400px] bg-purple-50 md:bg-white shadow-xl md:rounded-2xl">
@@ -29,8 +28,8 @@ export const CardDaftarMateri = (props) => {
         <div className="flex flex-row justify-center items-center">
           <h2 className="w-full hidden">Materi Belajar</h2>
           <h3 className="w-full md:hidden">Materi Belajar</h3>
-          <BarProgres presentase={presentase} />
-          {console.log(props.Kelas.presentase, "ini presentase nambah tidak")}
+          <BarProgres presentase={props.showImage ? props.Kelas.presentase : props.realtimePresentase}/>
+          {/* {console.log(props.realtimePresentase, "ini presentase nambah tidak")} */}
         </div>
 
         {props.Kelas.chapters

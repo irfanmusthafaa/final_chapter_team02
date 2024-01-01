@@ -27,6 +27,7 @@ export const DetailKelasPage = (props) => {
   const [lesson, setLesson] = useState([]);
   const { data: dataLesson } = useLessonDetailQuery(selectedLesson);
   const { data: hitLessonPresentase } = usePresentaseLessonQuery(classCode, selectedLesson);
+  const[realtimePresentase, setRealtimePresentase] = useState() 
   const [learning, setLearning] = useState([]);
   const { data: dataLearning } = useLearningDataQuery({
     limit: 1000,
@@ -37,6 +38,7 @@ export const DetailKelasPage = (props) => {
     dataClass ? setClass(dataClass) : null;
     dataLesson ? setLesson(dataLesson) : null;
     dataLearning ? setLearning(dataLearning) : null;
+    hitLessonPresentase ? setRealtimePresentase(hitLessonPresentase.presentase) : null;
   }, [dataClass, dataLesson, hitLessonPresentase, dataLearning,selectedLesson, setSelectedLesson]);
 
   const openTelegramLink = () => {
@@ -97,6 +99,7 @@ export const DetailKelasPage = (props) => {
       {/* navbar */}
       <Navbar classPageActive={location.pathname.includes("/KelasSaya/KelasBerjalan") || location.pathname.includes(`/Detailkelas/${classCode}`)} />
       {/* dekstop */}
+      {/* {console.log(hitLessonPresentase.presentase, "tes lah sekali")} */}
       <div className="pt-[5rem] md:flex flex-col w-full h-screens items-center hidden">
         <div className="bg-purple-100 w-full shadow-md mb-2">
           <div className="flex flex-row px-[3.5%]">
@@ -143,6 +146,8 @@ export const DetailKelasPage = (props) => {
           setIsModalOpen={setOpen} 
           Id={selectedLesson} 
           setId={setSelectedLesson} 
+          showImage={showImage}
+          realtimePresentase={realtimePresentase}
         />
         <div className="flex flex-col items-start h-screens px-[5%] w-[90%]">
           <div className=" flex flex-row">
