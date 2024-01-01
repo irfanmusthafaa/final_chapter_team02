@@ -5,7 +5,8 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { Navbar } from "../assets/components/Navbar";
-import img from "../assets/images/kursus.png";
+// import img from "../assets/images/kursus.png";
+import next from "../assets/images/icon/circle-arrow-right-solid.svg";
 import { ModalDetailPembayaran } from "../assets/components/modal/ModalDetailPembayaran";
 import { useClassDetailQuery } from "../services/class/get-detail-class";
 import { useParams } from "react-router-dom";
@@ -14,11 +15,8 @@ import { useParams } from "react-router-dom";
 export const DetailPembayaran = () => {
   const style = { color: "#ffff" };  
   const [open, setOpen] = useState(false);
-
   const { classCode } = useParams();
-
   const [Class, setClass] = useState([]);
-
   const { data: dataClass } = useClassDetailQuery(classCode); 
 
   useEffect(() => {
@@ -30,8 +28,6 @@ export const DetailPembayaran = () => {
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
   };
- 
-  
 
   return (
     <div>
@@ -55,7 +51,6 @@ export const DetailPembayaran = () => {
         setOpen={setOpen}
       />
       
-      {/* bagian bawah */}
       {/* desktop */}
       <div className="md:flex w-full hidden">
         <div className="px-[10rem] py-[1.5rem] flex flex-row justify-center gap-10 w-full">
@@ -120,18 +115,20 @@ export const DetailPembayaran = () => {
                 </div>
             
               <div className="w-full flex justify-center items-center">
-                  <div
-                    className="bg-[#FF0000] w-full md:w-[18rem] flex gap-2 justify-center items-center rounded-3xl text-white font-semibold text-sm h-[2rem] hover:bg-[#73CA5C]"
+                  <button
                     onClick={() => setOpen(true)}
+                    size="large"
+                    className={`flex items-center justify-center bg-[#FF0000] px-4 py-1 mt-2 cursor-pointer text-white text-sm font-bold rounded-full h-[2.5rem] w-full hover:hover:bg-[#73CA5C] hover:text-white border-0 shadow-sm transition-transform transform hover:scale-105 focus:outline-none `}
                   >
-                    Bayar dan Ikuti Kelas{" "}
-                  <FontAwesomeIcon style={style} icon={faArrowCircleRight} />
-                  </div>
+                    Bayar dan Ikuti Kelas
+                    <img src={next} alt="Icon" className="ms-2 h-4 color-white" />
+                  </button>
               </div>
             </button>
           </div>
         </div>
       </div>
+      
       {/* mobile */}
       <div className="md:hidden w-full">
         <div className="px-[1.5rem] md:px-[10rem] py-[1.5rem] flex flex-col md:flex-row md:gap-10 gap-2">

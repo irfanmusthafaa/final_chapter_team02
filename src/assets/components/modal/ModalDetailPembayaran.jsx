@@ -11,7 +11,6 @@ export const ModalDetailPembayaran = (props) => {
     const handleRadioChange = (e) => {
         const value = e.target.value === 'transfer';
         setMetode(value);
-
         setPaymentMethod(value ? 'Transfer' : 'Credit Card');
     };
 
@@ -44,13 +43,11 @@ export const ModalDetailPembayaran = (props) => {
     const handleBankChange = (value) => {
         setSelectedBank(value);
         const selectedBankData = Bank.find((bank) => bank.id === parseInt(value, 10));
-        // console.log(selectedBankData, "ini valuenya")
         if (selectedBankData) {
             setNamaRekening(selectedBankData.bankName);
             setNoRekening(selectedBankData.bankNumber);
             setBankId(selectedBankData.id)
         } else {
-        // Jika data bank tidak ditemukan, atur nama rekening menjadi kosong atau nilai default
             setNamaRekening('');
             setNoRekening('');
         }
@@ -104,11 +101,11 @@ export const ModalDetailPembayaran = (props) => {
         onOk={() => props.setOpen(false)}
         onCancel={() => props.setOpen(false)}
         footer={null}
-        width={700}
+        width={500}
         className="mt-10"
       >
-        <div className="flex flex-col justify-center items-center w-full ">
-          <div className="md:w-[60%]  mt-7">
+        <div className="flex flex-col justify-center items-center w-full">
+          <div className="w-[90%]  mt-7">
             <h2 className="text-center font-bold text-purple-700 text-lg mb-6">
               Detail Pembayaran
             </h2>
@@ -202,7 +199,7 @@ export const ModalDetailPembayaran = (props) => {
             {console.log("ini yang di ambil : ", paymentMethod, cardName, bankId, cardNumber)}
             </div>
           
-            <div className="flex gap-2 mt-4">
+            <div className="flex gap-2 mt-4 mb-2">
               <button className="w-full py-3  cursor-pointer bg-purple-700 hover:bg-purple-900 text-white font-medium border-0  rounded-full mt-2" onClick={handlePaymentClass}>
                 Bayar Sekarang
               </button>

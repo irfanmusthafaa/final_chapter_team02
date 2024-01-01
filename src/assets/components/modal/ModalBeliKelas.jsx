@@ -21,8 +21,9 @@ export const ModalBeliKelas = (props) => {
       onOk={() => props.setOpen(false)}
       onCancel={() => props.setOpen(false)}
       footer={null}
+      width={400}
     >
-      <div className="bg-white p-8 max-w-md w-full rounded-xl ps-3">
+      <div className="p-2">
         <div className="font-bold text-xl mb-4 text-center">
           <p>Selangkah Lagi Menuju</p>
           <p className="text-purple-900">Kelas Premium</p>
@@ -30,7 +31,7 @@ export const ModalBeliKelas = (props) => {
 
         <CardModal Class={props.Class} />
         <div className="flex items-center justify-center mt-8">
-                            {/* <CustomButtonDua button_text="                              Beli Sekarang" iconPath={next} onClick={() => setIsModalOpen(false)} /> */}
+                    
             <button
               onClick={handleBeliSekarang}
               size="large"

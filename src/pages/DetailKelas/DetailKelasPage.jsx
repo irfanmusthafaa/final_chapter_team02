@@ -97,7 +97,7 @@ export const DetailKelasPage = (props) => {
       {/* navbar */}
       <Navbar classPageActive={location.pathname.includes("/KelasSaya/KelasBerjalan") || location.pathname.includes(`/Detailkelas/${classCode}`)} />
       {/* dekstop */}
-      <div className="pt-[5rem] md:flex flex-col h-screens items-center hidden">
+      <div className="pt-[5rem] md:flex flex-col w-full h-screens items-center hidden">
         <div className="bg-purple-100 w-full shadow-md mb-2">
           <div className="flex flex-row px-[3.5%]">
             <div className=" w-[65%] mt-[3%]">
@@ -144,9 +144,9 @@ export const DetailKelasPage = (props) => {
           Id={selectedLesson} 
           setId={setSelectedLesson} 
         />
-        <div className="flex flex-col items-start h-screens px-[5%] w-full">
+        <div className="flex flex-col items-start h-screens px-[5%] w-[90%]">
           <div className=" flex flex-row">
-            <div className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] mt-3" style={{ border: ".1px solid grey" }}>
+            <div className="flex flex-col bg-white w-[50rem] shadow-2xl rounded-xl p-5 m-[7.5%] ml-0 mt-3" style={{ border: ".1px solid grey" }}>
               <div>
                 {showImage && (
                   <div className={`${showImage ? 'opacity-100 scale-100' : 'transition-opacity transform duration-1000 ease-in-out opacity-0 scale-95'}`}>
@@ -158,7 +158,6 @@ export const DetailKelasPage = (props) => {
                   <h2 className="text-purple-700">{lesson.chapters?.chapterName}</h2>
                   <h3>{lesson.title}</h3>
                 </div>
-
               </div>
               <div className="relative bg-current rounded-2xl mt-4 " style={{ paddingBottom: "56.25%" }}>
                 {showImage? (
@@ -215,11 +214,16 @@ export const DetailKelasPage = (props) => {
 
       {/* mobile */}
       <div className="pt-[6rem] flex flex-col h-screens md:hidden">
-        <div className="bg-purple-100 w-full shadow-md">
-          <div className="flex flex-col my-[3%]">
+        <div className="fixed h-[4rem] bg-purple-100 flex flex-col w-full gap-3 items-center shadow-lg z-10">
+          <div className="w-full mt-5">
             <BackLink />
+          </div>
+        </div>
+        <div className="bg-purple-100 w-full shadow-md pt-[4rem]">
+          
+          <div className="flex flex-col my-[3%]">
             <div className="w-full">
-              <div className="pl-8 pr-4 my-1">
+              <div className="mx-4 my-1">
                 <div className="flex justify-between items-center">
                   <p className="text-purple-700 font-bold text-xl">{Class.categorys?.categoryName}</p>
                   <div className="flex flex-row justify-center items-center text-sm">

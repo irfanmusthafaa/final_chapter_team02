@@ -255,6 +255,5 @@ export const KelasBerjalan = () => {
                 </div>
             </div>
         </div>
-        
     );
 };
