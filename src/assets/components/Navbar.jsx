@@ -96,11 +96,12 @@ export const Navbar = () => {
     }));
   }, [location.pathname, navigation, nav]);
 
-  const [searchParam, setSearchParam] = useState();
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    navigate(`/KelasSaya/TopikKelas?search=${searchParam}`);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const query = e.target.elements.search.value;
+    navigate(`/KelasSaya/TopikKelas?search=${query}`);
   };
 
   return (
@@ -121,18 +122,17 @@ export const Navbar = () => {
                     <a href="/">
                       <img className="h-16 w-auto cursor-pointer" src={image} alt="Your Company" />
                     </a>
-                    <div className="relative">
+                    <form className="relative" onSubmit={handleSearch}>
                       <input
-                        type="text"
+                        type="search"
+                        name="search"
                         placeholder="Cari Kelas..."
                         className="bg-white border-none focus:border-2 focus:border:border-black focus:bg-white focus:outline-none rounded-xl pl-5 pr-10 py-2 w-[170px] h-[32px] md:w-[450px] "
-                        value={searchParam}
-                        onChange={(e) => setSearchParam(e.target.value)}
                       />
-                      <button className="absolute bg-transparent border-none inset-y-0 -ml-10" onClick={handleSearch}>
+                      <button className="absolute bg-transparent border-none inset-y-0 -ml-10" type="submit">
                         <img src={searchIcon} alt="Search Icon" className="h-6 w-6 cursor-pointer" />
                       </button>
-                    </div>
+                    </form>
                   </div>
 
                   <div className="hidden sm:ml-6 sm:block">
