@@ -11,7 +11,7 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
   useEffect(() => {
     setChapterName(record.chapterName);
     setClassCode(record.classCode);
-    setIsFree(record.isFree);
+    // setIsFree(record.isFree);
   }, [record.chapterName, record.classCode, record.isFree]);
 
   const handleInput = (e) => {
@@ -22,6 +22,7 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
     }
   };
 
+  console.log(IsFree, "isfree");
   const classOptions =
     Class?.map((item) => ({
       value: item.classCode,
@@ -38,13 +39,13 @@ export const ModalUpdateChapter = ({ record, openUpdate, setOpenUpdate, Class })
       UpdateChapter(id, {
         chapterName: ChapterName,
         classCode: ClassCode,
-        isFree: IsFree,
+        is_preview: IsFree,
       });
       toast.success("Update Chapter Success");
       setOpenUpdate(false);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     } else {
       toast.error("Data Tidak Berhasil di Update");
     }
