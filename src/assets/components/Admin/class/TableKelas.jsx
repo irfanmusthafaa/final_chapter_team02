@@ -133,7 +133,6 @@ export const TableKelas = ({ searchTerm, Category, Class }) => {
     })) || [];
 
   const paginationConfig = {
-    pageSize: 7, // Menetapkan jumlah data per halaman
     showQuickJumper: true,
     // showSizeChanger: true,
     // ... properti pagination lainnya
