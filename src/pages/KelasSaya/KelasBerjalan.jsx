@@ -93,17 +93,17 @@ export const KelasBerjalan = () => {
                         <div className="">
                             <div className="flex flex-row gap-5">
                                 <NavButton
-                                    button_text={<div className="px-10">ALL</div>}
+                                    button_text={<div className="md:px-10 lg:px-20">ALL</div>}
                                     onClick={() => handleButtonClick("ALL")}
                                     isActive={activeButton === "ALL"}
                                 />
                                 <NavButton
-                                    button_text={<div className="px-20" style={{ whiteSpace: 'nowrap' }}>In Progress</div>}
+                                    button_text={<div className="md:px-10 lg:px-20" style={{ whiteSpace: 'nowrap' }}>In Progress</div>}
                                     onClick={() => handleButtonClick("In Progress")}
                                     isActive={activeButton === "In Progress"}
                                 />
                                 <NavButton
-                                    button_text={<div className="px-20">Selesai</div>}
+                                    button_text={<div className="md:px-10 lg:px-20">Selesai</div>}
                                     onClick={() => handleButtonClick("Selesai")}
                                     isActive={activeButton === "Selesai"}
                                 />

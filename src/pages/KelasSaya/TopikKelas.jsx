@@ -99,17 +99,17 @@ export const TopikKelas = () => {
             <div className="">
               <div className="flex flex-row gap-5">
                 <NavButton
-                  button_text={<div className="px-10">ALL</div>}
+                  button_text={<div className="md:px-10 lg:px-20">ALL</div>}
                   onClick={() => handleButtonClick("ALL")}
                   isActive={activeButton === "ALL"}
                 />
                 <NavButton
-                  button_text={<div className="px-20" style={{ whiteSpace: 'nowrap' }}>Kelas Premium</div>}
+                  button_text={<div className="md:px-10 lg:px-20" style={{ whiteSpace: 'nowrap' }}>Kelas Premium</div>}
                   onClick={() => handleButtonClick("Kelas Premium")}
                   isActive={activeButton === "Kelas Premium"}
                 />
                 <NavButton
-                  button_text={<div className="px-20" style={{ whiteSpace: 'nowrap' }}>Kelas Gratis</div>}
+                  button_text={<div className="md:px-10 lg:px-20" style={{ whiteSpace: 'nowrap' }}>Kelas Gratis</div>}
                   onClick={() => handleButtonClick("Kelas Gratis")}
                   isActive={activeButton === "Kelas Gratis"}
                 />
