@@ -16,7 +16,7 @@ export const CardKelasBerjalan = (props) => {
       }}
     >
       <div
-        className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-80 shadow-md mx-5 md:mx-0 md:max-w-md "
+        className="flex flex-col bg-white border-2 rounded-3xl overflow-hidden max-h-80 shadow-md mx-5 md:mx-0 md:w-[26rem]"
         style={{ border: ".5px solid grey" }}
       >
         <img src={props.class.class.thumbnailPicture} alt="img" className="object-cover max-h-[7rem]" />
