@@ -24,6 +24,7 @@ export const CardDaftarMateri = (props) => {
           <h3 className="w-full md:hidden">Materi Belajar</h3>
           <BarProgres presentase={props.showImage ? props.Kelas.presentase : props.realtimePresentase} />
         </div>
+        {/* {console.log(props.videoUrl, "")} */}
 
         {props.Kelas.chapters
           ?.sort((a, b) => a.id - b.id)
@@ -51,7 +52,15 @@ export const CardDaftarMateri = (props) => {
                   <FontAwesomeIcon
                     icon={chapter.is_preview ? faCirclePlay : faLock}
                     className="absolute right-0 mr-2 h-5 w-5 transition-transform transform hover:scale-105"
-                    style={chapter.is_preview ? { color: "#73CA5C" } : { color: "#A3A3A3" }}
+                    // style={chapter.is_preview ? { color: "#73CA5C" } : { color: "#A3A3A3" }}
+                    style={
+                      chapter.is_preview
+                        ? {
+                            color:lesson.linkLearningMaterial === props.videoUrl ? "#8A3FFF" : "#73CA5C",
+                          }
+                        : { color: "#A3A3A3" }
+                    }
+
                   />
                 </div>
               ))}
