@@ -146,6 +146,7 @@ export const DetailKelasPage = (props) => {
           setId={setSelectedLesson}
           showImage={showImage}
           realtimePresentase={realtimePresentase}
+          videoUrl={VideoUrl}
         />
         <div className="flex flex-col items-start h-screens px-[5%] w-[90%]">
           <div className=" flex flex-row">
@@ -302,6 +303,7 @@ export const DetailKelasPage = (props) => {
             setId={setSelectedLesson} 
             showImage={showImage}
             realtimePresentase={realtimePresentase}
+            videoUrl={VideoUrl}
           />
         </div>
       </div>
