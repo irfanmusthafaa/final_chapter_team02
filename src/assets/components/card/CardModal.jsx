@@ -3,13 +3,18 @@ import { CustomButtonSatu } from '../button/CustomButtonSatu'
 
 export const CardModal = (props) => {
  
-   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
-  };
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+    };
 
-  const buttonText = props.Class.promo !== 0
-  ? [<del key="originalPrice">{formatCurrency(props.Class.price)}</del>, `${formatCurrency(props.Class.promo)}`]
-  : [`Beli ${formatCurrency(props.Class.price)}`];
+    const buttonText = props.Class.promo !== 0 ? 
+    (
+        <div>
+            <del key="originalPrice">{formatCurrency(props.Class.price)}</del>
+            <span className='mx-1'></span>
+            {formatCurrency(props.Class.promo)}
+        </div>
+    ) : [`Beli ${formatCurrency(props.Class.price)}`];
  
   
     return (
